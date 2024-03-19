@@ -21,8 +21,8 @@ public class QuantityTest {
     }
 
     @Test
-    public void isValidQuantity() {
-        // null quantity number
+    public void isValidPhone() {
+        // null phone number
         assertThrows(NullPointerException.class, () -> Quantity.isValidQuantity(null));
 
         // invalid phone numbers
