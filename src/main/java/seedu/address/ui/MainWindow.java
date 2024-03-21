@@ -121,7 +121,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        personListPanel.setOnPersonSelectedCallback(this::showPersonOrders);
+        //personListPanel.setOnPersonSelectedCallback(this::showPersonOrders);
 
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
         orderListPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
