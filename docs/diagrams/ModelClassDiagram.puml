@@ -20,6 +20,11 @@ Class Name
 Class Phone
 Class Tag
 
+Class OrderList
+Class Order
+Class Product
+Class Quantity
+
 Class I #FFFFFF
 }
 
@@ -43,6 +48,11 @@ Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
 
+AddressBook *--> "1" OrderList
+OrderList --> "~* all" Order
+Order *--> "*" Product
+Order *--> "*" Quantity
+
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
 
@@ -50,5 +60,11 @@ Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
+Order -[hidden]up--> I
+OrderList -[hidden]right-> I
+
+Product -[hidden]left-> Quantity
+
 ModelManager --> "~* filtered" Person
+ModelManager --> "~* filtered" Order
 @enduml
