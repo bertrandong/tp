@@ -196,6 +196,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         menu.deleteProduct(key);
     }
 
+    /**
+     * Replaces the given product {@code target} in the list with {@code editedProduct}.
+     * {@code target} must exist in the menu.
+     * The product identity of {@code editedProduct} must not be the same as another existing product in the menu.
+     */
+    public void setProduct(Product target, Product editedProduct) {
+        requireNonNull(editedProduct);
+
+        menu.editProduct(target, editedProduct);
+    }
+
 
     //// util methods
 

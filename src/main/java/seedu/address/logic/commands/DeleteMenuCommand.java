@@ -15,7 +15,7 @@ import seedu.address.model.order.Product;
  * Deletes a product identified using it's displayed index from the menu.
  */
 public class DeleteMenuCommand extends Command {
-    public static final String COMMAND_WORD = "delete menu";
+    public static final String COMMAND_WORD = "deletemenu";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the product identified by the index number used in the displayed menu.\n"

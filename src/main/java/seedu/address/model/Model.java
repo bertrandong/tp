@@ -172,6 +172,13 @@ public interface Model {
     void deleteProduct(Product target);
 
     /**
+     * Replaces the given product {@code target} with {@code editedProduct}.
+     * {@code target} must exist in the menu.
+     * The person identity of {@code editedProduct} must not be the same as another existing product in the menu.
+     */
+    void setProduct(Product target, Product editedProduct);
+
+    /**
      * Returns an unmodifiable view of the filtered menu list.
      *
      * @return an unmodifiable view of the filtered menu list.

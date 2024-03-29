@@ -171,6 +171,13 @@ public class ModelManager implements Model {
         addressBook.removeProduct(product);
     }
 
+    @Override
+    public void setProduct(Product target, Product editedProduct) {
+        requireAllNonNull(target, editedProduct);
+
+        addressBook.setProduct(target, editedProduct);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

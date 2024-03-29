@@ -28,6 +28,14 @@ public class Product {
         this.name = name;
     }
 
+    /**
+     * Copy constructor.
+     * @param product Product to be copied.
+     */
+    public Product(Product product) {
+        this.name = product.getName();
+    }
+
     @Override
     public String toString() {
         return this.name;
