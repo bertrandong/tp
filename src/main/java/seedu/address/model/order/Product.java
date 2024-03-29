@@ -3,8 +3,6 @@ package seedu.address.model.order;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.person.Person;
-
 /**
  * Represents the Product in the Order of the Customer.
  */
