@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MENU;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand;

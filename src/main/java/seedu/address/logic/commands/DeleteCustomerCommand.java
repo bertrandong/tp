@@ -11,6 +11,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
+/**
+ * Deletes the details of an existing person in the address book.
+ */
 public class DeleteCustomerCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "delete";
 

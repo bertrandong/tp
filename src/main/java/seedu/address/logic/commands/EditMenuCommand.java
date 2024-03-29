@@ -19,7 +19,7 @@ import seedu.address.model.order.Product;
  * Edits the details of an existing product on the menu.
  */
 public class EditMenuCommand extends EditCommand {
-    public static final String COMMAND_WORD ="edit";
+    public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the details of the product identified "
