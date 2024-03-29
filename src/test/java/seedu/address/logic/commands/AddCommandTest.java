@@ -203,6 +203,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setProduct(Product target, Product editedProduct) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Product> getFilteredMenuList() {
             throw new AssertionError("This method should not be called.");
         }

@@ -9,39 +9,36 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.order.Product;
+import seedu.address.model.person.Person;
 
-/**
- * Deletes a product identified using it's displayed index from the menu.
- */
-public class DeleteMenuCommand extends DeleteCommand {
+public class DeleteCustomerCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the product identified by the index number used in the displayed menu.\n"
+            + ": Deletes the person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PRODUCT_SUCCESS = "Deleted Product: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
     private final Index targetIndex;
 
-    public DeleteMenuCommand(Index targetIndex) {
+    public DeleteCustomerCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Product> lastShownList = model.getFilteredMenuList();
+        List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Product productToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteProduct(productToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_SUCCESS, Messages.format(productToDelete)));
+        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deletePerson(personToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }
 
     @Override
@@ -51,12 +48,12 @@ public class DeleteMenuCommand extends DeleteCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteMenuCommand)) {
+        if (!(other instanceof DeleteCommand)) {
             return false;
         }
 
-        DeleteMenuCommand otherDeleteMenuCommand = (DeleteMenuCommand) other;
-        return targetIndex.equals(otherDeleteMenuCommand.targetIndex);
+        DeleteCustomerCommand otherDeleteCustomerCommand = (DeleteCustomerCommand) other;
+        return targetIndex.equals(otherDeleteCustomerCommand.targetIndex);
     }
 
     @Override

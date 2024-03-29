@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class ProductTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Product(null));
+        assertThrows(NullPointerException.class, () -> new Product((String) null));
     }
 
     @Test
