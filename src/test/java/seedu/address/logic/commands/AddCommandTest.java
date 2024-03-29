@@ -188,6 +188,31 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasProduct(Product product) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addProduct(Product product) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteProduct(Product target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Product> getFilteredMenuList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredMenuList(Predicate<Product> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
