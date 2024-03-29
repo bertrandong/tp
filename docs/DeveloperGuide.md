@@ -243,7 +243,7 @@ _{more aspects and alternatives to be added}_
 
 #### Implementation
 
-Removes an `Order` from the `OrderList` by its index. Example: `cancel 19`. 
+Removes an `Order` from the `OrderList` by its index. Example: `cancel 19`.
 The sequence of events is illustrated by the diagram below, starting with parsing of the command.
 ![CancelSequenceDiagram-Logic](images/CancelSequenceDiagram-Logic.png)
 ![CancelSequenceDiagram-Model](images/CancelSequenceDiagram-Model.png)
@@ -279,13 +279,13 @@ The `Predicate` will then be used to filter the list using `stream()`. The updat
 ### Data archiving of Completed Orders
 
 #### Implementation
-Data archiving of completed orders is achieved by creating a CompleteCommand, which will remove the order from the 
+Data archiving of completed orders is achieved by creating a CompleteCommand, which will remove the order from the
 active order list and place it in a completed order list which will be saved as a JSON file (Possible .xml in the future)
 ![CompleteCommandLogicSequenceDiagram](images/CompleteSequenceDiagram-Logic.png)
-The CompleteCommand class which extends the Command abstract class will be executed by the LogicManager which will 
+The CompleteCommand class which extends the Command abstract class will be executed by the LogicManager which will
 update the Active Order List and Completed Order List in the Model.
 ![CompleteCommandModelSequenceDiagram](images/CompleteSequenceDiagram-Model.png)
-The StorageManager will then store the Orders inside of the Completed Order List as a JSON file, compiling all 
+The StorageManager will then store the Orders inside of the Completed Order List as a JSON file, compiling all
 previously completed orders.
 
 
