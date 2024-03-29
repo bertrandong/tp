@@ -276,9 +276,18 @@ The `Predicate` will then be used to filter the list using `stream()`. The updat
 
 2. Only one `PREFIX` can be chosen to filter by. Future improvements may include searching from more than one `PREFIX`. Example: `find o/19 n/John a/Lorong`.
 
-### \[Proposed\] Data archiving
+### Data archiving of Completed Orders
 
-_{Explain here how the data archiving feature will be implemented}_
+#### Implementation
+Data archiving of completed orders is achieved by creating a CompleteCommand, which will remove the order from the 
+active order list and place it in a completed order list which will be saved as a JSON file (Possible .xml in the future)
+![CompleteCommandLogicSequenceDiagram](images/CompleteSequenceDiagram-Logic.png)
+The CompleteCommand class which extends the Command abstract class will be executed by the LogicManager which will 
+update the Active Order List and Completed Order List in the Model.
+![CompleteCommandModelSequenceDiagram](images/CompleteSequenceDiagram-Model.png)
+The StorageManager will then store the Orders inside of the Completed Order List as a JSON file, compiling all 
+previously completed orders.
+
 
 
 --------------------------------------------------------------------------------------------------------------------
