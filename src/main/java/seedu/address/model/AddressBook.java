@@ -188,6 +188,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         orders.deleteOrder(id);
     }
 
+    /**
+     * Removes {@code Product} from the {@code ProductMenu} of this {@code AddressBook}.
+     * @param key product to remove
+     */
+    public void removeProduct(Product key) {
+        menu.deleteProduct(key);
+    }
+
 
     //// util methods
 

@@ -166,6 +166,12 @@ public interface Model {
     void addProduct(Product product);
 
     /**
+     * Deletes the given product.
+     * The product must exist in the menu.
+     */
+    void deleteProduct(Product target);
+
+    /**
      * Returns an unmodifiable view of the filtered menu list.
      *
      * @return an unmodifiable view of the filtered menu list.

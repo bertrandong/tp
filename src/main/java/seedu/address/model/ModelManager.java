@@ -166,6 +166,11 @@ public class ModelManager implements Model {
         updateFilteredMenuList(PREDICATE_SHOW_ALL_PRODUCTS);
     }
 
+    @Override
+    public void deleteProduct(Product product) {
+        addressBook.removeProduct(product);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
