@@ -3,7 +3,6 @@ package seedu.address.model.order;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.exceptions.DuplicateProductException;
 import seedu.address.model.exceptions.ProductNotFoundException;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -20,18 +20,6 @@ public class ProductMenu implements Iterable<Product> {
     private final ObservableList<Product> internalList = FXCollections.observableArrayList();
     private final ObservableList<Product> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-
-    /**
-     * The array list containing all the products on the menu.
-     */
-    private ArrayList<Product> productMenu;
-
-    /**
-     * ProductMenu class constructor.
-     */
-    public ProductMenu() {
-        this.productMenu = new ArrayList<>();
-    }
 
     /**
      * Adds a product to the product menu.
@@ -129,5 +117,18 @@ public class ProductMenu implements Iterable<Product> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    /**
+     * Replaces the contents of this list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setProducts(List<Product> products) {
+        requireAllNonNull(products);
+        if (!productsAreUnique(products)) {
+            throw new DuplicatePersonException();
+        }
+
+        internalList.setAll(products);
     }
 }
