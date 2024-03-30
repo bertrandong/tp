@@ -10,8 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.exceptions.DuplicateProductException;
 import seedu.address.model.exceptions.ProductNotFoundException;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Represents the menu of what products are being sold.
@@ -40,7 +38,7 @@ public class ProductMenu implements Iterable<Product> {
     public void deleteProduct(Product toDelete) {
         requireNonNull(toDelete);
         if (!internalList.remove(toDelete)) {
-            throw new PersonNotFoundException();
+            throw new ProductNotFoundException();
         }
     }
 
@@ -55,6 +53,10 @@ public class ProductMenu implements Iterable<Product> {
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new ProductNotFoundException();
+        }
+
+        if (!target.isSameProduct(editedProduct) && contains(editedProduct)) {
+            throw new DuplicateProductException();
         }
 
         internalList.set(index, editedProduct);
@@ -126,7 +128,7 @@ public class ProductMenu implements Iterable<Product> {
     public void setProducts(List<Product> products) {
         requireAllNonNull(products);
         if (!productsAreUnique(products)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateProductException();
         }
 
         internalList.setAll(products);
