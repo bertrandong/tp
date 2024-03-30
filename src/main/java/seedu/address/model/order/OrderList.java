@@ -55,6 +55,10 @@ public class OrderList implements Iterable<Order> {
         return orderIdCounter;
     }
 
+    public void setOrderIdCounter(int orderIdCounter) {
+        this.orderIdCounter = orderIdCounter;
+    }
+
     /**
      * Adds an order to the order list.
      * @param toAdd The order that is to be added.
@@ -76,7 +80,6 @@ public class OrderList implements Iterable<Order> {
         requireNonNull(toAdd);
         orderList.put(iD, toAdd);
         internalList.add(toAdd);
-        orderIdCounter = iD + 1; //when restoring, makes sure that the next order id created is highest.
     }
 
     /**

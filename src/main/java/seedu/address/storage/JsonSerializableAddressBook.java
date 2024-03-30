@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -21,18 +22,22 @@ import seedu.address.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final Integer DEFAULT_EMPTY_ORDER_COUNTER = 1;
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedOrder> orders = new ArrayList<>();
+    private final Integer orderIdCounter;
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-                                       @JsonProperty("orders") List<JsonAdaptedOrder> orders) {
+                                       @JsonProperty("orders") List<JsonAdaptedOrder> orders,
+                                       @JsonProperty("orderIdCounter") Integer orderIdCounter) {
         this.persons.addAll(persons);
         this.orders.addAll(orders);
+        this.orderIdCounter = orderIdCounter;
     }
 
     /**
@@ -43,6 +48,7 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         orders.addAll(source.getOrderList().stream().map(JsonAdaptedOrder::new).collect(Collectors.toList()));
+        this.orderIdCounter = source.getOrderListCounter();
     }
 
     /**
@@ -56,6 +62,8 @@ class JsonSerializableAddressBook {
             Order order = jsonAdaptedOrder.toModelType();
             addressBook.addOrderWithID(order);
         }
+        Optional<Integer> orderIdCounter = Optional.ofNullable(this.orderIdCounter);
+        addressBook.setOrderListIdCounter(orderIdCounter.orElse(DEFAULT_EMPTY_ORDER_COUNTER));
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
             if (addressBook.hasPerson(person)) {

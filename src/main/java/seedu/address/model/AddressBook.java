@@ -67,6 +67,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setOrders(newData.getOrderList());
+        setOrderListIdCounter(newData.getOrderListCounter());
     }
 
     //// person-level operations
@@ -111,6 +112,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addOrderWithID(Order order) {
         int orderId = order.getId();
         orders.addOrderWithID(order, orderId);
+    }
+
+    public void setOrderListIdCounter(int counter) {
+        orders.setOrderIdCounter(counter);
+    }
+
+    @Override
+    public Integer getOrderListCounter() {
+        return orders.getOrderIdCounter();
     }
 
     public Order findOrderByIndex(int id) {
