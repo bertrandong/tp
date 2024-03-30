@@ -9,28 +9,53 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Product {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Product names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Product names should only contain alphanumeric characters and spaces, and it should not be blank. "
+                    + "Sales should be at least 1 digit long.";
 
     /*
      * The first character of the product name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    public static final String PRICE_VALIDATION_REGEX = "\\d{1,}";
     private String name;
+    private String sales;
+    private String cost;
 
     /**
-     * Constructs a {@code Product} with {@code name}.
-     * @param name Name of the Product.
+     * Constructs a {@code Product} with name, cost and sales.
+     *
+     * @param name name of the Product
+     * @param cost cost of the Product
+     * @param sales sales of the Product
+     */
+    public Product(String name, String cost, String sales) {
+        requireNonNull(name);
+        checkArgument(isValidProduct(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidPrice(sales), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidPrice(cost), MESSAGE_CONSTRAINTS);
+        this.name = name;
+        this.cost = cost;
+        this.sales = sales;
+    }
+
+    /**
+     * Constructs a {@code Product} with name only.
+     *
+     * @param name name of the Product
      */
     public Product(String name) {
         requireNonNull(name);
         checkArgument(isValidProduct(name), MESSAGE_CONSTRAINTS);
         this.name = name;
+        this.cost = "0";
+        this.sales = "0";
     }
 
     @Override
     public String toString() {
-        return this.name;
+        return this.name + "Cost: " + this.cost + "Sales: " + this.sales;
     }
 
     @Override
@@ -53,25 +78,64 @@ public class Product {
     }
 
     /**
-     * Gets the name of the Product.
-     * @return string value of the name of the product.
+     * Gets the name of the {@code Product}.
+     * @return string value of the name of the {@code Product}.
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * Sets the name of the product.
-     * @param newName new name of the Product.
+     * Gets the sales of the {@code Product}.
+     * @return string value of the sales of the {@code Product}.
+     */
+    public String getSales() {
+        return this.sales;
+    }
+
+    /**
+     * Gets the cost of the {@code Product}.
+     * @return string value of the cost of the {@code Product}.
+     */
+    public String getCost() {
+        return this.cost;
+    }
+
+    /**
+     * Sets the sales of the {@code Product}.
+     * @param newSales new sales of the {@code Product}.
+     */
+    public void setSales(String newSales) {
+        checkArgument(isValidPrice(sales), MESSAGE_CONSTRAINTS);
+        this.sales = newSales;
+    }
+
+    /**
+     * Sets the cost of the {@code Product}.
+     * @param newCost new sales of the {@code Product}.
+     */
+    public void setCost(String newCost) {
+        checkArgument(isValidPrice(cost), MESSAGE_CONSTRAINTS);
+        this.cost = newCost;
+    }
+
+    /**
+     * Sets the name of the {@code Product}.
+     * @param newName new name of the {@code Product}.
      */
     public void rename(String newName) {
+        checkArgument(isValidProduct(name), MESSAGE_CONSTRAINTS);
         this.name = newName;
     }
 
     /**
-     * Returns true if a given string is a valid product name.
+     * Returns true if a given string is a valid {@code Product} name.
      */
     public static boolean isValidProduct(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(NAME_VALIDATION_REGEX);
+    }
+
+    public static boolean isValidPrice(String test) {
+        return test.matches(PRICE_VALIDATION_REGEX);
     }
 }
