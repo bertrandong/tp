@@ -10,6 +10,9 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.Product;
 
+/**
+ * Panel containing the list of available products.
+ */
 public class ProductMenuPanel extends UiPart<Region> {
     private static final String FXML = "ProductMenuPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ProductMenuPanel.class);
