@@ -1,10 +1,12 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.*;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRODUCT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PRODUCT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -25,17 +27,16 @@ public class DeleteMenuCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        // Getting IndexOutOfBoundException, getTypicalAddressBook() is not updating typicalMenu properly
-        //Product productToDelete = model.getFilteredMenuList().get(INDEX_FIRST_PRODUCT.getZeroBased());
-        //DeleteMenuCommand deleteMenuCommand = new DeleteMenuCommand(INDEX_FIRST_PRODUCT);
+        Product productToDelete = model.getFilteredMenuList().get(INDEX_FIRST_PRODUCT.getZeroBased());
+        DeleteMenuCommand deleteMenuCommand = new DeleteMenuCommand(INDEX_FIRST_PRODUCT);
 
-        //String expectedMessage = String.format(DeleteMenuCommand.MESSAGE_DELETE_PRODUCT_SUCCESS,
-        //        Messages.format(productToDelete));
+        String expectedMessage = String.format(DeleteMenuCommand.MESSAGE_DELETE_PRODUCT_SUCCESS,
+                Messages.format(productToDelete));
 
-        //ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        //expectedModel.deleteProduct(productToDelete);
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deleteProduct(productToDelete);
 
-        //assertCommandSuccess(deleteMenuCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteMenuCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

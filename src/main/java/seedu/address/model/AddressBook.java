@@ -62,6 +62,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.orders.setOrders(orders);
     }
 
+    public void setProducts(List<Product> products) {
+        this.menu.setProducts(products);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -70,6 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setOrders(newData.getOrderList());
+        setProducts(newData.getMenuList());
     }
 
     //// person-level operations
