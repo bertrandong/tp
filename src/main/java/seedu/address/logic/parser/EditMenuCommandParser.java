@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditMenuCommand;
-import seedu.address.logic.commands.EditOrderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -23,6 +22,7 @@ public class EditMenuCommandParser implements Parser<EditMenuCommand> {
                 ArgumentTokenizer.tokenize(args,
                         PREFIX_MENU, PREFIX_PRODUCT_NAME);
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_MENU, PREFIX_PRODUCT_NAME);
         Index index;
 
         try {
@@ -31,7 +31,7 @@ public class EditMenuCommandParser implements Parser<EditMenuCommand> {
                             .orElseThrow(() -> new ParseException("")));
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditOrderCommand.MESSAGE_USAGE), pe);
+                    EditMenuCommand.MESSAGE_USAGE), pe);
         }
 
         EditMenuCommand.EditProductDescriptor editProductDescriptor =
@@ -43,7 +43,7 @@ public class EditMenuCommandParser implements Parser<EditMenuCommand> {
         }
 
         if (!editProductDescriptor.isAllFieldsEdited()) {
-            throw new ParseException(EditOrderCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditMenuCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditMenuCommand(index, editProductDescriptor);
