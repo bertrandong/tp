@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import java.util.stream.Stream;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddMenuCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.Product;
@@ -14,12 +15,12 @@ import seedu.address.model.order.Product;
 /**
  * Parses input for AddMenuCommand
  */
-public class AddMenuCommandParser {
+public class AddMenuCommandParser implements Parser<AddMenuCommand> {
     /**
      * Parses the user input to create a AddMenuCommand
      * @param args user input.
      * @return AddMenuCommand based on the user input.
-     * @throws ParseException
+     * @throws ParseException if the user input does not conform the expected format
      */
     public AddMenuCommand parse(String args) throws ParseException {
         requireNonNull(args);
@@ -31,6 +32,7 @@ public class AddMenuCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMenuCommand.MESSAGE_USAGE));
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_PRODUCT_NAME);
         Product product;
         try {
             product = ParserUtil.parseProduct(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
