@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRODUCT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.PRODUCT_DESC_CUPCAKE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_CUPCAKE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MENU;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -67,18 +69,18 @@ public class EditMenuCommandParserTest {
         Index targetIndex = INDEX_FIRST_PRODUCT;
 
         // invalid followed by valid
-        String userInput = " " + PREFIX_MENU + targetIndex.getOneBased() + PREFIX_PRODUCT_NAME + INVALID_PRODUCT_DESC +
-                " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_CUPCAKE;
+        String userInput = " " + PREFIX_MENU + targetIndex.getOneBased() + PREFIX_PRODUCT_NAME + INVALID_PRODUCT_DESC
+                + " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_CUPCAKE;
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PRODUCT_NAME));
 
         // valid followed by invalid
-        userInput = " " + PREFIX_MENU + targetIndex.getOneBased() + PREFIX_PRODUCT_NAME + VALID_PRODUCT_CUPCAKE + " " +
-                PREFIX_PRODUCT_NAME + INVALID_PRODUCT_DESC;
+        userInput = " " + PREFIX_MENU + targetIndex.getOneBased() + PREFIX_PRODUCT_NAME + VALID_PRODUCT_CUPCAKE + " "
+                + PREFIX_PRODUCT_NAME + INVALID_PRODUCT_DESC;
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PRODUCT_NAME));
 
         // multiple invalid values
-        userInput = " " + PREFIX_MENU + targetIndex.getOneBased() + PREFIX_PRODUCT_NAME + INVALID_PRODUCT_DESC + " " +
-                PREFIX_PRODUCT_NAME + INVALID_PRODUCT_DESC;
+        userInput = " " + PREFIX_MENU + targetIndex.getOneBased() + PREFIX_PRODUCT_NAME + INVALID_PRODUCT_DESC + " "
+                + PREFIX_PRODUCT_NAME + INVALID_PRODUCT_DESC;
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PRODUCT_NAME));
     }
 }
