@@ -55,7 +55,7 @@ public class AddMenuCommand extends Command {
             return true;
         }
         // instanceof handles nulls
-        if (!(other instanceof AddOrderCommand)) {
+        if (!(other instanceof AddMenuCommand)) {
             return false;
         }
         AddMenuCommand e = (AddMenuCommand) other;

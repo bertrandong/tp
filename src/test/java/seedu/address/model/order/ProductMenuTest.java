@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.exceptions.DuplicateProductException;
 import seedu.address.model.exceptions.ProductNotFoundException;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.ProductBuilder;
 
 public class ProductMenuTest {
