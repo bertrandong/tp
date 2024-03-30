@@ -35,7 +35,7 @@ public class CompleteOrderCommand extends Command {
         if (targetIndex.getZeroBased() >= model.getOrderListSize()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
-        Order completedOrder= model.findOrderByIndex(targetIndex.getOneBased());
+        Order completedOrder = model.findOrderByIndex(targetIndex.getOneBased());
         model.deleteOrder(targetIndex.getOneBased());
         return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, targetIndex.getOneBased()));
     }
