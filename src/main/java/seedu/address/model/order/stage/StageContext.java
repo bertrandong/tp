@@ -1,6 +1,10 @@
 package seedu.address.model.order.stage;
 
 public class StageContext {
+
+    // Solution below inspired by
+    // https://www.geeksforgeeks.org/state-design-pattern/
+
     private StageState state;
 
     public StageContext() {
