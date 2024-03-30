@@ -1,5 +1,6 @@
 package seedu.address.model.order;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,12 +20,15 @@ public class Order implements Comparable<Order> {
     private Map<Product, Quantity> productMap;
 
     private Person customer;
+    private CreationDate creationDate;
+    private Deadline deadline;
 
     /**
      * Constructs an {@code Order} Object.
      */
     public Order() {
         this.productMap = new HashMap<>();
+        this.creationDate = new CreationDate(LocalDate.now());
     }
 
     /**
@@ -35,6 +39,7 @@ public class Order implements Comparable<Order> {
     public Order(int id) {
         this.id = id;
         productMap = new HashMap<>();
+        this.creationDate = new CreationDate(LocalDate.now());
     }
 
     /**
@@ -195,6 +200,14 @@ public class Order implements Comparable<Order> {
      */
     public void setCustomer(Person person) {
         this.customer = person;
+    }
+
+    public CreationDate getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setDeadline(String time) {
+        this.deadline = new Deadline(time);
     }
 
     /**
