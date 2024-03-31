@@ -153,11 +153,12 @@ Format: `order p/PHONE_NUMBER`
 
 * Orders are assigned to person with specified `PHONE_NUMBER`.
 * Strack will prompt `Input Products`.
-* Follow up with products to be added to the order using the following format. Format: `pn/PRODUCT_NAME pq/PRODUCT_QUANTITY`.
+* Follow up with products to be added to the order using the following format. Format: `pid/PRODUCT_ID pq/PRODUCT_QUANTITY`.
+* You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
 * This can be repeated as many times as necessary.
 
 Examples:
-* `order p/99887766` will create an order for person with phone number `99887766` followed by `pn/Cupcake pq/2` and `pn/Cookie pq/2` ending with `done` <br>
+* `order p/99887766` will create an order for person with phone number `99887766` followed by `pid/1 pq/2` and `pid/2 pq/2` ending with `done` <br>
 ![result for creating order for alex](images/addOrderResult.png)
 <br>![system interaction for order creation](images/systemCreateOrder.png)
 
