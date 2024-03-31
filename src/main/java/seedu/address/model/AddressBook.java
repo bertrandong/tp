@@ -10,6 +10,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderList;
 import seedu.address.model.order.Product;
+import seedu.address.model.order.ProductMenu;
 import seedu.address.model.order.Quantity;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -22,6 +23,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final OrderList orders;
+    private final ProductMenu menu;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -33,6 +35,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         orders = new OrderList();
+        menu = new ProductMenu();
     }
 
     public AddressBook() {}
@@ -59,6 +62,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.orders.setOrders(orders);
     }
 
+    public void setProducts(List<Product> products) {
+        this.menu.setProducts(products);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -67,6 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setOrders(newData.getOrderList());
+        setProducts(newData.getMenuList());
     }
 
     //// person-level operations
@@ -85,6 +93,22 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    /**
+     * Returns true if a product with the same identity as {@code product} exists in the menu.
+     */
+    public boolean hasProduct(Product product) {
+        requireNonNull(product);
+        return menu.contains(product);
+    }
+
+    /**
+     * Adds a product to the menu.
+     * The product must not already exist in the menu.
+     */
+    public void addProduct(Product product) {
+        menu.addProduct(product);
     }
 
     /**
@@ -169,6 +193,25 @@ public class AddressBook implements ReadOnlyAddressBook {
         orders.deleteOrder(id);
     }
 
+    /**
+     * Removes {@code Product} from the {@code ProductMenu} of this {@code AddressBook}.
+     * @param key product to remove
+     */
+    public void removeProduct(Product key) {
+        menu.deleteProduct(key);
+    }
+
+    /**
+     * Replaces the given product {@code target} in the list with {@code editedProduct}.
+     * {@code target} must exist in the menu.
+     * The product identity of {@code editedProduct} must not be the same as another existing product in the menu.
+     */
+    public void setProduct(Product target, Product editedProduct) {
+        requireNonNull(editedProduct);
+
+        menu.editProduct(target, editedProduct);
+    }
+
 
     //// util methods
 
@@ -187,6 +230,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     //Make sure to implement abstract method for this
     public ObservableList<Order> getOrderList() {
         return orders.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Product> getMenuList() {
+        return menu.asUnmodifiableObservableList();
     }
 
     public OrderList getOrderListClass() {

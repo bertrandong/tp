@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TimeManager {
-    public static final DateTimeFormatter nowTime = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
@@ -32,8 +31,6 @@ public class TimeManager {
                 DateTimeFormatter.ofPattern("dd MM yyyy")
         );
 
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
         LocalDate result = null;
         for (DateTimeFormatter formatter : formatters) {
             try {
@@ -44,6 +41,10 @@ public class TimeManager {
             }
 
         }
-        throw new RuntimeException();
+        throw new RuntimeException(); // temp handle for error
+    }
+
+    public static String formatter(LocalDate date) {
+        return date.format(FORMATTER);
     }
 }

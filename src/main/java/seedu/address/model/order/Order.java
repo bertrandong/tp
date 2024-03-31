@@ -21,7 +21,7 @@ public class Order implements Comparable<Order> {
 
     private Person customer;
     private CreationDate creationDate;
-    private Deadline deadline;
+    private Deadline deadline =  null;
 
     /**
      * Constructs an {@code Order} Object.
@@ -195,7 +195,11 @@ public class Order implements Comparable<Order> {
     }
 
     public String getDeadline() {
-        return this.deadline.toString();
+        if (this.deadline != null) {
+            return TimeManager.formatter(this.deadline.getDeadline());
+        } else {
+            return "Not Specified";
+        }
     }
 
     public String getCreationDate() {

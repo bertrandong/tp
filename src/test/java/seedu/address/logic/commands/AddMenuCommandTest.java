@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -27,65 +25,56 @@ import seedu.address.model.order.Order;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ProductBuilder;
 
-public class AddCommandTest {
-
+public class AddMenuCommandTest {
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    public void constructor_nullProduct_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddMenuCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_productAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingProductAdded modelStub = new ModelStubAcceptingProductAdded();
+        Product validProduct = new ProductBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddMenuCommand(validProduct).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+        assertEquals(String.format(AddMenuCommand.MESSAGE_SUCCESS, Messages.format(validProduct)),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-    }
-
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
-
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertEquals(Arrays.asList(validProduct), modelStub.productsAdded);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Product cupcake = new ProductBuilder().withName("Cupcake").build();
+        Product tart = new ProductBuilder().withName("Tart").build();
+        AddMenuCommand addCupcakeCommand = new AddMenuCommand(cupcake);
+        AddMenuCommand addTartCommand = new AddMenuCommand(tart);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addCupcakeCommand.equals(addCupcakeCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddMenuCommand addCupcakeCommandCopy = new AddMenuCommand(cupcake);
+        assertTrue(addCupcakeCommand.equals(addCupcakeCommandCopy));
 
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        // different types => returns false
+        assertFalse(addCupcakeCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addCupcakeCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different product -> returns false
+        assertFalse(addCupcakeCommand.equals(addTartCommand));
     }
 
     @Test
     public void toStringMethod() {
-        AddCommand addCommand = new AddCommand(ALICE);
-        String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
-        assertEquals(expected, addCommand.toString());
+        Product cupcake = new ProductBuilder().build();
+        AddMenuCommand addMenuCommand = new AddMenuCommand(cupcake);
+        String expected = AddMenuCommand.class.getCanonicalName() + "{toAdd=" + cupcake.toString() + "}";
+        assertEquals(expected, addMenuCommand.toString());
     }
 
     /**
@@ -246,37 +235,37 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithProduct extends ModelStub {
+        private final Product product;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithProduct(Product product) {
+            requireNonNull(product);
+            this.product = product;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasProduct(Product product) {
+            requireNonNull(product);
+            return this.product.isSameProduct(product);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the product being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingProductAdded extends ModelStub {
+        final ArrayList<Product> productsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasProduct(Product product) {
+            requireNonNull(product);
+            return productsAdded.stream().anyMatch(product::isSameProduct);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addProduct(Product product) {
+            requireNonNull(product);
+            productsAdded.add(product);
         }
 
         @Override
@@ -284,5 +273,4 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
 }
