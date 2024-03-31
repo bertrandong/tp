@@ -27,7 +27,7 @@ public class Deadline {
 
     @Override
     public String toString() {
-        return this.deadline.toString();
+        return TimeManager.formatter(this.deadline);
     }
 
     @Override

@@ -11,6 +11,10 @@ public class CreationDate {
         this.creationDate = TimeManager.parseTime(LocalDate.now().toString());
     }
 
+    public CreationDate(String time) {
+        this.creationDate = TimeManager.parseTime(time);
+    }
+
     public boolean isValidCreationDate(String test) {
         return test.matches(VALIDATION_REGEX);
     }
@@ -25,7 +29,7 @@ public class CreationDate {
 
     @Override
     public String toString() {
-        return this.creationDate.toString();
+        return TimeManager.formatter(this.creationDate);
     }
 
     @Override
