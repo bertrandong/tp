@@ -28,6 +28,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     //need to include a means to pass this here from constructor
     private final FilteredList<Order> filteredOrders;
+    private final FilteredList<Product> filteredMenu;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -41,6 +42,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredOrders = new FilteredList<>(this.addressBook.getOrderList());
+        filteredMenu = new FilteredList<>(this.addressBook.getMenuList());
     }
 
     public ModelManager() {
@@ -152,6 +154,30 @@ public class ModelManager implements Model {
         return addressBook.getOrderListSize();
     }
 
+    @Override
+    public boolean hasProduct(Product product) {
+        requireNonNull(product);
+        return addressBook.hasProduct(product);
+    }
+
+    @Override
+    public void addProduct(Product product) {
+        addressBook.addProduct(product);
+        updateFilteredMenuList(PREDICATE_SHOW_ALL_PRODUCTS);
+    }
+
+    @Override
+    public void deleteProduct(Product product) {
+        addressBook.removeProduct(product);
+    }
+
+    @Override
+    public void setProduct(Product target, Product editedProduct) {
+        requireAllNonNull(target, editedProduct);
+
+        addressBook.setProduct(target, editedProduct);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -218,6 +244,18 @@ public class ModelManager implements Model {
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons)
                 && filteredOrders.equals(otherModelManager.filteredOrders);
+    }
+
+    //=========== Filtered Menu List Accessors =============================================================
+    @Override
+    public ObservableList<Product> getFilteredMenuList() {
+        return filteredMenu;
+    }
+
+    @Override
+    public void updateFilteredMenuList(Predicate<Product> predicate) {
+        requireNonNull(predicate);
+        filteredMenu.setPredicate(predicate);
     }
 
 }

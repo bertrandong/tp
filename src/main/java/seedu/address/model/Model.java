@@ -21,6 +21,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -150,4 +153,44 @@ public interface Model {
     int getOrderListSize();
 
     void clearOrderFilter();
+
+    /**
+     * Returns true if a product with the same identity as {@code product} exists in the menu.
+     */
+    boolean hasProduct(Product product);
+
+    /**
+     * Adds the given product.
+     * {@code person} must not already exist in the menu.
+     */
+    void addProduct(Product product);
+
+    /**
+     * Deletes the given product.
+     * The product must exist in the menu.
+     */
+    void deleteProduct(Product target);
+
+    /**
+     * Replaces the given product {@code target} with {@code editedProduct}.
+     * {@code target} must exist in the menu.
+     * The person identity of {@code editedProduct} must not be the same as another existing product in the menu.
+     */
+    void setProduct(Product target, Product editedProduct);
+
+    /**
+     * Returns an unmodifiable view of the filtered menu list.
+     *
+     * @return an unmodifiable view of the filtered menu list.
+     */
+    ObservableList<Product> getFilteredMenuList();
+
+    /**
+     * Updates the filter of the filtered menu list to filter by the given {@code predicate}.
+     *
+     * @param predicate predicate to update the filtered menu list with.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMenuList(Predicate<Product> predicate);
+
 }
