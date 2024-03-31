@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MENU;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -25,12 +27,25 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CUSTOMER_ID, PREFIX_ORDER);
 
-        if (ParserUtil.isCustomer(args)) {
+        //if (ParserUtil.isCustomer(args)) {
+        //    EditCustomerCommandParser editCustomerCommandParser = new EditCustomerCommandParser();
+        //    return editCustomerCommandParser.parse(args);
+        //} else {
+        //    EditOrderCommandParser editOrderCommandParser = new EditOrderCommandParser();
+        //    return editOrderCommandParser.parse(args);
+        //}
+
+        if (args.startsWith(" " + PREFIX_CUSTOMER_ID.toString())) {
             EditCustomerCommandParser editCustomerCommandParser = new EditCustomerCommandParser();
             return editCustomerCommandParser.parse(args);
-        } else {
+        } else if (args.startsWith(" " + PREFIX_ORDER.toString())) {
             EditOrderCommandParser editOrderCommandParser = new EditOrderCommandParser();
             return editOrderCommandParser.parse(args);
+        } else if (args.startsWith(" " + PREFIX_MENU.toString())) {
+            EditMenuCommandParser editMenuCommandParser = new EditMenuCommandParser();
+            return editMenuCommandParser.parse(args);
+        } else {
+            throw new ParseException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
     }
 }

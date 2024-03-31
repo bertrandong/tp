@@ -28,6 +28,14 @@ public class Product {
         this.name = name;
     }
 
+    /**
+     * Copy constructor.
+     * @param product Product to be copied.
+     */
+    public Product(Product product) {
+        this.name = product.getName();
+    }
+
     @Override
     public String toString() {
         return this.name;
@@ -73,5 +81,18 @@ public class Product {
      */
     public static boolean isValidProduct(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if both products have the same name.
+     * This defines a weaker notion of equality between two products.
+     */
+    public boolean isSameProduct(Product otherProduct) {
+        if (otherProduct == this) {
+            return true;
+        }
+
+        return otherProduct != null
+                && otherProduct.getName().equals(getName());
     }
 }
