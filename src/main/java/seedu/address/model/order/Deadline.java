@@ -3,7 +3,10 @@ package seedu.address.model.order;
 import java.time.LocalDate;
 
 
-
+/**
+ * Represents a deadline for an order.
+ * Ensures that the deadline date is valid and in the format dd/MM/yyyy.
+ */
 public class Deadline {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -12,14 +15,30 @@ public class Deadline {
 
     public static final String VALIDATION_REGEX = "^\\d{2}/\\d{2}/\\d{4}$";
 
+    /**
+     * Constructs a {@code Deadline} object after parsing the given time string.
+     *
+     * @param timeString The deadline date as a string in the format dd/MM/yyyy.
+     */
     public Deadline(String timeString){
         deadline = TimeManager.parseTime(timeString);
     }
 
+    /**
+     * Checks if the given string matches the deadline format.
+     *
+     * @param test The string to test.
+     * @return true if the given string is in the format dd/MM/yyyy, false otherwise.
+     */
     public static boolean isValidDeadline(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns the deadline date.
+     *
+     * @return The deadline as a LocalDate object.
+     */
     public LocalDate getDeadline() {
         return this.deadline;
     }

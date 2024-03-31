@@ -44,6 +44,12 @@ public class TimeManager {
         throw new RuntimeException(); // temp handle for error
     }
 
+    /**
+     * Formats a LocalDate into a string according to the specified format.
+     *
+     * @param date The LocalDate object to be formatted.
+     * @return The formatted date string.
+     */
     public static String formatter(LocalDate date) {
         return date.format(FORMATTER);
     }
