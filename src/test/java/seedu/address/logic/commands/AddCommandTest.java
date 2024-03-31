@@ -163,6 +163,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Order goToNextStage(Order target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteOrder(int id) {
             throw new AssertionError("This method should not be called.");
         }

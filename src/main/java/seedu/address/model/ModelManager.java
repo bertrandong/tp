@@ -148,6 +148,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Order goToNextStage(Order target) {
+        requireNonNull(target);
+
+        return addressBook.goToNextStage(target);
+    }
+
+    @Override
     public int getOrderListSize() {
         return addressBook.getOrderListSize();
     }

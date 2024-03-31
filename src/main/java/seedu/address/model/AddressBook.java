@@ -144,6 +144,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return target.updateOrder(currProduct, newQuantity);
     }
 
+    public Order goToNextStage(Order target) {
+        requireNonNull(target);
+        return target.goToNextStage();
+    }
+
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.

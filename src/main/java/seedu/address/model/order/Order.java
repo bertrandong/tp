@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.order.stage.StageContext;
 import seedu.address.model.person.Person;
 
 /**
@@ -19,12 +20,14 @@ public class Order implements Comparable<Order> {
     private Map<Product, Quantity> productMap;
 
     private Person customer;
+    private StageContext stageContext;
 
     /**
      * Constructs an {@code Order} Object.
      */
     public Order() {
         this.productMap = new HashMap<>();
+        this.stageContext = new StageContext();
     }
 
     /**
@@ -35,6 +38,7 @@ public class Order implements Comparable<Order> {
     public Order(int id) {
         this.id = id;
         productMap = new HashMap<>();
+        this.stageContext = new StageContext();
     }
 
     /**
@@ -43,16 +47,18 @@ public class Order implements Comparable<Order> {
      */
     public Order(Map<Product, Quantity> map) {
         productMap = map;
+        this.stageContext = new StageContext();
     }
 
     /**
      * Contructs an {@code Order} object with {@code map}
      * @param map Mappings of Products and Quantity
      */
-    public Order(int id, Person customer, Map<Product, Quantity> map) {
+    public Order(int id, Person customer, Map<Product, Quantity> map, StageContext stageContext) {
         this.id = id;
         this.customer = customer;
         productMap = map;
+        this.stageContext = stageContext;
     }
 
     /**
@@ -63,6 +69,7 @@ public class Order implements Comparable<Order> {
         this.id = order.getId();
         this.productMap = new HashMap<>(order.getProductMap());
         this.customer = order.getCustomer();
+        this.stageContext = order.stageContext;
     }
 
     /**
@@ -127,7 +134,7 @@ public class Order implements Comparable<Order> {
     public Order changeQuantity(Product currProduct, Quantity newQuantity) {
         Map<Product, Quantity> newMap = new HashMap<>(productMap);
         newMap.put(currProduct, newQuantity);
-        return new Order(this.id, this.customer, newMap);
+        return new Order(this.id, this.customer, newMap, this.stageContext);
     }
 
     /**
@@ -137,7 +144,7 @@ public class Order implements Comparable<Order> {
      */
     public Order deleteProduct(Product product) {
         productMap.remove(product);
-        return new Order(this.id, this.customer, productMap);
+        return new Order(this.id, this.customer, productMap, this.stageContext);
     }
 
     /**
@@ -197,6 +204,19 @@ public class Order implements Comparable<Order> {
         this.customer = person;
     }
 
+    public Order goToNextStage() {
+        this.stageContext.goToNextStage();
+        return new Order(this);
+    }
+
+    public StageContext getStageContext() {
+        return this.stageContext;
+    }
+
+    public void setStageContext(StageContext stageContext) {
+        this.stageContext = stageContext;
+    }
+
     /**
      * Compares the other Order Object with this Object based on the OrderID
      * @param otherOrder the object to be compared.
@@ -239,8 +259,10 @@ public class Order implements Comparable<Order> {
             return false;
         }
         Order otherOrder = (Order) other;
+
         return (this.id == otherOrder.id)
-                && this.productMap.equals(otherOrder.productMap);
+                && this.productMap.equals(otherOrder.productMap)
+                && this.stageContext.equals(otherOrder.stageContext);
     }
 
     @Override
@@ -251,15 +273,14 @@ public class Order implements Comparable<Order> {
     @Override
     public String toString() {
         Set<Product> set = productMap.keySet();
-        ArrayList<Product> productList = new ArrayList<>();
-        productList.addAll(set);
-        String str = "";
-        for (int k = 0; k < productList.size(); k++) {
-            str += productList.get(k).getName();
-            str += ",";
-            str += productMap.get(productList.get(k)).getValue();
-            str += "\n";
+        ArrayList<Product> productList = new ArrayList<>(set);
+        StringBuilder str = new StringBuilder();
+        for (Product product : productList) {
+            str.append(product.getName());
+            str.append(",");
+            str.append(productMap.get(product).getValue());
+            str.append("\n");
         }
-        return str;
+        return str.toString();
     }
 }

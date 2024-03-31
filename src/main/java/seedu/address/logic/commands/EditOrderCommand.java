@@ -67,7 +67,6 @@ public class EditOrderCommand extends EditCommand {
 
         Order editedOrder = model.editOrder(orderToEdit,
                 editOrderDescriptor.getProduct(), editOrderDescriptor.getQuantity());
-        //model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
         return new CommandResult(String.format(MESSAGE_EDIT_ORDER_SUCCESS,

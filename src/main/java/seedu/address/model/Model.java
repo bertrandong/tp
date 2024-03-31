@@ -110,6 +110,8 @@ public interface Model {
      */
     Order editOrder(Order target, Product currProduct, Quantity newQuantity);
 
+    Order goToNextStage(Order target);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 

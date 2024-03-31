@@ -2,6 +2,7 @@ package seedu.address.model.order;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalOrders.COOKIES_ONLY;
 import static seedu.address.testutil.TypicalOrders.CUPCAKES_AND_COOKIES;
@@ -11,6 +12,8 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.order.stage.ReadyForDeliveryState;
+import seedu.address.model.order.stage.SentForDeliveryState;
 import seedu.address.testutil.OrderBuilder;
 
 public class OrderTest {
@@ -52,6 +55,13 @@ public class OrderTest {
         Order aliceCupcakes = new OrderBuilder(CUPCAKES_ONLY).withIndex(1).withPerson(ALICE).build();
         Order bobCupcakes = new OrderBuilder(CUPCAKES_ONLY).withIndex(2).withPerson(BOB).build();
         assertFalse(aliceCupcakes.equals(bobCupcakes));
+
+        // different stage -> returns false;
+        Order ready = new OrderBuilder(CUPCAKES_ONLY).withIndex(1)
+                .withStage(new ReadyForDeliveryState()).build();
+        Order sent = new OrderBuilder(CUPCAKES_ONLY).withIndex(2)
+                .withStage(new SentForDeliveryState()).build();
+        assertNotEquals(ready, sent);
     }
 
     @Test

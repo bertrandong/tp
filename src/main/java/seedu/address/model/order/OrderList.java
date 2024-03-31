@@ -126,12 +126,10 @@ public class OrderList implements Iterable<Order> {
         if (oldOrder == null) {
             throw new OrderNotFoundException();
         }
-        Person respectiveCustomer = oldOrder.getCustomer();
         int oldOrderIndex = internalList.indexOf(oldOrder);
         toEdit.setID(oldOrder.getId());
         internalList.set(oldOrderIndex, toEdit);
         orderList.put(orderId, toEdit);
-        //respectiveCustomer.editOrder(oldOrder.getId(), toEdit);
     }
 
     /**
