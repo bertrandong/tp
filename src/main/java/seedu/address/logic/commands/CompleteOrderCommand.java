@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -22,22 +24,26 @@ public class CompleteOrderCommand extends Command {
 
     public static final String MESSAGE_COMPLETE_ORDER_SUCCESS = "Completed Order: %1$s";
 
-    private final Index targetIndex;
+    private final ArrayList<Index> targetIndexArr;
 
-    public CompleteOrderCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public CompleteOrderCommand(ArrayList<Index> targetIndex) {
+        this.targetIndexArr = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (targetIndex.getZeroBased() >= model.getOrderListSize()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        String successStr = "";
+        for (Index targetIndex : targetIndexArr) {
+            if (!model.orderIdExists(targetIndex.getOneBased())) {
+                throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+            }
+            Order completedOrder = model.findOrderByIndex(targetIndex.getOneBased());
+            model.deleteOrder(targetIndex.getOneBased());
+            successStr += targetIndex.getOneBased();
         }
-        Order completedOrder = model.findOrderByIndex(targetIndex.getOneBased());
-        model.deleteOrder(targetIndex.getOneBased());
-        return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, targetIndex.getOneBased()));
+
+        return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, successStr));
     }
 
     @Override
@@ -52,13 +58,13 @@ public class CompleteOrderCommand extends Command {
         }
 
         CompleteOrderCommand otherCompleteOrderCommand = (CompleteOrderCommand) other;
-        return targetIndex.equals(otherCompleteOrderCommand.targetIndex);
+        return targetIndexArr.equals(otherCompleteOrderCommand.targetIndexArr);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
+                .add("targetIndex", targetIndexArr)
                 .toString();
     }
 }

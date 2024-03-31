@@ -179,6 +179,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         orders.deleteOrder(id);
     }
 
+    public boolean orderIdExists(int orderId) {
+        return orders.orderIdExist(orderId);
+    }
+
 
     //// util methods
 

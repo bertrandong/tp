@@ -148,6 +148,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean orderIdExists(int orderId) {
+        return addressBook.orderIdExists(orderId);
+    }
+
+    @Override
     public int getOrderListSize() {
         return addressBook.getOrderListSize();
     }
