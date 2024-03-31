@@ -212,6 +212,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         menu.editProduct(target, editedProduct);
     }
 
+    /**
+     * Gets a product in the {@code ProductMenu} by the zero-based Index.
+     *
+     * @param id the index of the {@code Product} to search for
+     * @return the {@code Product} to search for
+     */
+    public Product findProductByIndex(int id) {
+        return menu.findProductByIndex(id);
+    }
 
     //// util methods
 

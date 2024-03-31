@@ -7,8 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_SALES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -37,6 +39,10 @@ public class CommandTestUtil {
     public static final String VALID_PRODUCT_CUPCAKE = "Cupcake";
     public static final String VALID_PRODUCT_COOKIE = "Cookie";
     public static final String VALID_PRODUCT_DOUGHNUT = "Doughnut";
+    public static final String VALID_PRICE_TEN = "10";
+    public static final String VALID_PRICE_TWENTY = "20";
+    public static final String VALID_PRICE_THIRTY = "30";
+    public static final String VALID_PRICE_FORTY = "40";
     public static final String VALID_QUANTITY_ONE = "1";
     public static final String VALID_QUANTITY_TWO = "2";
     public static final String VALID_QUANTITY_THREE = "3";
@@ -50,14 +56,19 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
 
     public static final String PRODUCT_DESC_CUPCAKE = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_CUPCAKE;
-
+    public static final String PRODUCT_DESC_CUPCAKE_WITH_PRICE = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_CUPCAKE
+            + " " + PREFIX_PRODUCT_COST + VALID_PRICE_TEN + " " + PREFIX_PRODUCT_SALES + VALID_PRICE_TWENTY;
     public static final String PRODUCT_DESC_COOKIE = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_COOKIE;
+    public static final String PRODUCT_DESC_COOKIE_WITH_PRICE = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_COOKIE
+            + " " + PREFIX_PRODUCT_COST + VALID_PRICE_THIRTY + " " + PREFIX_PRODUCT_SALES + VALID_PRICE_FORTY;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String ORDER_INDEX_DESC_ONE = " " + PREFIX_ORDER + VALID_ORDER_INDEX_ONE;
     public static final String ORDER_INDEX_DESC_TWO = " " + PREFIX_ORDER + VALID_ORDER_INDEX_TWO;
+    public static final String COST_DESC_TEN = " " + PREFIX_PRODUCT_COST + VALID_PRICE_TEN;
+    public static final String SALES_DESC_TWENTY = " " + PREFIX_PRODUCT_SALES + VALID_PRICE_TWENTY;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
@@ -72,6 +83,26 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_PRODUCT_DESC_COST = " " + PREFIX_PRODUCT_NAME + "Cupcakes "
+            + PREFIX_PRODUCT_COST + "20c";
+
+    public static final String INVALID_PRODUCT_DESC_SALES = " " + PREFIX_PRODUCT_NAME + "Cupcakes "
+            + PREFIX_PRODUCT_SALES + "20c";
+    public static final String INVALID_PRODUCT_DESC_MISSING_NAME = " " + PREFIX_PRODUCT_SALES + VALID_PRICE_TWENTY
+            + " " + PREFIX_PRODUCT_COST + VALID_PRICE_THIRTY;
+    public static final String INVALID_PRODUCT_DESC_MISSING_COST = " " + PREFIX_PRODUCT_NAME + "Cupcakes "
+            + PREFIX_PRODUCT_SALES + VALID_PRICE_TWENTY;
+
+    public static final String INVALID_PRODUCT_DESC_MISSING_SALES = " " + PREFIX_PRODUCT_NAME + "Cupcakes "
+            + PREFIX_PRODUCT_COST + VALID_PRICE_TWENTY;
+    public static final String INVALID_PRODUCT_DESC_MISSING_NAME_PREFIX = " " + "Cupcakes "
+            + PREFIX_PRODUCT_SALES + VALID_PRICE_TWENTY + " " + PREFIX_PRODUCT_COST + VALID_PRICE_THIRTY;
+    public static final String INVALID_PRODUCT_DESC_MISSING_COST_PREFIX = " " + PREFIX_PRODUCT_NAME + "Cupcakes "
+            + PREFIX_PRODUCT_SALES + VALID_PRICE_TWENTY + " " + VALID_PRICE_THIRTY;
+
+    public static final String INVALID_PRODUCT_DESC_MISSING_SALES_PREFIX = " " + PREFIX_PRODUCT_NAME + "Cupcakes "
+            + VALID_PRICE_TWENTY + " " + PREFIX_PRODUCT_COST + VALID_PRICE_THIRTY;
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

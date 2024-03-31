@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_SALES;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -20,8 +22,12 @@ public class AddMenuCommand extends Command {
             + ": Adds products to the last created order "
             + "Parameters: "
             + PREFIX_PRODUCT_NAME + "PRODUCT NAME "
+            + PREFIX_PRODUCT_COST + "PRODUCT COST "
+            + PREFIX_PRODUCT_SALES + "PRODUCT SALES "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PRODUCT_NAME + "cake ";
+            + PREFIX_PRODUCT_NAME + "cake "
+            + PREFIX_PRODUCT_COST + "15 "
+            + PREFIX_PRODUCT_SALES + "20 ";
 
     public static final String MESSAGE_SUCCESS = "New product added: %1$s";
 

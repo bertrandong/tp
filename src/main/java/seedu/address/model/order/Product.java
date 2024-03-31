@@ -10,7 +10,7 @@ public class Product {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Product names should only contain alphanumeric characters and spaces, and it should not be blank. "
-                    + "Sales should be at least 1 digit long.";
+                    + "Prices should be at least 1 digit long.";
 
     /*
      * The first character of the product name must not be a whitespace,
@@ -63,7 +63,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return this.name + "Cost: " + this.cost + "Sales: " + this.sales;
+        return this.name;
     }
 
     @Override
