@@ -59,11 +59,13 @@ public class Product {
      */
     public Product(Product product) {
         this.name = product.getName();
+        this.cost = product.getCost();
+        this.sales = product.getSales();
     }
 
     @Override
     public String toString() {
-        return this.name;
+        return this.name + " Cost: $" + this.cost + " Sales: $" + this.sales;
     }
 
     @Override

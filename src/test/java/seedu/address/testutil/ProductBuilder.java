@@ -58,6 +58,6 @@ public class ProductBuilder {
     }
 
     public Product build() {
-        return new Product(productName);
+        return new Product(productName, productCost, productSales);
     }
 }
