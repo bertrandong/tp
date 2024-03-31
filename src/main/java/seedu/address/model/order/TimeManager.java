@@ -1,12 +1,15 @@
 package seedu.address.model.order;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Manages the parsing and formatting of date and time strings.
+ * This class supports multiple input formats and converts them into a standard output format.
+ */
 public class TimeManager {
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 

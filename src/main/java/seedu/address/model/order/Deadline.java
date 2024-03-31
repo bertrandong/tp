@@ -11,16 +11,18 @@ public class Deadline {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Deadlines should only contain numeric characters, and be in the format dd/MM/yyyy";
-    private LocalDate deadline;
 
     public static final String VALIDATION_REGEX = "^\\d{2}/\\d{2}/\\d{4}$";
+
+    private LocalDate deadline;
+
 
     /**
      * Constructs a {@code Deadline} object after parsing the given time string.
      *
      * @param timeString The deadline date as a string in the format dd/MM/yyyy.
      */
-    public Deadline(String timeString){
+    public Deadline(String timeString) {
         deadline = TimeManager.parseTime(timeString);
     }
 

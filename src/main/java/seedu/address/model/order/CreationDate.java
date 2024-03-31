@@ -7,9 +7,8 @@ import java.time.LocalDate;
  * Ensures that the creation date is valid and follows the format dd/MM/yyyy.
  */
 public class CreationDate {
-    private LocalDate creationDate;
-
     public static final String VALIDATION_REGEX = "^\\d{2}/\\d{2}/\\d{4}$";
+    private LocalDate creationDate;
 
     /**
      * Constructs a {@code CreationDate} object set to the current date.

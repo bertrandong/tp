@@ -20,7 +20,7 @@ public class Order implements Comparable<Order> {
 
     private Person customer;
     private CreationDate creationDate;
-    private Deadline deadline =  null;
+    private Deadline deadline = null;
 
     /**
      * Constructs an {@code Order} Object.
