@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderList;
 import seedu.address.model.order.Product;
+import seedu.address.model.order.ProductMenu;
 import seedu.address.model.order.Quantity;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -21,6 +23,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final OrderList orders;
+    private final ProductMenu menu;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -32,6 +35,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         orders = new OrderList();
+        menu = new ProductMenu();
     }
 
     public AddressBook() {}
@@ -58,6 +62,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.orders.setOrders(orders);
     }
 
+    public void setProducts(List<Product> products) {
+        this.menu.setProducts(products);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -66,6 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setOrders(newData.getOrderList());
+        setProducts(newData.getMenuList());
     }
 
     //// person-level operations
@@ -87,12 +96,35 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a product with the same identity as {@code product} exists in the menu.
+     */
+    public boolean hasProduct(Product product) {
+        requireNonNull(product);
+        return menu.contains(product);
+    }
+
+    /**
+     * Adds a product to the menu.
+     * The product must not already exist in the menu.
+     */
+    public void addProduct(Product product) {
+        menu.addProduct(product);
+    }
+
+    /**
      * Adds an {@code Order} to the {@code OrderList} of this address book.
      *
      */
     public void addOrder(Order order) {
         int orderCounter = orders.getOrderIdCounter();
         order.setID(orderCounter);
+
+        Person editedCustomer = order.getCustomer();
+        ArrayList<Order> listToEdit = editedCustomer.getOrders();
+        listToEdit.add(order);
+        editedCustomer.setOrders(listToEdit);
+        this.setPerson(order.getCustomer(), editedCustomer);
+
         orders.addOrder(order);
     }
 
@@ -150,7 +182,34 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param id index of order to remove
      */
     public void removeOrder(int id) {
+        Order orderToDelete = this.findOrderByIndex(id);
+
+        Person editedCustomer = orderToDelete.getCustomer();
+        ArrayList<Order> listToEdit = editedCustomer.getOrders();
+        listToEdit.remove(orderToDelete);
+        editedCustomer.setOrders(listToEdit);
+        this.setPerson(orderToDelete.getCustomer(), editedCustomer);
+
         orders.deleteOrder(id);
+    }
+
+    /**
+     * Removes {@code Product} from the {@code ProductMenu} of this {@code AddressBook}.
+     * @param key product to remove
+     */
+    public void removeProduct(Product key) {
+        menu.deleteProduct(key);
+    }
+
+    /**
+     * Replaces the given product {@code target} in the list with {@code editedProduct}.
+     * {@code target} must exist in the menu.
+     * The product identity of {@code editedProduct} must not be the same as another existing product in the menu.
+     */
+    public void setProduct(Product target, Product editedProduct) {
+        requireNonNull(editedProduct);
+
+        menu.editProduct(target, editedProduct);
     }
 
 
@@ -172,6 +231,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Order> getOrderList() {
         return orders.asUnmodifiableObservableList();
     }
+
+    public ObservableList<Product> getMenuList() {
+        return menu.asUnmodifiableObservableList();
+    }
+
     public OrderList getOrderListClass() {
         return orders;
     }
@@ -192,7 +256,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons) && orders.equals(otherAddressBook.orders);
     }
 
     @Override

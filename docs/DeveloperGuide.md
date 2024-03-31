@@ -81,7 +81,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Person` and `Order` objects residing in the `Model`.
 
 ### Logic component
 
@@ -122,8 +122,8 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Person` and `Order` objects (which are contained in a `UniquePersonList` and an `OrderList` object).
+* stores the currently 'selected' `Person` and `Order` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` and `ObservableList<Order>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -243,7 +243,7 @@ _{more aspects and alternatives to be added}_
 
 #### Implementation
 
-Removes an `Order` from the `OrderList` by its index. Example: `cancel 19`. 
+Removes an `Order` from the `OrderList` by its index. Example: `cancel 19`.
 The sequence of events is illustrated by the diagram below, starting with parsing of the command.
 ![CancelSequenceDiagram-Logic](images/CancelSequenceDiagram-Logic.png)
 ![CancelSequenceDiagram-Model](images/CancelSequenceDiagram-Model.png)
@@ -276,9 +276,18 @@ The `Predicate` will then be used to filter the list using `stream()`. The updat
 
 2. Only one `PREFIX` can be chosen to filter by. Future improvements may include searching from more than one `PREFIX`. Example: `find o/19 n/John a/Lorong`.
 
-### \[Proposed\] Data archiving
+### Data archiving of Completed Orders
 
-_{Explain here how the data archiving feature will be implemented}_
+#### Implementation
+Data archiving of completed orders is achieved by creating a CompleteCommand, which will remove the order from the
+active order list and place it in a completed order list which will be saved as a JSON file (Possible .xml in the future)
+![CompleteCommandLogicSequenceDiagram](images/CompleteSequenceDiagram-Logic.png)
+The CompleteCommand class which extends the Command abstract class will be executed by the LogicManager which will
+update the Active Order List and Completed Order List in the Model.
+![CompleteCommandModelSequenceDiagram](images/CompleteSequenceDiagram-Model.png)
+The StorageManager will then store the Orders inside of the Completed Order List as a JSON file, compiling all
+previously completed orders.
+
 
 
 --------------------------------------------------------------------------------------------------------------------

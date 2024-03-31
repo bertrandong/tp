@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Product;
 import seedu.address.model.person.Person;
 
 /**
@@ -37,6 +38,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of orders */
     ObservableList<Order> getFilteredOrderList();
 
+    /** Returns an unmodifiable view of the filtered list of menu items */
+    ObservableList<Product> getFilteredMenuList();
+
     /**
      * Returns the user prefs' address book file path.
      */
@@ -51,4 +55,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    void clearOrderFilter();
 }

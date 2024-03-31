@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -23,9 +22,9 @@ public class OrderListPanel extends UiPart<Region> {
     /**
      * Creates a {@code OrderListPanel} with the given {@code ObservableList}.
      */
-    public OrderListPanel(ObservableList<Order> personList) {
+    public OrderListPanel(ObservableList<Order> orderList) {
         super(FXML);
-        orderListView.setItems(personList);
+        orderListView.setItems(orderList);
         orderListView.setCellFactory(listView -> new OrderListPanel.OrderListViewCell());
     }
 
@@ -44,6 +43,19 @@ public class OrderListPanel extends UiPart<Region> {
                 setGraphic(new OrderCard(order).getRoot());
             }
         }
+    }
+
+    /**
+     * Updates the order list view with a given list of orders.
+     * This method sets the items of the order list view to the specified list of orders,
+     * effectively updating the UI to display these orders. It can be used to apply filters
+     * or to reset the order list view to its original state.
+     *
+     * @param orders The {@link ObservableList} of {@link Order} objects to be displayed.
+     *               This list replaces the current items in the order list view.
+     */
+    public void updateDisplayedOrders(ObservableList<Order> orders) {
+        orderListView.setItems(orders);
     }
 
 }
