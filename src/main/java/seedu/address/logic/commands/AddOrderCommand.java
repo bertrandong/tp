@@ -47,6 +47,11 @@ public class AddOrderCommand extends Command {
         lastOrder = this.order;
     }
 
+    /**
+     * Constructs an {@code AddOrderCommand} with the given {@code Phone}.
+     * Overloaded to handle case where deadline is included
+     * @param phone
+     */
     public AddOrderCommand(Phone phone, Deadline deadline) {
         requireAllNonNull(phone);
 
