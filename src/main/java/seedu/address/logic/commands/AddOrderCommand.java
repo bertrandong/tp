@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -24,7 +25,7 @@ public class AddOrderCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the order of the person identified "
             + "by the phone number of person. "
-            + "Existing orders will be overwritten by the input.\n"
+            + "\n"
             + "Parameters: phone number (must be a positive integer) "
             + "p/ [PHONE_NUMBER]\n"
             + "Example: " + COMMAND_WORD
@@ -44,6 +45,15 @@ public class AddOrderCommand extends Command {
         this.phone = phone;
         this.order = new Order();
         lastOrder = this.order;
+    }
+
+    public AddOrderCommand(Phone phone, Deadline deadline) {
+        requireAllNonNull(phone);
+
+        this.phone = phone;
+        this.order = new Order();
+        lastOrder = this.order;
+        this.order.setDeadline(deadline);
     }
 
     @Override

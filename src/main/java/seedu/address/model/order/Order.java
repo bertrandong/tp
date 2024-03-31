@@ -28,7 +28,7 @@ public class Order implements Comparable<Order> {
      */
     public Order() {
         this.productMap = new HashMap<>();
-        this.creationDate = new CreationDate(LocalDate.now());
+        this.creationDate = new CreationDate();
     }
 
     /**
@@ -39,7 +39,7 @@ public class Order implements Comparable<Order> {
     public Order(int id) {
         this.id = id;
         productMap = new HashMap<>();
-        this.creationDate = new CreationDate(LocalDate.now());
+        this.creationDate = new CreationDate();
     }
 
     /**
@@ -194,6 +194,18 @@ public class Order implements Comparable<Order> {
         return this.customer;
     }
 
+    public String getDeadline() {
+        return this.deadline.toString();
+    }
+
+    public String getCreationDate() {
+        return this.creationDate.toString();
+    }
+
+    public void setDeadline(Deadline deadline) {
+        this.deadline = deadline;
+    }
+
     /**
      * Sets the {@code Person} ordering the order
      * @param person the customer that the order belongs to
@@ -202,13 +214,6 @@ public class Order implements Comparable<Order> {
         this.customer = person;
     }
 
-    public CreationDate getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setDeadline(String time) {
-        this.deadline = new Deadline(time);
-    }
 
     /**
      * Compares the other Order Object with this Object based on the OrderID
@@ -275,4 +280,5 @@ public class Order implements Comparable<Order> {
         }
         return str;
     }
+
 }

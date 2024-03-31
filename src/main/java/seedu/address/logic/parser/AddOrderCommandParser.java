@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddOrderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.order.Deadline;
 import seedu.address.model.person.Phone;
 
 /**
@@ -25,16 +26,14 @@ public class AddOrderCommandParser {
     public AddOrderCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_PHONE);
+                PREFIX_PHONE, PREFIX_DEADLINE);
 
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PHONE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOrderCommand.MESSAGE_USAGE));
         }
-        if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) { //handle when deadline is specified
 
-        }
 
         Phone phone;
         try {
@@ -42,6 +41,12 @@ public class AddOrderCommandParser {
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddOrderCommand.MESSAGE_USAGE), ive);
+        }
+
+        Deadline deadline;
+        if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) { //handle when deadline is specified
+            deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
+            return new AddOrderCommand(phone, deadline);
         }
 
         return new AddOrderCommand(phone);

@@ -24,6 +24,8 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label customerName;
     @FXML
+    private Label deadline;
+    @FXML
     private FlowPane products;
 
 
@@ -34,6 +36,7 @@ public class OrderCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
         orderId.setText("Order " + order.getId());
+        deadline.setText("Deadline: " + order.getDeadline());
         customerName.setText(order.getCustomer().getName().fullName);
         ArrayList<String> productList = new ArrayList<>();
         order.getProductMap().forEach((product, quantity) -> productList.add(product + " x " + quantity));
