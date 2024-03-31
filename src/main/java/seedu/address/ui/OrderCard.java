@@ -36,7 +36,9 @@ public class OrderCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
         orderId.setText("Order " + order.getId());
-        deadline.setText("Deadline: " + order.getDeadline());
+        if (order.getDeadline() != null) {
+            deadline.setText("Deadline: " + order.getDeadline());
+        }
         customerName.setText(order.getCustomer().getName().fullName);
         ArrayList<String> productList = new ArrayList<>();
         order.getProductMap().forEach((product, quantity) -> productList.add(product + " x " + quantity));

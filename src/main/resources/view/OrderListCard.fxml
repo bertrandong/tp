@@ -26,6 +26,8 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="deadline" styleClass="cell_small_label" /> <!-- Added deadline label here -->
             </HBox>
             <Label fx:id="customerName" styleClass="cell_small_label" text="\$customer" translateY="-8.0" />
             <FlowPane fx:id="products" maxHeight="100.0" translateY="-3.0" />
