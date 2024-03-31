@@ -1,6 +1,5 @@
 package seedu.address.model.order;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -208,6 +207,10 @@ public class Order implements Comparable<Order> {
 
     public void setDeadline(Deadline deadline) {
         this.deadline = deadline;
+    }
+
+    public void setCreationDate(String date) {
+        this.creationDate.setCreationDate(date);
     }
 
     /**

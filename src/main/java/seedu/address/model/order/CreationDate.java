@@ -19,6 +19,10 @@ public class CreationDate {
         return creationDate;
     }
 
+    public void setCreationDate(String date) {
+        this.creationDate = TimeManager.parseTime(date);
+    }
+
     @Override
     public String toString() {
         return this.creationDate.toString();
