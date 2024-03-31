@@ -49,13 +49,16 @@ public class AddOrderCommand extends Command {
 
     /**
      * Creates an {@code AddOrderCommand} to add an order associated with the specified phone number and deadline.
-     * This constructor initializes a new order with the given deadline and associates it with the provided phone number.
+     * This constructor initializes a new order with the given deadline
+     * and associates it with the provided phone number.
      * The newly created order is set as the last order processed by this command.
      * <p>
      * Note: The phone number is assumed to be validated before being passed to this constructor.
      *
-     * @param phone The phone number associated with the new order. This parameter is required and cannot be {@code null}.
-     * @param deadline The deadline for the new order. It can be {@code null} if the order does not have a specific deadline.
+     * @param phone The phone number associated with the new order.
+     *              This parameter is required and cannot be {@code null}.
+     * @param deadline The deadline for the new order. It can be {@code null}
+     *                 if the order does not have a specific deadline.
      * @throws NullPointerException if the {@code phone} parameter is {@code null}.
      */
     public AddOrderCommand(Phone phone, Deadline deadline) {
