@@ -193,4 +193,11 @@ public interface Model {
      */
     void updateFilteredMenuList(Predicate<Product> predicate);
 
+    /**
+     * Gets a product in the ProductMenu by its zero-based Index.
+     *
+     * @param id the zero-based Index of the product to find for
+     * @return the product to search for
+     */
+    Product findProductByIndex(int id);
 }

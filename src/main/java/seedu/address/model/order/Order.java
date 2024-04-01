@@ -19,6 +19,10 @@ public class Order implements Comparable<Order> {
     private Map<Product, Quantity> productMap;
 
     private Person customer;
+    private int totalCost = 0;
+    private int totalSales = 0;
+
+    private int profit = 0;
 
     /**
      * Constructs an {@code Order} Object.
@@ -38,31 +42,34 @@ public class Order implements Comparable<Order> {
     }
 
     /**
-     * Contructs an {@code Order} object with {@code map}
+     * Contructs an {@code Order} object with {@code map}.
      * @param map Mappings of Products and Quantity
      */
     public Order(Map<Product, Quantity> map) {
         productMap = map;
+        updateNumbers();
     }
 
     /**
-     * Contructs an {@code Order} object with {@code map}
+     * Contructs an {@code Order} object with {@code map}.
      * @param map Mappings of Products and Quantity
      */
     public Order(int id, Person customer, Map<Product, Quantity> map) {
         this.id = id;
         this.customer = customer;
         productMap = map;
+        updateNumbers();
     }
 
     /**
-     * Contructs an {@code Order} object copied from another {@code order}
+     * Contructs an {@code Order} object copied from another {@code order}.
      * @param order The other order to copy from
      */
     public Order(Order order) {
         this.id = order.getId();
         this.productMap = new HashMap<>(order.getProductMap());
         this.customer = order.getCustomer();
+        updateNumbers();
     }
 
     /**
@@ -90,12 +97,13 @@ public class Order implements Comparable<Order> {
     }
 
     /**
-     * Adds a specified quantity of Product into the order
+     * Adds a specified quantity of Product into the order.
      * @param newProduct Product to be added.
      * @param newQuantity Quantity of Product to be added.
      */
     public void addProduct(Product newProduct, Quantity newQuantity) {
         productMap.put(newProduct, newQuantity);
+        updateNumbers();
     }
 
     /**
@@ -158,6 +166,7 @@ public class Order implements Comparable<Order> {
      */
     public void clearProductMap() {
         this.productMap.clear();
+        updateNumbers();
     }
 
     /**
@@ -167,6 +176,7 @@ public class Order implements Comparable<Order> {
      */
     public void setProductMap(Map<Product, Quantity> productMap) {
         this.productMap = productMap;
+        updateNumbers();
     }
 
     /**
@@ -177,11 +187,8 @@ public class Order implements Comparable<Order> {
         return productMap.isEmpty();
     }
 
-    public void setProducts(Map<Product, Quantity> products) {
-        this.productMap = products;
-    }
     /**
-     * Gets the {@code Person} ordering the order
+     * Gets the {@code Person} ordering the order.
      *
      * @return the customer ordering the order
      */
@@ -190,7 +197,7 @@ public class Order implements Comparable<Order> {
     }
 
     /**
-     * Sets the {@code Person} ordering the order
+     * Sets the {@code Person} ordering the order.
      * @param person the customer that the order belongs to
      */
     public void setCustomer(Person person) {
@@ -198,7 +205,7 @@ public class Order implements Comparable<Order> {
     }
 
     /**
-     * Compares the other Order Object with this Object based on the OrderID
+     * Compares the other Order Object with this Object based on the OrderID.
      * @param otherOrder the object to be compared.
      * @return negative integer, zero, or a positive integer as this object is less than,
      *         equal to, or greater than the specified object.
@@ -228,6 +235,70 @@ public class Order implements Comparable<Order> {
         return otherOrder != null
                 && otherOrder.id == this.id
                 && otherOrder.customer.equals(this.customer);
+    }
+
+    /**
+     * Updates the total sales of the order.
+     */
+    private void updateTotalSales() {
+        int newTotalSales = 0;
+        for (Map.Entry<Product, Quantity> entry : productMap.entrySet()) {
+            newTotalSales += Integer.valueOf(entry.getKey().getSales()) * entry.getValue().getValue();
+        }
+        this.totalSales = newTotalSales;
+    }
+
+    /**
+     * Updates the total cost of the order.
+     */
+    private void updateTotalCost() {
+        int newTotalCost = 0;
+        for (Map.Entry<Product, Quantity> entry : productMap.entrySet()) {
+            newTotalCost += Integer.valueOf(entry.getKey().getCost()) * entry.getValue().getValue();
+        }
+        this.totalCost = newTotalCost;
+    }
+
+    /**
+     * Updates the profit of the order.
+     */
+    private void updateProfit() {
+        this.profit = this.totalSales - this.totalCost;
+    }
+
+    /**
+     * Updates the cost, sales and profit of the order.
+     */
+    private void updateNumbers() {
+        updateTotalCost();
+        updateTotalSales();
+        updateProfit();
+    }
+    /**
+     * Gets the total sales of the order.
+     *
+     * @return the sales of the order
+     */
+    public int getTotalSales() {
+        return this.totalSales;
+    }
+
+    /**
+     * Gets the total cost of the order.
+     *
+     * @return the cost of the order
+     */
+    public int getTotalCost() {
+        return this.totalCost;
+    }
+
+    /**
+     * Gets the profit of the order.
+     *
+     * @return the cost of the order
+     */
+    public int getProfit() {
+        return this.profit;
     }
 
     @Override
@@ -260,6 +331,9 @@ public class Order implements Comparable<Order> {
             str += productMap.get(productList.get(k)).getValue();
             str += "\n";
         }
+        str += "Total Cost: " + this.totalCost + "\n";
+        str += "Total Sales: " + this.totalSales + "\n";
+        str += "Profit: " + this.profit + "\n";
         return str;
     }
 }

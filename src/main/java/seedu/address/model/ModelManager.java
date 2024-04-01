@@ -258,4 +258,9 @@ public class ModelManager implements Model {
         filteredMenu.setPredicate(predicate);
     }
 
+    @Override
+    public Product findProductByIndex(int id) {
+        return addressBook.findProductByIndex(id);
+    }
+
 }

@@ -47,8 +47,8 @@ public class AddMenuCommandTest {
 
     @Test
     public void equals() {
-        Product cupcake = new ProductBuilder().withName("Cupcake").build();
-        Product tart = new ProductBuilder().withName("Tart").build();
+        Product cupcake = new ProductBuilder().withName("Cupcake").withCost("20").withSales("30").build();
+        Product tart = new ProductBuilder().withName("Tart").withCost("10").withSales("20").build();
         AddMenuCommand addCupcakeCommand = new AddMenuCommand(cupcake);
         AddMenuCommand addTartCommand = new AddMenuCommand(tart);
 
@@ -218,6 +218,11 @@ public class AddMenuCommandTest {
 
         @Override
         public Optional<Person> findPersonByPhoneNumber(String phoneNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Product findProductByIndex(int id) {
             throw new AssertionError("This method should not be called.");
         }
 

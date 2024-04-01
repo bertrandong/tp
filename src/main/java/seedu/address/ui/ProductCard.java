@@ -19,6 +19,10 @@ public class ProductCard extends UiPart<Region> {
 
     @FXML
     private Label productName;
+    @FXML
+    private Label productCost;
+    @FXML
+    private Label productSales;
 
     /**
      * Creates an {@code ProductCard} with the given {@code Product} to display.
@@ -27,5 +31,7 @@ public class ProductCard extends UiPart<Region> {
         super(FXML);
         this.product = product;
         productName.setText(displayedIndex + ". " + product.getName());
+        productCost.setText("Cost: $" + product.getCost());
+        productSales.setText("Sales: $" + product.getSales());
     }
 }

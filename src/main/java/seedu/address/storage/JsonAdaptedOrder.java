@@ -32,7 +32,10 @@ public class JsonAdaptedOrder {
     public JsonAdaptedOrder(@JsonProperty("id") Integer id,
                             @JsonProperty("productMap") Map<String, Integer> productMap,
                             @JsonProperty("customerName") String customerName,
-                            @JsonProperty("customerPhone") String customerPhone
+                            @JsonProperty("customerPhone") String customerPhone,
+                            @JsonProperty("totalCost") Integer totalCost,
+                            @JsonProperty("totalSales") Integer totalSales,
+                            @JsonProperty("profit") Integer profit
                             ) {
         this.id = id;
         this.productMap = productMap;
@@ -57,7 +60,6 @@ public class JsonAdaptedOrder {
         Person orderCustomer = order.getCustomer();
         this.customerName = orderCustomer.getName().fullName;
         this.customerPhone = orderCustomer.getPhone().value;
-
     }
 
     /**
