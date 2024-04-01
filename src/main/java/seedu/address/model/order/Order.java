@@ -141,8 +141,9 @@ public class Order implements Comparable<Order> {
      * @return Updated order.
      */
     public Order deleteProduct(Product product) {
-        productMap.remove(product);
-        return new Order(this.id, this.customer, productMap, this.stageContext);
+        Map<Product, Quantity> newMap = new HashMap<>(productMap);
+        newMap.remove(product);
+        return new Order(this.id, this.customer, newMap, this.stageContext);
     }
 
     /**
