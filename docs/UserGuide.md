@@ -153,11 +153,12 @@ Format: `order p/PHONE_NUMBER`
 
 * Orders are assigned to person with specified `PHONE_NUMBER`.
 * Strack will prompt `Input Products`.
-* Follow up with products to be added to the order using the following format. Format: `pn/PRODUCT_NAME pq/PRODUCT_QUANTITY`.
+* Follow up with products to be added to the order using the following format. Format: `m/PRODUCT_ID pq/PRODUCT_QUANTITY`.
+* You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
 * This can be repeated as many times as necessary.
 
 Examples:
-* `order p/99887766` will create an order for person with phone number `99887766` followed by `pn/Cupcake pq/2` and `pn/Cookie pq/2` ending with `done` <br>
+* `order p/99887766` will create an order for person with phone number `99887766` followed by `pid/1 pq/2` and `pid/2 pq/2` ending with `done` <br>
 ![result for creating order for alex](images/addOrderResult.png)
 <br>![system interaction for order creation](images/systemCreateOrder.png)
 
@@ -195,16 +196,17 @@ Format: `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
 * `PRODUCT_COSTS` refer to the costs incurred to make the product.
 * `PRODUCT_SALES` refer to how much the product is being sold for.
 * The order of which `pc/PRODUCT_COSTS` or `ps/PRODUCT_SALES` is being input does not matter.
+* Decimals are supported.
 
 Example:
 * `menu pn/Cupcake pc/1 ps/2`
-* `menu pn/Tart ps/6 pc/2`
+* `menu pn/Tart ps/6.30 pc/2.20`
 
 ### Editing a product on the menu: `edit`
 
 You can edit an existing product on the product menu.
 
-Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
+Format: `edit m/PRODUCT_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
 
 * Edits the product of the specified `MENU_ID`. The `MENU_ID` refers to the number reflected on the product menu beside the product name. The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
 * At least one of the optional fields must be provided.
