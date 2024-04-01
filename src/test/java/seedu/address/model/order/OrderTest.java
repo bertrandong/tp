@@ -10,7 +10,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_ONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_THREE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_TWO;
 import static seedu.address.testutil.TypicalOrders.COOKIES_ONLY;
-import static seedu.address.testutil.TypicalOrders.CUPCAKES_AND_COOKIES;
 import static seedu.address.testutil.TypicalOrders.CUPCAKES_ONLY;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -78,12 +77,14 @@ public class OrderTest {
                 .withProductQuantity(VALID_PRODUCT_COOKIE, VALID_QUANTITY_TWO).build();
 
         // single product order
-        String expectedCupcakes = "Cupcake,3\nUnder Preparation\n"
+        String expectedCupcakes = "Cupcake,3\n"
+                + newCupcakesOnly.getStageContext().toString() + "\n"
                 + "Total Cost: 0.0\n" + "Total Sales: 0.0\n" + "Profit: 0.0\n";
         assertEquals(expectedCupcakes, newCupcakesOnly.toString());
 
         // multiple products order
-        String expectedCupcakesAndCookies = "Cookie,2\nCupcake,1\nUnder Preparation\n"
+        String expectedCupcakesAndCookies = "Cookie,2\nCupcake,1\n"
+                + newCupcakesAndCookies.getStageContext().toString() + "\n"
                 + "Total Cost: 0.0\n" + "Total Sales: 0.0\n" + "Profit: 0.0\n";
         assertEquals(expectedCupcakesAndCookies, newCupcakesAndCookies.toString());
     }
