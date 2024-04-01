@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<HBox id="cardPane" fx:id="cardPane" prefWidth="150.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefWidth="150.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane prefWidth="150.0" HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -19,7 +14,7 @@
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
-            <HBox alignment="CENTER_LEFT" prefWidth="130.0" spacing="5" translateY="-8.0">
+            <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefWidth="130.0" spacing="5" translateY="-8.0">
                 <Label fx:id="orderId" styleClass="cell_big_label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
@@ -29,9 +24,17 @@
             </HBox>
             <Label fx:id="customerName" styleClass="cell_small_label" text="\$customer" translateY="-8.0" />
             <FlowPane fx:id="products" maxHeight="100.0" translateY="-3.0" />
+            <Label fx:id="stage" minHeight="40.0" styleClass="cell_small_label" text="\$stage" translateY="-8.0" />
         </VBox>
       <rowConstraints>
          <RowConstraints />
       </rowConstraints>
     </GridPane>
+   <TextFlow prefHeight="200.0" prefWidth="200.0" />
+   <TilePane prefHeight="200.0" prefWidth="200.0" />
+   <TitledPane animated="false" text="untitled">
+     <content>
+       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+     </content>
+   </TitledPane>
 </HBox>
