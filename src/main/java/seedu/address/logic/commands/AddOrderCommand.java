@@ -30,7 +30,6 @@ public class AddOrderCommand extends Command {
             + "Example: " + COMMAND_WORD
             + "p/ 87438807.";
 
-    private static Order lastOrder;
     private final Phone phone;
     private Order order;
 
@@ -43,7 +42,6 @@ public class AddOrderCommand extends Command {
 
         this.phone = phone;
         this.order = new Order();
-        lastOrder = this.order;
     }
 
     @Override
