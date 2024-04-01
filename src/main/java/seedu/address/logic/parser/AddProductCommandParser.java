@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MENU;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 
 import java.util.stream.Stream;
@@ -27,9 +27,9 @@ public class AddProductCommandParser {
     public AddProductCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_PRODUCT_ID, PREFIX_PRODUCT_QUANTITY);
+                PREFIX_MENU, PREFIX_PRODUCT_QUANTITY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PRODUCT_ID, PREFIX_PRODUCT_QUANTITY)
+        if (!arePrefixesPresent(argMultimap, PREFIX_MENU, PREFIX_PRODUCT_QUANTITY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProductCommand.MESSAGE_USAGE));
         }
@@ -38,7 +38,7 @@ public class AddProductCommandParser {
         Quantity quantity;
 
         try {
-            productId = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PRODUCT_ID).get());
+            productId = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_MENU).get());
             quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).get());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

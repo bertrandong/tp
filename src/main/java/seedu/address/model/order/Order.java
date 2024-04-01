@@ -19,10 +19,10 @@ public class Order implements Comparable<Order> {
     private Map<Product, Quantity> productMap;
 
     private Person customer;
-    private int totalCost = 0;
-    private int totalSales = 0;
+    private float totalCost = 0;
+    private float totalSales = 0;
 
-    private int profit = 0;
+    private float profit = 0;
 
     /**
      * Constructs an {@code Order} Object.
@@ -241,9 +241,9 @@ public class Order implements Comparable<Order> {
      * Updates the total sales of the order.
      */
     private void updateTotalSales() {
-        int newTotalSales = 0;
+        float newTotalSales = 0;
         for (Map.Entry<Product, Quantity> entry : productMap.entrySet()) {
-            newTotalSales += Integer.valueOf(entry.getKey().getSales()) * entry.getValue().getValue();
+            newTotalSales += Float.parseFloat(entry.getKey().getSales()) * entry.getValue().getValue();
         }
         this.totalSales = newTotalSales;
     }
@@ -252,9 +252,9 @@ public class Order implements Comparable<Order> {
      * Updates the total cost of the order.
      */
     private void updateTotalCost() {
-        int newTotalCost = 0;
+        float newTotalCost = 0;
         for (Map.Entry<Product, Quantity> entry : productMap.entrySet()) {
-            newTotalCost += Integer.valueOf(entry.getKey().getCost()) * entry.getValue().getValue();
+            newTotalCost += Float.parseFloat(entry.getKey().getCost()) * entry.getValue().getValue();
         }
         this.totalCost = newTotalCost;
     }
@@ -279,7 +279,7 @@ public class Order implements Comparable<Order> {
      *
      * @return the sales of the order
      */
-    public int getTotalSales() {
+    public float getTotalSales() {
         return this.totalSales;
     }
 
@@ -288,7 +288,7 @@ public class Order implements Comparable<Order> {
      *
      * @return the cost of the order
      */
-    public int getTotalCost() {
+    public float getTotalCost() {
         return this.totalCost;
     }
 
@@ -297,7 +297,7 @@ public class Order implements Comparable<Order> {
      *
      * @return the cost of the order
      */
-    public int getProfit() {
+    public float getProfit() {
         return this.profit;
     }
 

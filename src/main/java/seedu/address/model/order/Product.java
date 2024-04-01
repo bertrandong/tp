@@ -18,7 +18,7 @@ public class Product {
      */
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public static final String PRICE_VALIDATION_REGEX = "\\d{1,}";
+    public static final String PRICE_VALIDATION_REGEX = "[+-]?([0-9]*[.])?[0-9]+";
     private String name;
     private String sales;
     private String cost;
