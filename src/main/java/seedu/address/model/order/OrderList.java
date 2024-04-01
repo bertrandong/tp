@@ -10,7 +10,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.exceptions.OrderNotFoundException;
-import seedu.address.model.person.Person;
 
 /**
  * Represents the list of active orders in the addressbook.
@@ -126,12 +125,10 @@ public class OrderList implements Iterable<Order> {
         if (oldOrder == null) {
             throw new OrderNotFoundException();
         }
-        Person respectiveCustomer = oldOrder.getCustomer();
         int oldOrderIndex = internalList.indexOf(oldOrder);
         toEdit.setID(oldOrder.getId());
         internalList.set(oldOrderIndex, toEdit);
         orderList.put(orderId, toEdit);
-        //respectiveCustomer.editOrder(oldOrder.getId(), toEdit);
     }
 
     /**
@@ -225,7 +222,6 @@ public class OrderList implements Iterable<Order> {
         }
 
         OrderList otherOrderList = (OrderList) other;
-        //return orderList.equals(otherOrderList.orderList);
         return orderList.equals(otherOrderList.orderList)
                 && internalList.equals(otherOrderList.internalList);
     }

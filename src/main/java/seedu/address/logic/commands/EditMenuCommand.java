@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -81,11 +82,11 @@ public class EditMenuCommand extends EditCommand {
     private static Product createEditedProduct(Product productToEdit, EditProductDescriptor editProductDescriptor) {
         assert productToEdit != null;
 
-        if (editProductDescriptor.getName() != null) {
-            return new Product(editProductDescriptor.getName());
-        } else {
-            return new Product(productToEdit.getName());
-        }
+        String cost = editProductDescriptor.getCost().orElse(productToEdit.getCost());
+        String sales = editProductDescriptor.getSales().orElse(productToEdit.getSales());
+        String name = editProductDescriptor.getName().orElse(productToEdit.getName());
+
+        return new Product(name, cost, sales);
     }
 
     @Override
@@ -118,6 +119,8 @@ public class EditMenuCommand extends EditCommand {
      */
     public static class EditProductDescriptor {
         private String name;
+        private String cost;
+        private String sales;
 
         public EditProductDescriptor() {}
 
@@ -127,25 +130,45 @@ public class EditMenuCommand extends EditCommand {
          */
         public EditProductDescriptor(EditProductDescriptor toCopy) {
             setName(toCopy.name);
+            setCost(toCopy.cost);
+            setSales(toCopy.sales);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAllFieldsEdited() {
-            return name != null;
+            return name != null || cost != null || sales != null;
         }
 
         public void setProduct(Product product) {
             this.name = product.getName();
+            this.cost = product.getCost();
+            this.sales = product.getSales();
         }
 
         public void setName(String name) {
             this.name = name;
         }
 
-        public String getName() {
-            return name;
+        public Optional<String> getName() {
+            return Optional.ofNullable(name);
+        }
+
+        public void setCost(String cost) {
+            this.cost = cost;
+        }
+
+        public Optional<String> getCost() {
+            return Optional.ofNullable(cost);
+        }
+
+        public void setSales(String sales) {
+            this.sales = sales;
+        }
+
+        public Optional<String> getSales() {
+            return Optional.ofNullable(sales);
         }
 
         @Override
@@ -160,13 +183,18 @@ public class EditMenuCommand extends EditCommand {
             }
 
             EditProductDescriptor otherEditProductDescriptor = (EditProductDescriptor) other;
-            return Objects.equals(name, otherEditProductDescriptor.name);
+            return Objects.equals(name, otherEditProductDescriptor.name)
+                    && Objects.equals(cost, otherEditProductDescriptor.cost)
+                    && Objects.equals(sales, otherEditProductDescriptor.sales);
+
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
                     .add("name", name)
+                    .add("cost", cost)
+                    .add("sales", sales)
                     .toString();
         }
     }

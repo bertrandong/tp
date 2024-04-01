@@ -18,7 +18,19 @@
                 <Insets bottom="5" left="15" right="15" top="15" />
             </padding>
             <HBox alignment="CENTER_LEFT" prefWidth="130.0" spacing="5" translateY="-8.0">
-                <Label fx:id="productName" styleClass="cell_big_label">
+                <Label fx:id="productName" styleClass="cell_small_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="productCost" styleClass="cell_small_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="productSales" styleClass="cell_small_label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE" />

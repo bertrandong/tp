@@ -17,6 +17,7 @@ public class JsonAdaptedProduct {
 
     private final String name;
 
+
     /**
      * Constructs a {@code JsonAdaptedProduct} with the given product details.
      * @param name name of the Product.

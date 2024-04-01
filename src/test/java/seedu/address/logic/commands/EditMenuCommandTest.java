@@ -46,6 +46,26 @@ public class EditMenuCommandTest {
     }
 
     @Test
+    public void execute_oneFieldSpecifiedUnfilteredList_success() {
+        Index indexLastProduct = Index.fromOneBased(model.getFilteredMenuList().size());
+        Product lastProduct = model.getFilteredMenuList().get(indexLastProduct.getZeroBased());
+
+        ProductBuilder productInList = new ProductBuilder(lastProduct);
+        Product editedProduct = productInList.withCost("50").build();
+
+        EditMenuCommand.EditProductDescriptor descriptor = new EditProductDescriptorBuilder().withCost("50").build();
+        EditMenuCommand editMenuCommand = new EditMenuCommand(indexLastProduct, descriptor);
+
+        String expectedMessage = String.format(EditMenuCommand.MESSAGE_EDIT_PRODUCT_SUCCESS,
+                Messages.format(editedProduct));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setProduct(lastProduct, editedProduct);
+
+        assertCommandSuccess(editMenuCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditMenuCommand editMenuCommand = new EditMenuCommand(INDEX_FIRST_PRODUCT,
                 new EditProductDescriptor());
