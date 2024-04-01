@@ -49,16 +49,6 @@ public class Order implements Comparable<Order> {
      * Contructs an {@code Order} object with {@code map}.
      * @param map Mappings of Products and Quantity
      */
-    public Order(Map<Product, Quantity> map) {
-        productMap = map;
-        this.stageContext = new StageContext();
-        updateNumbers();
-    }
-
-    /**
-     * Contructs an {@code Order} object with {@code map}.
-     * @param map Mappings of Products and Quantity
-     */
     public Order(int id, Person customer, Map<Product, Quantity> map, StageContext stageContext) {
         this.id = id;
         this.customer = customer;

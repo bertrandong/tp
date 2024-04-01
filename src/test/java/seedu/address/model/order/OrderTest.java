@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_COOKIE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_CUPCAKE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_ONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_THREE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_TWO;
 import static seedu.address.testutil.TypicalOrders.COOKIES_ONLY;
 import static seedu.address.testutil.TypicalOrders.CUPCAKES_AND_COOKIES;
 import static seedu.address.testutil.TypicalOrders.CUPCAKES_ONLY;
@@ -66,15 +71,21 @@ public class OrderTest {
 
     @Test
     public void toStringMethod() {
+        Order newCupcakesOnly = new OrderBuilder().withIndex(1)
+                .withProductQuantity(VALID_PRODUCT_CUPCAKE, VALID_QUANTITY_THREE).build();
+        Order newCupcakesAndCookies = new OrderBuilder().withIndex(3)
+                .withProductQuantity(VALID_PRODUCT_CUPCAKE, VALID_QUANTITY_ONE)
+                .withProductQuantity(VALID_PRODUCT_COOKIE, VALID_QUANTITY_TWO).build();
+
         // single product order
         String expectedCupcakes = "Cupcake,3\nUnder Preparation\n"
                 + "Total Cost: 0.0\n" + "Total Sales: 0.0\n" + "Profit: 0.0\n";
-        assertEquals(expectedCupcakes, CUPCAKES_ONLY.toString());
+        assertEquals(expectedCupcakes, newCupcakesOnly.toString());
 
         // multiple products order
         String expectedCupcakesAndCookies = "Cookie,2\nCupcake,1\nUnder Preparation\n"
                 + "Total Cost: 0.0\n" + "Total Sales: 0.0\n" + "Profit: 0.0\n";
-        assertEquals(expectedCupcakesAndCookies, CUPCAKES_AND_COOKIES.toString());
+        assertEquals(expectedCupcakesAndCookies, newCupcakesAndCookies.toString());
     }
 
     @Test
@@ -156,4 +167,11 @@ public class OrderTest {
         assertEquals(7 * 5, order.getProfit());
     }
 
+    @Test
+    public void copyOrder() {
+        Order order = new OrderBuilder().withProductPriceQuantity("Cupcakes", "0", "0", "5")
+                .build();
+        Order copiedOrder = new Order(order);
+        assertEquals(order, copiedOrder);
+    }
 }
