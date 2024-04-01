@@ -186,6 +186,44 @@ Format: `cancel ORDER_ID`
 Example:
 * `delete 19` will delete order with `ORDER_ID` of `19`.
 
+### Adding a product to the menu: `menu`
+
+You can add a product to be displayed on the product menu.
+
+Format: `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
+
+* `PRODUCT_COSTS` refer to the costs incurred to make the product.
+* `PRODUCT_SALES` refer to how much the product is being sold for.
+* The order of which `pc/PRODUCT_COSTS` or `ps/PRODUCT_SALES` is being input does not matter.
+
+Example:
+* `menu pn/Cupcake pc/1 ps/2`
+* `menu pn/Tart ps/6 pc/2`
+
+### Editing a product on the menu: `edit`
+
+You can edit an existing product on the product menu.
+
+Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
+
+* Edits the product of the specified `MENU_ID`. The `MENU_ID` refers to the number reflected on the product menu beside the product name. The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+Examples:
+* `edit m/1 pn/Pie` Edits the product name of the product with `MENU_ID` of 1 to be `Pie`.
+* `edit m/2 pc/5 ps/12` Edits the product costs and sales of the product with `MENU_ID` of 2 to be `5` and `12` respectively.
+
+### Deleting a product from the menu: `delete`
+
+You can delete the specified product from the product menu.
+
+Format: `delete m/MENU_ID`
+
+* Deletes the product of the specified `MENU_ID`.
+* The `MENU_ID` refers to the number reflected on the product menu beside the product name.
+* The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
+
 ### Clearing all entries : `clear`
 
 You can clear all entries from your address book.
