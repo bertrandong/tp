@@ -67,11 +67,11 @@ public class OrderTest {
     @Test
     public void toStringMethod() {
         // single product order
-        String expectedCupcakes = "Cupcake,3\n";
+        String expectedCupcakes = "Cupcake,3\nUnder Preparation\n";
         assertEquals(expectedCupcakes, CUPCAKES_ONLY.toString());
 
         // multiple products order
-        String expectedCupcakesAndCookies = "Cookie,2\nCupcake,1\n";
+        String expectedCupcakesAndCookies = "Cookie,2\nCupcake,1\nUnder Preparation\n";
         assertEquals(expectedCupcakesAndCookies, CUPCAKES_AND_COOKIES.toString());
     }
 }

@@ -230,6 +230,11 @@ public class AddMenuCommandTest {
         public ObservableList<Order> getFilteredOrderList() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Order goToNextStage(Order target) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

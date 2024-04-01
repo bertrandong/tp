@@ -281,6 +281,8 @@ public class Order implements Comparable<Order> {
             str.append(productMap.get(product).getValue());
             str.append("\n");
         }
+        str.append(stageContext);
+        str.append("\n");
         return str.toString();
     }
 }
