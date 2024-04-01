@@ -282,4 +282,7 @@ Action | Format, Examples
 **Create order** | `order`
 **Cancel order** | `cancel ORDER_ID`
 **Edit order** | `edit o/ORDER_ID pn/PRODUCT_NAME pq/PRODUCT_QUANTITY`
+**Add product to menu** | `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
+**Edit product on menu** | `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
+**Delete product on menu** | `delete m/MENU_ID`
 **Help** | `help`
