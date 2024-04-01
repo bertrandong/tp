@@ -198,6 +198,14 @@ public class OrderList implements Iterable<Order> {
         internalList.setAll(orders);
     }
 
+    public void setOrders(OrderList otherOrderList) {
+        List<Order> list = otherOrderList.internalList;
+        for (Order d: list) {
+            orderList.put(d.getId(), d);
+        }
+        internalList.setAll(list);
+    }
+
     /**
      * Returns the boolean value of whether the orderId has an Order object associated with it.
      * @param orderId orderId to check if there is an Order object associated with it.

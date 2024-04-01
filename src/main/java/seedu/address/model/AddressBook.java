@@ -64,7 +64,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.activeOrders.setOrders(orders);
     }
 
-    public void setCompletedOrders(List<Order> completedOrders) {
+    public void setCompletedOrders(OrderList completedOrders) {
         this.completedOrders.setOrders(completedOrders);
     }
 
@@ -222,6 +222,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         completedOrders.addOrderWithID(orderToComplete, orderToComplete.getId());
     }
 
+
+    public void clearCompletedOrders() {
+        completedOrders.clearOrders();
+    }
+
     public boolean orderIdExists(int orderId) {
         return activeOrders.orderIdExist(orderId);
     }
@@ -264,8 +269,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         return activeOrders.asUnmodifiableObservableList();
     }
 
-    public ObservableList<Order> getCompletedOrderList() {
-        return completedOrders.asUnmodifiableObservableList();
+    public OrderList getCompletedOrderList() {
+        return completedOrders;
     }
 
     public ObservableList<Product> getMenuList() {

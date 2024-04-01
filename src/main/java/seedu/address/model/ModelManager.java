@@ -132,6 +132,11 @@ public class ModelManager implements Model {
         addressBook.removeOrder(id);
     }
 
+    @Override
+    public void completeOrder(int id) {
+        addressBook.completeOrder(id);
+    }
+
     /**
      * Replaces the given order {@code target} with {@code editedPerson}.
      * {@code target} must exist in the order list.
@@ -152,6 +157,11 @@ public class ModelManager implements Model {
     @Override
     public boolean orderIdExists(int orderId) {
         return addressBook.orderIdExists(orderId);
+    }
+
+    @Override
+    public void clearCompletedOrders() {
+        addressBook.clearCompletedOrders();
     }
 
     @Override

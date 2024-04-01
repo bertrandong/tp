@@ -105,6 +105,8 @@ public interface Model {
      */
     void deleteOrder(int id);
 
+    void completeOrder(int id);
+
     /**
      * Sets the quantity of the product in the order.
      * If the product is not in the order yet, add the product and set its quantity.
@@ -119,6 +121,11 @@ public interface Model {
      * @return boolean value if Order exists for this orderId
      */
     boolean orderIdExists(int orderId);
+
+    /**
+     * Method to clear the completed order list in the addressbook.
+     */
+    void clearCompletedOrders();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

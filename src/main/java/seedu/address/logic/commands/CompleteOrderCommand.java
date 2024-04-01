@@ -34,13 +34,19 @@ public class CompleteOrderCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         String successStr = "";
+        boolean isFirstOrder = true;
         for (Index targetIndex : targetIndexArr) {
             if (!model.orderIdExists(targetIndex.getOneBased())) {
                 throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
             }
             Order completedOrder = model.findOrderByIndex(targetIndex.getOneBased());
-            model.deleteOrder(targetIndex.getOneBased());
-            successStr = successStr + ", " + targetIndex.getOneBased();
+            model.completeOrder(targetIndex.getOneBased());
+            if (isFirstOrder) {
+                successStr += targetIndex.getOneBased();
+                isFirstOrder = false;
+            } else {
+                successStr = successStr + ", " + targetIndex.getOneBased();
+            }
         }
 
         return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, successStr));
