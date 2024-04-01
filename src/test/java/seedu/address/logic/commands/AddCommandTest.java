@@ -158,6 +158,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasOrder(Order target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Order editOrder(Order order, Product product, Quantity quantity) {
             throw new AssertionError("This method should not be called.");
         }
@@ -209,6 +214,11 @@ public class AddCommandTest {
 
         @Override
         public void setProduct(Product target, Product editedProduct) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Product findProductByIndex(int id) {
             throw new AssertionError("This method should not be called.");
         }
 

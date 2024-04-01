@@ -67,11 +67,92 @@ public class OrderTest {
     @Test
     public void toStringMethod() {
         // single product order
-        String expectedCupcakes = "Cupcake,3\nUnder Preparation\n";
+        String expectedCupcakes = "Cupcake,3\nUnder Preparation\n" + "Total Cost: 0.0\n" + "Total Sales: 0.0\n" + "Profit: 0.0\n";
         assertEquals(expectedCupcakes, CUPCAKES_ONLY.toString());
 
         // multiple products order
-        String expectedCupcakesAndCookies = "Cookie,2\nCupcake,1\nUnder Preparation\n";
+        String expectedCupcakesAndCookies = "Cookie,2\nCupcake,1\nUnder Preparation\n" + "Total Cost: 0.0\n" + "Total Sales: 0.0\n"
+                + "Profit: 0.0\n";
         assertEquals(expectedCupcakesAndCookies, CUPCAKES_AND_COOKIES.toString());
     }
+
+    @Test
+    public void updateTotalSales() {
+
+        Order order = new OrderBuilder().withProductPriceQuantity("Cupcakes", "0", "0", "5")
+                .build();
+        assertEquals(0, order.getTotalSales());
+
+        order = new OrderBuilder().withProductPriceQuantity("Cupcakes", "0", "10", "5")
+                .build();
+        assertEquals(10 * 5, order.getTotalSales());
+
+        //add product
+        order.addProduct(new Product("Cookies", "10", "20"), new Quantity(3));
+        assertEquals(10 * 5 + 20 * 3, order.getTotalSales());
+
+        //remove product
+        order = order.deleteProduct(new Product("Cookies"));
+        assertEquals(10 * 5, order.getTotalSales());
+
+        //update product
+        order = order.updateOrder(new Product("Cupcakes"), new Quantity(7));
+        assertEquals(7 * 10, order.getTotalSales());
+    }
+
+    @Test
+    public void updateTotalCost() {
+        //cost 0, sales non-zero
+        Order order = new OrderBuilder().withProductPriceQuantity("Cupcakes", "0", "5", "5")
+                .build();
+        assertEquals(0, order.getTotalCost());
+
+        //cost 5, sales 0
+        order = new OrderBuilder().withProductPriceQuantity("Cupcakes", "5", "0", "5")
+                .build();
+        assertEquals(25, order.getTotalCost());
+
+        //add product
+        order.addProduct(new Product("Cookies", "10", "20"), new Quantity(3));
+        assertEquals(5 * 5 + 10 * 3, order.getTotalCost());
+
+        //remove product
+        order = order.deleteProduct(new Product("Cookies"));
+        assertEquals(5 * 5, order.getTotalCost());
+
+        //update product
+        order = order.updateOrder(new Product("Cupcakes"), new Quantity(7));
+        assertEquals(7 * 5, order.getTotalCost());
+    }
+
+    @Test
+    public void updateProfit() {
+        //cost 0, sales 0
+        Order order = new OrderBuilder().withProductPriceQuantity("Cupcakes", "0", "0", "5")
+                .build();
+        assertEquals(0, order.getProfit());
+
+        //cost 5, sales 0
+        order = new OrderBuilder().withProductPriceQuantity("Cupcakes", "5", "0", "5")
+                .build();
+        assertEquals(-25, order.getProfit());
+
+        //cost 0, sales 5
+        order = new OrderBuilder().withProductPriceQuantity("Cupcakes", "0", "5", "5")
+                .build();
+        assertEquals(25, order.getProfit());
+
+        //add product
+        order.addProduct(new Product("Cookies", "10", "20"), new Quantity(3));
+        assertEquals(5 * 5 + 10 * 3, order.getProfit());
+
+        //remove product
+        order = order.deleteProduct(new Product("Cookies"));
+        assertEquals(5 * 5, order.getProfit());
+
+        //update product
+        order = order.updateOrder(new Product("Cupcakes"), new Quantity(7));
+        assertEquals(7 * 5, order.getProfit());
+    }
+
 }

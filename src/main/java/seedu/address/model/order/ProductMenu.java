@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.exceptions.DuplicateProductException;
+import seedu.address.model.exceptions.OrderNotFoundException;
 import seedu.address.model.exceptions.ProductNotFoundException;
 
 /**
@@ -40,6 +41,23 @@ public class ProductMenu implements Iterable<Product> {
         if (!internalList.remove(toDelete)) {
             throw new ProductNotFoundException();
         }
+    }
+
+    /**
+     * Gets a product by its zero-based Index.
+     *
+     * @param id the zero-based Index of the product
+     * @return the product to search for
+     */
+    public Product findProductByIndex(int id) {
+
+        Product product = internalList.get(id);
+
+        if (product == null) {
+            throw new OrderNotFoundException();
+        }
+
+        return product;
     }
 
     /**

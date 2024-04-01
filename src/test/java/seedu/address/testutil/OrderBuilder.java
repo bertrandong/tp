@@ -67,6 +67,19 @@ public class OrderBuilder {
     }
 
     /**
+     * Adds to the productMap of the {@code Order} that we are building.
+     *
+     * @param product the name of the product to add
+     * @param quantity the number of the products to add
+     */
+    public OrderBuilder withProductPriceQuantity(String product, String cost, String sales, String quantity) {
+        Product productToAdd = new Product(product, cost, sales);
+        Quantity quantityToAdd = new Quantity(Integer.parseInt(quantity));
+        this.productMap.put(productToAdd, quantityToAdd);
+        return this;
+    }
+
+    /**
      * Sets the {@code Person} of the {@code Order} that we are building.
      */
     public OrderBuilder withPerson(Person person) {

@@ -8,14 +8,38 @@ import org.junit.jupiter.api.Test;
 
 public class ProductTest {
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Product((String) null));
+    public void constructor_nameNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Product(null, "15", "18"));
     }
 
     @Test
-    public void constructor_invalidProduct_throwsIllegalArgumentException() {
-        String invalidProduct = "";
-        assertThrows(IllegalArgumentException.class, () -> new Product(invalidProduct));
+    public void constructor_costNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Product("Cupcake", null, "18"));
+    }
+
+    @Test
+    public void constructor_salesNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Product("Cupcake", "15", null));
+    }
+
+    @Test
+    public void constructor_invalidProductName_throwsIllegalArgumentException() {
+        String invalidProductName = "";
+        assertThrows(IllegalArgumentException.class, () -> new Product(invalidProductName, "15", "18"));
+    }
+
+    @Test
+    public void constructor_invalidProductSales_throwsIllegalArgumentException() {
+        String invalidProductSales = "";
+        assertThrows(IllegalArgumentException.class, () ->
+                new Product("Cupcakes", "15", invalidProductSales));
+    }
+
+    @Test
+    public void constructor_invalidProductCost_throwsIllegalArgumentException() {
+        String invalidProductCost = "";
+        assertThrows(IllegalArgumentException.class, () ->
+                new Product("Cupcakes", invalidProductCost, "18"));
     }
 
     @Test
@@ -39,11 +63,29 @@ public class ProductTest {
     }
 
     @Test
+    public void isValidPrice() {
+        // null sales
+        assertThrows(NullPointerException.class, () -> Product.isValidPrice(null));
+
+        // invalid saless
+        assertFalse(Product.isValidPrice("")); // empty string
+        assertFalse(Product.isValidPrice(" ")); // spaces only
+        assertFalse(Product.isValidPrice(" 1")); // first character space
+        assertFalse(Product.isValidPrice("Cupcake")); // only non-numeric characters
+
+        // valid sales
+        assertTrue(Product.isValidPrice("15")); // $15
+        assertTrue(Product.isValidPrice("1")); // exactly one digit
+        assertTrue(Product.isValidPrice("0")); // free
+        assertTrue(Product.isValidPrice("934579475985")); // long digits
+    }
+
+    @Test
     public void equals() {
-        Product product = new Product("Valid Product");
+        Product product = new Product("Valid Product", "15", "18");
 
         // same values -> returns true
-        assertTrue(product.equals(new Product("Valid Product")));
+        assertTrue(product.equals(new Product("Valid Product", "15", "18")));
 
         // same object -> returns true
         assertTrue(product.equals(product));
@@ -54,7 +96,13 @@ public class ProductTest {
         // different types -> returns false;
         assertFalse(product.equals(5.0f));
 
-        // different values -> returns false
-        assertFalse(product.equals(new Product("Other Valid Product")));
+        // different name same sales and cost -> returns false
+        assertFalse(product.equals(new Product("Other Valid Product", "15", "18")));
+
+        // different sales same name and cost -> returns true
+        assertTrue(product.equals(new Product("Valid Product", "15", "17")));
+
+        // different cost same name and sales -> returns true
+        assertTrue(product.equals(new Product("Valid Product", "16", "18")));
     }
 }

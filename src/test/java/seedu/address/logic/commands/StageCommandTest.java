@@ -33,7 +33,10 @@ public class StageCommandTest {
         StageCommand stageCommand = new StageCommand(Index.fromOneBased(1));
         expectedModel.goToNextStage(CUPCAKES_ONLY);
         String expectedMessage = "Staged Order: Cupcake,3\n"
-                + "Sent For Delivery\n";
+                + "Sent For Delivery\n"
+                + "Total Cost: 0.0\n"
+                + "Total Sales: 0.0\n"
+                + "Profit: 0.0\n";
         assertCommandSuccess(stageCommand, model, expectedMessage, expectedModel);
     }
 }

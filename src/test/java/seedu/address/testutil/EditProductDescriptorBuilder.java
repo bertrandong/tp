@@ -23,6 +23,8 @@ public class EditProductDescriptorBuilder {
     public EditProductDescriptorBuilder(Product product) {
         descriptor = new EditProductDescriptor();
         descriptor.setName(product.getName());
+        descriptor.setSales(product.getSales());
+        descriptor.setCost(product.getCost());
     }
 
     /**
@@ -30,6 +32,22 @@ public class EditProductDescriptorBuilder {
      */
     public EditProductDescriptorBuilder withName(String name) {
         descriptor.setName(name);
+        return this;
+    }
+
+    /**
+     * Sets the cost of the {@code EditProductDescriptor} that we are building.
+     */
+    public EditProductDescriptorBuilder withCost(String cost) {
+        descriptor.setCost(cost);
+        return this;
+    }
+
+    /**
+     * Sets the sales of the {@code EditProductDescriptor} that we are building.
+     */
+    public EditProductDescriptorBuilder withSales(String sales) {
+        descriptor.setName(sales);
         return this;
     }
 
