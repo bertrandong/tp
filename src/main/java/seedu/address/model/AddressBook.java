@@ -168,6 +168,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         return target.updateOrder(currProduct, newQuantity);
     }
 
+    /**
+     * Advances the target order to the next stage.
+     *
+     * @param target order to update
+     * @return a copy of modified order.
+     */
     public Order goToNextStage(Order target) {
         requireNonNull(target);
         return target.goToNextStage();

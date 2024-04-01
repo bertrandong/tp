@@ -55,14 +55,16 @@
       "Cupcake" : 3
     },
     "customerName" : "Alice Pauline",
-    "customerPhone" : "94351253"
+    "customerPhone" : "94351253",
+    "stage" : "Under Preparation"
   }, {
     "id" : 2,
     "productMap" : {
       "Cookie" : 2
     },
     "customerName" : "Benson Meier",
-    "customerPhone" : "98765432"
+    "customerPhone" : "98765432",
+    "stage" : "Under Preparation"
   }, {
     "id" : 3,
     "productMap" : {
@@ -70,6 +72,7 @@
       "Cupcake" : 1
     },
     "customerName" : "Carl Kurz",
-    "customerPhone" : "95352563"
+    "customerPhone" : "95352563",
+    "stage" : "Under Preparation"
   } ]
 }

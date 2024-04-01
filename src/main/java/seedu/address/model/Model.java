@@ -113,6 +113,12 @@ public interface Model {
      */
     Order editOrder(Order target, Product currProduct, Quantity newQuantity);
 
+    /**
+     * Advances the target order to the next stage.
+     *
+     * @param target order to update
+     * @return a copy of modified order.
+     */
     Order goToNextStage(Order target);
 
     /** Returns an unmodifiable view of the filtered person list */

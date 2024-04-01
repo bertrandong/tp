@@ -1,5 +1,8 @@
 package seedu.address.model.order.stage;
 
+/**
+ * State of an order as received by customer, i.e. completed.
+ */
 public class ReceivedByCustomerState implements StageState {
     @Override
     public StageState getNextStage() {

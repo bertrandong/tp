@@ -1,6 +1,9 @@
 package seedu.address.model.order.stage;
 
-public class ReadyForDeliveryState implements StageState{
+/**
+ * State of an order as ready for delivery.
+ */
+public class ReadyForDeliveryState implements StageState {
     @Override
     public StageState getNextStage() {
         return new SentForDeliveryState();

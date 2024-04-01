@@ -2,10 +2,12 @@ package seedu.address.model.order.stage;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.InputMismatchException;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 
+/**
+ * Represents an instance of the state machine for order stages.
+ * Stores the current stage of an order.
+ */
 public class StageContext {
 
     // Solution below inspired by
@@ -21,7 +23,12 @@ public class StageContext {
         this.state = state;
     }
 
-
+    /**
+     * Constructs a stage by string saved in Json.
+     *
+     * @param str string saved in json.
+     * @throws IllegalValueException if the string does not match any expected pattern.
+     */
     public StageContext(String str) throws IllegalValueException {
         requireNonNull(str);
         switch (str) {

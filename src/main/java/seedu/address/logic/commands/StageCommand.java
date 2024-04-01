@@ -13,6 +13,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
 
+/**
+ * Moves an order to the next stage. If the order is already at its final
+ * stage, keep it in the final stage.
+ */
 public class StageCommand extends Command {
     public static final String COMMAND_WORD = "stage";
 
@@ -26,10 +30,14 @@ public class StageCommand extends Command {
 
     private Index index;
 
+    /**
+     * @param index of the order in the filtered order list to edit
+     */
     public StageCommand(Index index) {
         this.index = index;
     }
 
+    @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Order> lastShownList = model.getFilteredOrderList();

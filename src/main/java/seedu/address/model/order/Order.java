@@ -204,6 +204,11 @@ public class Order implements Comparable<Order> {
         this.customer = person;
     }
 
+    /**
+     * Advances the order to the next stage.
+     *
+     * @return a new instance of modified order.
+     */
     public Order goToNextStage() {
         this.stageContext.goToNextStage();
         return new Order(this);

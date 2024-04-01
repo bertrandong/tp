@@ -8,7 +8,6 @@ import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
 import seedu.address.model.order.stage.StageContext;
 import seedu.address.model.order.stage.StageState;
-import seedu.address.model.order.stage.UnderPreparationState;
 import seedu.address.model.person.Person;
 
 /**
@@ -75,6 +74,9 @@ public class OrderBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code StageContext} of the {@code Order} that we are building.
+     */
     public OrderBuilder withStage(StageState state) {
         this.stageContext = new StageContext(state);
         return this;

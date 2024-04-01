@@ -8,6 +8,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.StageCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments for StageCommand.
+ */
 public class StageCommandParser implements Parser<StageCommand> {
 
     /**

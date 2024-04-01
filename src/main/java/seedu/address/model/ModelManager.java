@@ -132,10 +132,6 @@ public class ModelManager implements Model {
         addressBook.removeOrder(id);
     }
 
-    /**
-     * Replaces the given order {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the order list.
-     */
     public void setOrder(Order target, Order editedOrder) {
         requireAllNonNull(target, editedOrder);
 
