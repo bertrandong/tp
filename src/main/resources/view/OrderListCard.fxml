@@ -28,6 +28,9 @@
                 </Label>
             </HBox>
             <Label fx:id="customerName" styleClass="cell_small_label" text="\$customer" translateY="-8.0" />
+            <Label fx:id="totalCost" styleClass="cell_small_label" translateY="-8.0" />
+            <Label fx:id="totalSales" styleClass="cell_small_label" translateY="-8.0" />
+            <Label fx:id="profit" styleClass="cell_small_label" translateY="-8.0" />
             <FlowPane fx:id="products" maxHeight="100.0" translateY="-3.0" />
         </VBox>
       <rowConstraints>

@@ -137,6 +137,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if an order with the same identity exists in the OrderList.
+     */
+    public boolean hasOrder(Order order) {
+        requireNonNull(order);
+        return orders.contains(order);
+    }
+
+    /**
      * Adds an {@code Order} to the {@code OrderList} of this addressbook with a predefined ID (for storage purposes).
      * @param order Order Object to be added into the Order List.
      */
@@ -249,6 +257,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         menu.editProduct(target, editedProduct);
     }
 
+    /**
+     * Gets a product in the {@code ProductMenu} by the zero-based Index.
+     *
+     * @param id the index of the {@code Product} to search for
+     * @return the {@code Product} to search for
+     */
+    public Product findProductByIndex(int id) {
+        return menu.findProductByIndex(id);
+    }
 
     //// util methods
 

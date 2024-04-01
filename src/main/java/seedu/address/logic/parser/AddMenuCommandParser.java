@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_SALES;
 
 import java.util.stream.Stream;
 
@@ -24,17 +26,21 @@ public class AddMenuCommandParser implements Parser<AddMenuCommand> {
     public AddMenuCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_PRODUCT_NAME);
+                PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_COST, PREFIX_PRODUCT_SALES);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_COST, PREFIX_PRODUCT_SALES)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMenuCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_PRODUCT_NAME);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_COST, PREFIX_PRODUCT_SALES);
+
         Product product;
+
         try {
             product = ParserUtil.parseProduct(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
+            product.setCost(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRODUCT_COST).get()));
+            product.setSales(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRODUCT_SALES).get()));
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddMenuCommand.MESSAGE_USAGE), ive);

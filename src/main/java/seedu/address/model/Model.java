@@ -174,6 +174,11 @@ public interface Model {
     boolean hasProduct(Product product);
 
     /**
+     * Returns true if an order exists in the OrderList.
+     */
+    boolean hasOrder(Order order);
+
+    /**
      * Adds the given product.
      * {@code person} must not already exist in the menu.
      */
@@ -207,4 +212,11 @@ public interface Model {
      */
     void updateFilteredMenuList(Predicate<Product> predicate);
 
+    /**
+     * Gets a product in the ProductMenu by its zero-based Index.
+     *
+     * @param id the zero-based Index of the product to find for
+     * @return the product to search for
+     */
+    Product findProductByIndex(int id);
 }
