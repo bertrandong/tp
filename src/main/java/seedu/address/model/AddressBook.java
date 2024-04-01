@@ -22,7 +22,8 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final OrderList orders;
+    private final OrderList activeOrders;
+    private final OrderList completedOrders;
     private final ProductMenu menu;
 
     /*
@@ -34,7 +35,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        orders = new OrderList();
+        activeOrders = new OrderList();
+        completedOrders = new OrderList();
         menu = new ProductMenu();
     }
 
@@ -59,7 +61,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public void setOrders(List<Order> orders) {
-        this.orders.setOrders(orders);
+        this.activeOrders.setOrders(orders);
+    }
+
+    public void setCompletedOrders(List<Order> completedOrders) {
+        this.completedOrders.setOrders(completedOrders);
     }
 
     public void setProducts(List<Product> products) {
@@ -74,6 +80,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setOrders(newData.getOrderList());
+        setCompletedOrders(newData.getCompletedOrderList());
         setOrderListIdCounter(newData.getOrderListCounter());
         setProducts(newData.getMenuList());
     }
@@ -117,7 +124,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      */
     public void addOrder(Order order) {
-        int orderCounter = orders.getOrderIdCounter();
+        int orderCounter = activeOrders.getOrderIdCounter();
         order.setID(orderCounter);
 
         Person editedCustomer = order.getCustomer();
@@ -126,7 +133,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         editedCustomer.setOrders(listToEdit);
         this.setPerson(order.getCustomer(), editedCustomer);
 
-        orders.addOrder(order);
+        activeOrders.addOrder(order);
     }
 
     /**
@@ -135,20 +142,20 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addOrderWithID(Order order) {
         int orderId = order.getId();
-        orders.addOrderWithID(order, orderId);
+        activeOrders.addOrderWithID(order, orderId);
     }
 
     public void setOrderListIdCounter(int counter) {
-        orders.setOrderIdCounter(counter);
+        activeOrders.setOrderIdCounter(counter);
     }
 
     @Override
     public Integer getOrderListCounter() {
-        return orders.getOrderIdCounter();
+        return activeOrders.getOrderIdCounter();
     }
 
     public Order findOrderByIndex(int id) {
-        return orders.getOrder(id);
+        return activeOrders.getOrder(id);
     }
 
     /**
@@ -165,7 +172,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setOrder(Order target, Order edittedOrder) {
         requireNonNull(edittedOrder);
 
-        orders.setOrder(target, edittedOrder);
+        activeOrders.setOrder(target, edittedOrder);
     }
 
     /**
@@ -200,11 +207,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         editedCustomer.setOrders(listToEdit);
         this.setPerson(orderToDelete.getCustomer(), editedCustomer);
 
-        orders.deleteOrder(id);
+        activeOrders.deleteOrder(id);
+    }
+
+    public void completeOrder(int id) {
+        Order orderToComplete = this.findOrderByIndex(id);
+        Person editedCustomer = orderToComplete.getCustomer();
+        ArrayList<Order> listToEdit = editedCustomer.getOrders();
+        listToEdit.remove(orderToComplete);
+        editedCustomer.setOrders(listToEdit);
+        this.setPerson(orderToComplete.getCustomer(), editedCustomer);
+
+        activeOrders.deleteOrder(id);
+        completedOrders.addOrderWithID(orderToComplete, orderToComplete.getId());
     }
 
     public boolean orderIdExists(int orderId) {
-        return orders.orderIdExist(orderId);
+        return activeOrders.orderIdExist(orderId);
+    }
     /**
      * Removes {@code Product} from the {@code ProductMenu} of this {@code AddressBook}.
      * @param key product to remove
@@ -241,7 +261,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //Make sure to implement abstract method for this
     public ObservableList<Order> getOrderList() {
-        return orders.asUnmodifiableObservableList();
+        return activeOrders.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Order> getCompletedOrderList() {
+        return completedOrders.asUnmodifiableObservableList();
     }
 
     public ObservableList<Product> getMenuList() {
@@ -249,11 +273,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public OrderList getOrderListClass() {
-        return orders;
+        return activeOrders;
     }
 
     public int getOrderListSize() {
-        return orders.size();
+        return activeOrders.size();
     }
 
     @Override
@@ -268,7 +292,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons) && orders.equals(otherAddressBook.orders);
+        return persons.equals(otherAddressBook.persons) && activeOrders.equals(otherAddressBook.activeOrders);
     }
 
     @Override

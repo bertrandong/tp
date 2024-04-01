@@ -20,12 +20,15 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
+    private CSVCompletedOrderStorage completedOrderStorage;
+
     /**
      * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
      */
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage, CSVCompletedOrderStorage completedOrderStorage) {
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.completedOrderStorage = completedOrderStorage;
     }
 
     // ================ UserPrefs methods ==============================

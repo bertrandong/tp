@@ -40,7 +40,7 @@ public class CompleteOrderCommand extends Command {
             }
             Order completedOrder = model.findOrderByIndex(targetIndex.getOneBased());
             model.deleteOrder(targetIndex.getOneBased());
-            successStr += targetIndex.getOneBased();
+            successStr = successStr + ", " + targetIndex.getOneBased();
         }
 
         return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, successStr));
