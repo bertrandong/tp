@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MENU;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 
 import seedu.address.commons.core.index.Index;
@@ -21,10 +21,10 @@ public class AddProductCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds products to the last created order "
             + "Parameters: "
-            + PREFIX_PRODUCT_ID + "PRODUCT INDEX "
+            + PREFIX_MENU + "PRODUCT INDEX "
             + PREFIX_PRODUCT_QUANTITY + "QUANTITY\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PRODUCT_ID + "1 "
+            + PREFIX_MENU + "1 "
             + PREFIX_PRODUCT_QUANTITY + "2";
     private static Order lastOrder;
 
@@ -80,14 +80,22 @@ public class AddProductCommand extends Command {
         Product product = model.findProductByIndex(productId.getZeroBased());
         //Add ability to add product to order
         if (lastOrder.getProductMap().containsKey(product)) {
-            lastOrder = lastOrder.changeQuantity(
+            Order newOrder = lastOrder.changeQuantity(
                     product, new Quantity(lastOrder.getQuantityValue(product) + quantity.getValue()));
+            model.setOrder(lastOrder, newOrder);
+            lastOrder = newOrder;
         } else {
-            lastOrder.addProduct(product, quantity);
+            if (!model.hasOrder(lastOrder)) {
+                lastOrder.addProduct(product, quantity);
+                Person customer = lastOrder.getCustomer();
+                model.addOrder(lastOrder, customer);
+            } else {
+                Order newOrder = lastOrder;
+                newOrder.addProduct(product, quantity);
+                model.setOrder(lastOrder, newOrder);
+                lastOrder = newOrder;
+            }
         }
-
-        Person customer = lastOrder.getCustomer();
-        model.addOrder(lastOrder, customer);
 
         return new CommandResult(generateSuccessMessage(product));
     }

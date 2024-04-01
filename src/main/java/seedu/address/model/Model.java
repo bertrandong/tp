@@ -160,6 +160,11 @@ public interface Model {
     boolean hasProduct(Product product);
 
     /**
+     * Returns true if an order exists in the OrderList.
+     */
+    boolean hasOrder(Order order);
+
+    /**
      * Adds the given product.
      * {@code person} must not already exist in the menu.
      */

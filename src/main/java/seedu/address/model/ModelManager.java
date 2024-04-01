@@ -121,6 +121,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasOrder(Order order) {
+        requireNonNull(order);
+        return addressBook.hasOrder(order);
+    }
+
+    @Override
     public void addOrder(Order newOrder, Person person) {
         newOrder.setCustomer(person);
         addressBook.addOrder(newOrder);
