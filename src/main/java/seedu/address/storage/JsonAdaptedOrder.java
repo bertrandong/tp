@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
+import seedu.address.model.order.stage.StageContext;
 import seedu.address.model.person.Person;
 
 /**
@@ -24,6 +25,7 @@ public class JsonAdaptedOrder {
     private Map<String, Integer> productMap;
     private String customerName;
     private String customerPhone;
+    private String stage;
 
     /**
      * Constructs a {@code JsonAdaptedOrder} with the given {@code order}.
@@ -32,12 +34,14 @@ public class JsonAdaptedOrder {
     public JsonAdaptedOrder(@JsonProperty("id") Integer id,
                             @JsonProperty("productMap") Map<String, Integer> productMap,
                             @JsonProperty("customerName") String customerName,
-                            @JsonProperty("customerPhone") String customerPhone
+                            @JsonProperty("customerPhone") String customerPhone,
+                            @JsonProperty("stage") String stage
                             ) {
         this.id = id;
         this.productMap = productMap;
         this.customerName = customerName;
         this.customerPhone = customerPhone;
+        this.stage = stage;
     }
 
     /**
@@ -57,7 +61,7 @@ public class JsonAdaptedOrder {
         Person orderCustomer = order.getCustomer();
         this.customerName = orderCustomer.getName().fullName;
         this.customerPhone = orderCustomer.getPhone().value;
-
+        this.stage = order.getStageContext().toString();
     }
 
     /**
@@ -65,7 +69,7 @@ public class JsonAdaptedOrder {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
-    public Order toModelType() {
+    public Order toModelType() throws IllegalValueException {
         Order modelOrder = new Order(this.id);
         Map<Product, Quantity> map = new HashMap<>();
         Set<String> jsonProduct = this.productMap.keySet();
@@ -78,6 +82,7 @@ public class JsonAdaptedOrder {
             map.put(currProd, currQuant);
         }
         modelOrder.setProductMap(map);
+        modelOrder.setStageContext(new StageContext(stage));
         return modelOrder;
     }
 }
