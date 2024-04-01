@@ -19,6 +19,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Product;
 import seedu.address.model.person.Person;
 
 /**
@@ -37,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private OrderListPanel orderListPanel;
+    private ProductMenuPanel productMenuPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -53,12 +55,17 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane orderListPanelPlaceholder;
 
     @FXML
+    private StackPane productMenuPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
 
     private ObservableList<Order> allOrders;
+
+    private ObservableList<Product> menuList;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -78,6 +85,8 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
 
         allOrders = logic.getFilteredOrderList();
+
+        menuList = logic.getFilteredMenuList();
     }
 
     public Stage getPrimaryStage() {
@@ -138,6 +147,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        productMenuPanel = new ProductMenuPanel(logic.getFilteredMenuList());
+        productMenuPanelPlaceholder.getChildren().add(productMenuPanel.getRoot());
     }
 
     /**
@@ -188,6 +200,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         showAllOrders();
+        showMenuList();
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -242,6 +255,17 @@ public class MainWindow extends UiPart<Stage> {
     public void showAllOrders() {
         if (!allOrders.isEmpty()) {
             orderListPanel.updateDisplayedOrders(allOrders);
+        }
+    }
+
+    /**
+     * Displays all orders in the menu list panel.
+     * This method checks if the list of all products is not empty before attempting to update the
+     * displayed products in the menu list panel. If the list is empty, no action is taken.
+     */
+    public void showMenuList() {
+        if (!menuList.isEmpty()) {
+            productMenuPanel.updateDisplayedProducts(menuList);
         }
     }
 }

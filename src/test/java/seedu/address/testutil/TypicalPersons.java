@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalMenu.getTypicalMenu;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrders;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Product;
 import seedu.address.model.person.Person;
 
 /**
@@ -77,6 +79,10 @@ public class TypicalPersons {
             copy.setCustomer(typicalPersons.get(k));
             typicalPersons.get(k).addOrder(copy);
             ab.addOrder(copy);
+        }
+        for (Product product : getTypicalMenu()) {
+            Product copy = new ProductBuilder(product).build();
+            ab.addProduct(copy);
         }
         return ab;
     }
