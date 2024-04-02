@@ -97,6 +97,7 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Order> orders = FXCollections.observableArrayList();
+        private final ObservableList<Order> completedOrders = FXCollections.observableArrayList();
         private final Integer orderIdCounter = 1;
 
         private final ObservableList<Product> menu = FXCollections.observableArrayList();
@@ -120,8 +121,14 @@ public class AddressBookTest {
             return orderIdCounter;
         }
 
+        @Override
         public ObservableList<Product> getMenuList() {
             return menu;
+        }
+
+        @Override
+        public ObservableList<Order> getCompletedOrderList() {
+            return completedOrders;
         }
     }
 }

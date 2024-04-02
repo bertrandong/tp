@@ -6,10 +6,12 @@ import java.util.ArrayList;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CompleteOrderCommand;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class CompleteOrderCommandParser implements Parser<CompleteOrderCommand>{
+/**
+ * Parses input arguments and creates a new CompleteOrderCommand object
+ */
+public class CompleteOrderCommandParser implements Parser<CompleteOrderCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand

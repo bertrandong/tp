@@ -64,7 +64,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.activeOrders.setOrders(orders);
     }
 
-    public void setCompletedOrders(OrderList completedOrders) {
+    public void setCompletedOrders(List<Order> completedOrders) {
         this.completedOrders.setOrders(completedOrders);
     }
 
@@ -141,7 +141,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasOrder(Order order) {
         requireNonNull(order);
-        return orders.contains(order);
+        return activeOrders.contains(order);
     }
 
     /**
@@ -204,7 +204,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Removes {@code Order} from the {@code OrderList} of this {@code AddressBook}.
      *
-     * @param id index of order to remove
+     * @param id index of order to remove.
      */
     public void removeOrder(int id) {
         Order orderToDelete = this.findOrderByIndex(id);
@@ -218,6 +218,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         activeOrders.deleteOrder(id);
     }
 
+    /**
+     * Completes {@code Order} by removing it from the activeOrders and adding it into the completedOrders.
+     * @param id index of order to remove.
+     */
     public void completeOrder(int id) {
         Order orderToComplete = this.findOrderByIndex(id);
         Person editedCustomer = orderToComplete.getCustomer();
@@ -286,8 +290,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         return activeOrders.asUnmodifiableObservableList();
     }
 
-    public OrderList getCompletedOrderList() {
-        return completedOrders;
+    public ObservableList<Order> getCompletedOrderList() {
+        return completedOrders.asUnmodifiableObservableList();
     }
 
     public ObservableList<Product> getMenuList() {
