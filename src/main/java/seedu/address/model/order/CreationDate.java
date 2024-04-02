@@ -33,7 +33,7 @@ public class CreationDate {
      * @param test The string to test.
      * @return true if the string is in the format dd/MM/yyyy, false otherwise.
      */
-    public boolean isValidCreationDate(String test) {
+    public static boolean isValidCreationDate(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

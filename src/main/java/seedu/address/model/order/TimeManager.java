@@ -1,5 +1,7 @@
 package seedu.address.model.order;
 
+import seedu.address.model.exceptions.InvalidDateException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -44,7 +46,7 @@ public class TimeManager {
             }
 
         }
-        throw new RuntimeException(); // temp handle for error
+        throw new InvalidDateException();
     }
 
     /**

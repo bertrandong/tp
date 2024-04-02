@@ -9,6 +9,8 @@ import static seedu.address.testutil.TypicalCreationDate.NEW_YEARS;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 
 public class CreationDateTest {
 
@@ -29,6 +31,19 @@ public class CreationDateTest {
     public void toStringMethod() {
         String expectedDate = "01/04/2024";
         assertEquals(expectedDate, APRIL_FOOLS.toString());
+    }
+
+    @Test
+    public void defaultConstructor_usesCurrentDate() {
+        CreationDate today = new CreationDate();
+        assertEquals(LocalDate.now().toString(), today.toString());
+    }
+
+    @Test
+    public void isValidCreationDate() {
+        // Assuming CreationDate has a static method isValidCreationDate similar to Deadline
+        assertTrue(CreationDate.isValidCreationDate("01/01/2024"));
+        assertFalse(CreationDate.isValidCreationDate("2024-01-01"));
     }
 
 }
