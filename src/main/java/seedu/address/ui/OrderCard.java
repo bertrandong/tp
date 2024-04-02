@@ -26,6 +26,8 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label deadline;
     @FXML
+    private Label creationDate;
+    @FXML
     private FlowPane products;
     @FXML
     private Label totalCost;
@@ -45,6 +47,8 @@ public class OrderCard extends UiPart<Region> {
         if (order.getDeadline() != null) {
             deadline.setText("Deadline: " + order.getDeadline());
         }
+        creationDate.setText("Created On: " + order.getCreationDate());
+
         customerName.setText(order.getCustomer().getName().fullName);
         totalCost.setText("Total Cost: " + order.getTotalCost());
         totalSales.setText("Total Sales: " + order.getTotalSales());

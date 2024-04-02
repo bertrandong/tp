@@ -64,7 +64,6 @@ public class AddOrderCommand extends Command {
 
         this.phone = phone;
         this.order = new Order();
-        lastOrder = this.order;
         this.order.setDeadline(deadline);
     }
 

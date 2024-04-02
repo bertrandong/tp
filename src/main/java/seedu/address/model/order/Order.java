@@ -52,6 +52,7 @@ public class Order implements Comparable<Order> {
     public Order(Map<Product, Quantity> map) {
         productMap = map;
         updateNumbers();
+        this.creationDate = new CreationDate();
     }
 
     /**
@@ -63,6 +64,7 @@ public class Order implements Comparable<Order> {
         this.customer = customer;
         productMap = map;
         updateNumbers();
+        this.creationDate = new CreationDate();
     }
 
     /**
@@ -74,6 +76,7 @@ public class Order implements Comparable<Order> {
         this.productMap = new HashMap<>(order.getProductMap());
         this.customer = order.getCustomer();
         updateNumbers();
+        this.creationDate = new CreationDate();
     }
 
     /**
