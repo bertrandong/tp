@@ -8,11 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalDeadline.APRIL_FOOLS;
 import static seedu.address.testutil.TypicalDeadline.NEW_YEARS;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.exceptions.InvalidDateException;
 
-import java.time.LocalDate;
 
 public class DeadlineTest {
     @Test
