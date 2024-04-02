@@ -36,7 +36,7 @@ public class CreationDateTest {
     @Test
     public void defaultConstructor_usesCurrentDate() {
         CreationDate today = new CreationDate();
-        assertEquals(LocalDate.now().toString(), today.toString());
+        assertEquals(TimeManager.formatter(LocalDate.now()), today.toString());
     }
 
     @Test
