@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.exceptions.InvalidDateException;
 
+import java.time.LocalDate;
+
 public class DeadlineTest {
     @Test
     public void equals() {
@@ -30,6 +32,12 @@ public class DeadlineTest {
     public void toStringMethod() {
         String expectedDate = "01/04/2024";
         assertEquals(expectedDate, APRIL_FOOLS.toString());
+
+    }
+
+    @Test
+    public void getDeadline() {
+        assertEquals(LocalDate.of(2024, 4, 1), APRIL_FOOLS.getDeadline());
 
     }
 
