@@ -6,5 +6,7 @@
     "address": "4th street",
     "orderID" : [ ]
   } ],
-  "orders" : [ ]
+  "orders" : [ ],
+  "orderIdCounter" : 1,
+  "menu" : [ ]
 }

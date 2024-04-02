@@ -37,8 +37,10 @@ public class JsonAdaptedOrder {
                             @JsonProperty("customerName") String customerName,
                             @JsonProperty("customerPhone") String customerPhone,
                             @JsonProperty("creationDate") String creationDate,
-                            @JsonProperty("deadline") String deadline
-
+                            @JsonProperty("deadline") String deadline,
+                            @JsonProperty("totalCost") Integer totalCost,
+                            @JsonProperty("totalSales") Integer totalSales,
+                            @JsonProperty("profit") Integer profit
                             ) {
         this.id = id;
         this.productMap = productMap;

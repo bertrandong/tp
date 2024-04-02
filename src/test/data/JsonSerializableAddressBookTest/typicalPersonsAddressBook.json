@@ -71,5 +71,15 @@
     },
     "customerName" : "Carl Kurz",
     "customerPhone" : "95352563"
+  } ],
+  "orderIdCounter" : 4,
+  "menu" : [ {
+    "name" : "cupcake",
+    "sales" : "7",
+    "cost" : "5"
+  }, {
+    "name" : "cake",
+    "sales" : "5",
+    "cost" : "3"
   } ]
 }

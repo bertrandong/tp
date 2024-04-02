@@ -121,6 +121,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasOrder(Order order) {
+        requireNonNull(order);
+        return addressBook.hasOrder(order);
+    }
+
+    @Override
     public void addOrder(Order newOrder, Person person) {
         newOrder.setCustomer(person);
         addressBook.addOrder(newOrder);
@@ -130,6 +136,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteOrder(int id) {
         addressBook.removeOrder(id);
+    }
+
+    @Override
+    public void completeOrder(int id) {
+        addressBook.completeOrder(id);
     }
 
     /**
@@ -147,6 +158,16 @@ public class ModelManager implements Model {
         requireAllNonNull(target, currProduct, newQuantity);
 
         return addressBook.editOrder(target, currProduct, newQuantity);
+    }
+
+    @Override
+    public boolean orderIdExists(int orderId) {
+        return addressBook.orderIdExists(orderId);
+    }
+
+    @Override
+    public void clearCompletedOrders() {
+        addressBook.clearCompletedOrders();
     }
 
     @Override
@@ -256,6 +277,11 @@ public class ModelManager implements Model {
     public void updateFilteredMenuList(Predicate<Product> predicate) {
         requireNonNull(predicate);
         filteredMenu.setPredicate(predicate);
+    }
+
+    @Override
+    public Product findProductByIndex(int id) {
+        return addressBook.findProductByIndex(id);
     }
 
 }

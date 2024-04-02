@@ -47,8 +47,8 @@ public class AddMenuCommandTest {
 
     @Test
     public void equals() {
-        Product cupcake = new ProductBuilder().withName("Cupcake").build();
-        Product tart = new ProductBuilder().withName("Tart").build();
+        Product cupcake = new ProductBuilder().withName("Cupcake").withCost("20").withSales("30").build();
+        Product tart = new ProductBuilder().withName("Tart").withCost("10").withSales("20").build();
         AddMenuCommand addCupcakeCommand = new AddMenuCommand(cupcake);
         AddMenuCommand addTartCommand = new AddMenuCommand(tart);
 
@@ -182,6 +182,11 @@ public class AddMenuCommandTest {
         }
 
         @Override
+        public boolean hasOrder(Order order) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addProduct(Product product) {
             throw new AssertionError("This method should not be called.");
         }
@@ -222,12 +227,32 @@ public class AddMenuCommandTest {
         }
 
         @Override
+        public Product findProductByIndex(int id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredOrderList(Predicate<Order> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<Order> getFilteredOrderList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearCompletedOrders() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void completeOrder(int id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean orderIdExists(int id) {
             throw new AssertionError("This method should not be called.");
         }
     }

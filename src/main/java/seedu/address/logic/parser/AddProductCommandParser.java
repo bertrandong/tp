@@ -2,16 +2,16 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MENU;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddOrderCommand;
 import seedu.address.logic.commands.AddProductCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
 
 /**
@@ -27,24 +27,25 @@ public class AddProductCommandParser {
     public AddProductCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_QUANTITY);
+                PREFIX_MENU, PREFIX_PRODUCT_QUANTITY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_QUANTITY)
+        if (!arePrefixesPresent(argMultimap, PREFIX_MENU, PREFIX_PRODUCT_QUANTITY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProductCommand.MESSAGE_USAGE));
         }
 
-        Product product;
+        Index productId;
         Quantity quantity;
+
         try {
-            product = ParserUtil.parseProduct(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
+            productId = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_MENU).get());
             quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).get());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddOrderCommand.MESSAGE_USAGE), ive);
         }
 
-        return new AddProductCommand(product, quantity);
+        return new AddProductCommand(productId, quantity);
     }
 
     /**

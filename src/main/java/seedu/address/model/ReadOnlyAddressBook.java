@@ -18,5 +18,9 @@ public interface ReadOnlyAddressBook {
 
     ObservableList<Order> getOrderList();
 
+    ObservableList<Order> getCompletedOrderList();
+
+    Integer getOrderListCounter();
+
     ObservableList<Product> getMenuList();
 }

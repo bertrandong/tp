@@ -10,7 +10,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.exceptions.OrderNotFoundException;
-import seedu.address.model.person.Person;
 
 /**
  * Represents the list of active orders in the addressbook.
@@ -56,6 +55,14 @@ public class OrderList implements Iterable<Order> {
     }
 
     /**
+     * Setter method for orderIdCounter for restoring of orderlist status from JSON.
+     * @param orderIdCounter orderIdCounter to be set to.
+     */
+    public void setOrderIdCounter(int orderIdCounter) {
+        this.orderIdCounter = orderIdCounter;
+    }
+
+    /**
      * Adds an order to the order list.
      * @param toAdd The order that is to be added.
      */
@@ -76,7 +83,6 @@ public class OrderList implements Iterable<Order> {
         requireNonNull(toAdd);
         orderList.put(iD, toAdd);
         internalList.add(toAdd);
-        orderIdCounter = iD + 1; //when restoring, makes sure that the next order id created is highest.
     }
 
     /**
@@ -126,12 +132,10 @@ public class OrderList implements Iterable<Order> {
         if (oldOrder == null) {
             throw new OrderNotFoundException();
         }
-        Person respectiveCustomer = oldOrder.getCustomer();
         int oldOrderIndex = internalList.indexOf(oldOrder);
         toEdit.setID(oldOrder.getId());
         internalList.set(oldOrderIndex, toEdit);
         orderList.put(orderId, toEdit);
-        //respectiveCustomer.editOrder(oldOrder.getId(), toEdit);
     }
 
     /**
@@ -191,6 +195,23 @@ public class OrderList implements Iterable<Order> {
         internalList.setAll(orders);
     }
 
+    public void setOrders(OrderList otherOrderList) {
+        List<Order> list = otherOrderList.internalList;
+        for (Order d: list) {
+            orderList.put(d.getId(), d);
+        }
+        internalList.setAll(list);
+    }
+
+    /**
+     * Returns the boolean value of whether the orderId has an Order object associated with it.
+     * @param orderId orderId to check if there is an Order object associated with it.
+     * @return
+     */
+    public boolean orderIdExist(int orderId) {
+        return orderList.containsKey(orderId);
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      * @return the backing list as an unmodifiable {@code ObservableList}.
@@ -225,7 +246,6 @@ public class OrderList implements Iterable<Order> {
         }
 
         OrderList otherOrderList = (OrderList) other;
-        //return orderList.equals(otherOrderList.orderList);
         return orderList.equals(otherOrderList.orderList)
                 && internalList.equals(otherOrderList.internalList);
     }

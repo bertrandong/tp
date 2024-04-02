@@ -158,6 +158,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasOrder(Order target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Order editOrder(Order order, Product product, Quantity quantity) {
             throw new AssertionError("This method should not be called.");
         }
@@ -208,6 +213,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Product findProductByIndex(int id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Product> getFilteredMenuList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -239,6 +249,21 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Order> getFilteredOrderList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearCompletedOrders() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void completeOrder(int id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean orderIdExists(int id) {
             throw new AssertionError("This method should not be called.");
         }
     }

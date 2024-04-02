@@ -159,6 +159,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a product cost or sales.
+     * Only accepts non-negative integer values.
+     *
+     * @throws ParseException if the given price is invalid.
+     */
+    public static String parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Product.isValidPrice(price)) {
+            throw new ParseException(Product.MESSAGE_CONSTRAINTS);
+        }
+        return trimmedPrice;
+    }
+
+    /**
      * Differentiates order and customer command.
      *
      * @param args Input string.

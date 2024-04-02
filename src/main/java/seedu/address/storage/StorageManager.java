@@ -20,12 +20,16 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
+    private CsvCompletedOrderStorage completedOrderStorage;
+
     /**
      * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
      */
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          CsvCompletedOrderStorage completedOrderStorage) {
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.completedOrderStorage = completedOrderStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -73,6 +77,10 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    public void saveCompletedOrders(ReadOnlyAddressBook addressBook) throws IOException {
+        completedOrderStorage.saveCompletedOrder(addressBook);
     }
 
 }
