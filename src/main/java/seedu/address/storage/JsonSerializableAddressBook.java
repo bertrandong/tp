@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Product;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,18 +23,25 @@ import seedu.address.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final Integer DEFAULT_EMPTY_ORDER_COUNTER = 1;
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedOrder> orders = new ArrayList<>();
+    private final List<JsonAdaptedProduct> menu = new ArrayList<>();
+    private final Integer orderIdCounter;
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-                                       @JsonProperty("orders") List<JsonAdaptedOrder> orders) {
+                                       @JsonProperty("orders") List<JsonAdaptedOrder> orders,
+                                       @JsonProperty("orderIdCounter") Integer orderIdCounter,
+                                       @JsonProperty("menu") List<JsonAdaptedProduct> menu) {
         this.persons.addAll(persons);
         this.orders.addAll(orders);
+        this.orderIdCounter = orderIdCounter;
+        this.menu.addAll(menu);
     }
 
     /**
@@ -43,6 +52,8 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         orders.addAll(source.getOrderList().stream().map(JsonAdaptedOrder::new).collect(Collectors.toList()));
+        this.orderIdCounter = source.getOrderListCounter();
+        menu.addAll(source.getMenuList().stream().map(JsonAdaptedProduct::new).collect(Collectors.toList()));
     }
 
     /**
@@ -56,6 +67,8 @@ class JsonSerializableAddressBook {
             Order order = jsonAdaptedOrder.toModelType();
             addressBook.addOrderWithID(order);
         }
+        Optional<Integer> orderIdCounter = Optional.ofNullable(this.orderIdCounter);
+        addressBook.setOrderListIdCounter(orderIdCounter.orElse(DEFAULT_EMPTY_ORDER_COUNTER));
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
             if (addressBook.hasPerson(person)) {
@@ -67,6 +80,10 @@ class JsonSerializableAddressBook {
                 currOrder.setCustomer(person);
             }
             addressBook.addPerson(person);
+        }
+        for (JsonAdaptedProduct jsonAdaptedProduct : menu) {
+            Product product = jsonAdaptedProduct.toModelType();
+            addressBook.addProduct(product);
         }
         return addressBook;
     }

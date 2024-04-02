@@ -55,6 +55,14 @@ public class OrderList implements Iterable<Order> {
     }
 
     /**
+     * Setter method for orderIdCounter for restoring of orderlist status from JSON.
+     * @param orderIdCounter orderIdCounter to be set to.
+     */
+    public void setOrderIdCounter(int orderIdCounter) {
+        this.orderIdCounter = orderIdCounter;
+    }
+
+    /**
      * Adds an order to the order list.
      * @param toAdd The order that is to be added.
      */
@@ -75,7 +83,6 @@ public class OrderList implements Iterable<Order> {
         requireNonNull(toAdd);
         orderList.put(iD, toAdd);
         internalList.add(toAdd);
-        orderIdCounter = iD + 1; //when restoring, makes sure that the next order id created is highest.
     }
 
     /**
@@ -186,6 +193,23 @@ public class OrderList implements Iterable<Order> {
             orderList.put(d.getId(), d);
         }
         internalList.setAll(orders);
+    }
+
+    public void setOrders(OrderList otherOrderList) {
+        List<Order> list = otherOrderList.internalList;
+        for (Order d: list) {
+            orderList.put(d.getId(), d);
+        }
+        internalList.setAll(list);
+    }
+
+    /**
+     * Returns the boolean value of whether the orderId has an Order object associated with it.
+     * @param orderId orderId to check if there is an Order object associated with it.
+     * @return
+     */
+    public boolean orderIdExist(int orderId) {
+        return orderList.containsKey(orderId);
     }
 
     /**
