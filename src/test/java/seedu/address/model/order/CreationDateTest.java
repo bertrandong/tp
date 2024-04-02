@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalCreationDate.APRIL_FOOLS;
 import static seedu.address.testutil.TypicalCreationDate.NEW_YEARS;
 
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
 
 
 public class CreationDateTest {

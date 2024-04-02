@@ -5,11 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import seedu.address.model.exceptions.InvalidDateException;
 import static seedu.address.testutil.TypicalDeadline.APRIL_FOOLS;
 import static seedu.address.testutil.TypicalDeadline.NEW_YEARS;
 
 import org.junit.jupiter.api.Test;
+
+import seedu.address.model.exceptions.InvalidDateException;
 
 public class DeadlineTest {
     @Test
