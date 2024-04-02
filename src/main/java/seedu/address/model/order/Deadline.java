@@ -1,6 +1,7 @@
 package seedu.address.model.order;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 
 /**
@@ -43,6 +44,19 @@ public class Deadline {
      */
     public LocalDate getDeadline() {
         return this.deadline;
+    }
+
+    /**
+     * Checks if the deadline is within a specified number of days from the current date.
+     *
+     * @param days the number of days to check against.
+     * @return true if the deadline is within the specified number of days from now, false otherwise.
+     */
+    public boolean isWithinDaysFromNow(int days) {
+        LocalDate now = LocalDate.now();
+        long daysUntilDeadline = ChronoUnit.DAYS.between(now, this.deadline);
+        System.out.println(daysUntilDeadline);
+        return daysUntilDeadline <= days;
     }
 
 

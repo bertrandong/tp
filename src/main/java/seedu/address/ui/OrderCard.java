@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 
 /**
@@ -44,9 +45,18 @@ public class OrderCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
         orderId.setText("Order " + order.getId());
-        if (order.getDeadline() != null) {
-            deadline.setText("Deadline: " + order.getDeadline());
+
+        deadline.setText("Deadline: " + order.getDeadline());
+
+        deadline.setStyle("-fx-text-fill: black;");
+        if (order.getDeadlineObject().isWithinDaysFromNow(3)) {
+            //deadline.setStyle("-fx-text-fill: #FFFFFF");
+            deadline.setStyle("-fx-text-fill: red;");
+        } else {
+            deadline.setStyle("-fx-text-fill: #FFFFFF;");
         }
+
+
         creationDate.setText("Created On: " + order.getCreationDate());
 
         customerName.setText(order.getCustomer().getName().fullName);
