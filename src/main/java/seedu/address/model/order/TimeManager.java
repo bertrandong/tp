@@ -31,7 +31,6 @@ public class TimeManager {
                 DateTimeFormatter.ofPattern("yyyy/MM/dd"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd"),
                 DateTimeFormatter.ofPattern("dd-MM-yyyy"),
-                DateTimeFormatter.ofPattern("M/d/yyyy"),
                 DateTimeFormatter.ofPattern("d/M/yyyy"),
                 DateTimeFormatter.ofPattern("dd MMMM yyyy"),
                 DateTimeFormatter.ofPattern("dd MM yyyy")
