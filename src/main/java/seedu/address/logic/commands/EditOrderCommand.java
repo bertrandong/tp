@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
-import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.core.index.Index;
@@ -14,6 +13,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.OrderNotFoundException;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
@@ -57,13 +57,14 @@ public class EditOrderCommand extends EditCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Order> lastShownList = model.getFilteredOrderList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        try {
+            model.getOrder(index.getOneBased());
+        } catch (OrderNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Order orderToEdit = new Order(lastShownList.get(index.getZeroBased()));
+        Order orderToEdit = new Order(model.getOrder(index.getOneBased()));
 
         Order editedOrder = model.editOrder(orderToEdit,
                 editOrderDescriptor.getProduct(), editOrderDescriptor.getQuantity());

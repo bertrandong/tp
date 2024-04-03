@@ -147,6 +147,11 @@ public class AddMenuCommandTest {
         }
 
         @Override
+        public Order getOrder(int id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Order editOrder(Order order, Product product, Quantity quantity) {
             throw new AssertionError("This method should not be called.");
         }

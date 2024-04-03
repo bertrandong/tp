@@ -4,12 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
-import java.util.List;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.OrderNotFoundException;
 import seedu.address.model.order.Order;
 
 /**
@@ -39,13 +38,14 @@ public class StageCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Order> lastShownList = model.getFilteredOrderList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        try {
+            model.getOrder(index.getOneBased());
+        } catch (OrderNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Order orderToUpdate = new Order(lastShownList.get(index.getZeroBased()));
+        Order orderToUpdate = new Order(model.getOrder(index.getOneBased()));
 
         Order updatedOrder = model.goToNextStage(orderToUpdate);
         model.setOrder(orderToUpdate, updatedOrder);

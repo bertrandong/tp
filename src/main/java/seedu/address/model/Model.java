@@ -188,6 +188,11 @@ public interface Model {
     boolean hasOrder(Order order);
 
     /**
+     * Returns an order given its order index in the order list.
+     */
+    Order getOrder(int id);
+
+    /**
      * Adds the given product.
      * {@code person} must not already exist in the menu.
      */
