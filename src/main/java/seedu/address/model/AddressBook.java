@@ -194,6 +194,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Advances the target order to the next stage.
+     *
+     * @param target order to update
+     * @return a copy of modified order.
+     */
+    public Order goToNextStage(Order target) {
+        requireNonNull(target);
+        return target.goToNextStage();
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */

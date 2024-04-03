@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.order.stage.StageContext;
 import seedu.address.model.person.Person;
 
 /**
@@ -19,6 +20,7 @@ public class Order implements Comparable<Order> {
     private Map<Product, Quantity> productMap;
 
     private Person customer;
+    private StageContext stageContext;
     private float totalCost = 0;
     private float totalSales = 0;
 
@@ -29,6 +31,7 @@ public class Order implements Comparable<Order> {
      */
     public Order() {
         this.productMap = new HashMap<>();
+        this.stageContext = new StageContext();
     }
 
     /**
@@ -39,25 +42,18 @@ public class Order implements Comparable<Order> {
     public Order(int id) {
         this.id = id;
         productMap = new HashMap<>();
+        this.stageContext = new StageContext();
     }
 
     /**
      * Contructs an {@code Order} object with {@code map}.
      * @param map Mappings of Products and Quantity
      */
-    public Order(Map<Product, Quantity> map) {
-        productMap = map;
-        updateNumbers();
-    }
-
-    /**
-     * Contructs an {@code Order} object with {@code map}.
-     * @param map Mappings of Products and Quantity
-     */
-    public Order(int id, Person customer, Map<Product, Quantity> map) {
+    public Order(int id, Person customer, Map<Product, Quantity> map, StageContext stageContext) {
         this.id = id;
         this.customer = customer;
         productMap = map;
+        this.stageContext = stageContext;
         updateNumbers();
     }
 
@@ -69,6 +65,7 @@ public class Order implements Comparable<Order> {
         this.id = order.getId();
         this.productMap = new HashMap<>(order.getProductMap());
         this.customer = order.getCustomer();
+        this.stageContext = order.stageContext;
         updateNumbers();
     }
 
@@ -135,7 +132,7 @@ public class Order implements Comparable<Order> {
     public Order changeQuantity(Product currProduct, Quantity newQuantity) {
         Map<Product, Quantity> newMap = new HashMap<>(productMap);
         newMap.put(currProduct, newQuantity);
-        return new Order(this.id, this.customer, newMap);
+        return new Order(this.id, this.customer, newMap, this.stageContext);
     }
 
     /**
@@ -144,8 +141,9 @@ public class Order implements Comparable<Order> {
      * @return Updated order.
      */
     public Order deleteProduct(Product product) {
-        productMap.remove(product);
-        return new Order(this.id, this.customer, productMap);
+        Map<Product, Quantity> newMap = new HashMap<>(productMap);
+        newMap.remove(product);
+        return new Order(this.id, this.customer, newMap, this.stageContext);
     }
 
     /**
@@ -205,7 +203,25 @@ public class Order implements Comparable<Order> {
     }
 
     /**
-     * Compares the other Order Object with this Object based on the OrderID.
+     * Advances the order to the next stage.
+     *
+     * @return a new instance of modified order.
+     */
+    public Order goToNextStage() {
+        this.stageContext.goToNextStage();
+        return new Order(this);
+    }
+
+    public StageContext getStageContext() {
+        return this.stageContext;
+    }
+
+    public void setStageContext(StageContext stageContext) {
+        this.stageContext = stageContext;
+    }
+
+    /**
+     * Compares the other Order Object with this Object based on the OrderID
      * @param otherOrder the object to be compared.
      * @return negative integer, zero, or a positive integer as this object is less than,
      *         equal to, or greater than the specified object.
@@ -310,8 +326,10 @@ public class Order implements Comparable<Order> {
             return false;
         }
         Order otherOrder = (Order) other;
+
         return (this.id == otherOrder.id)
-                && this.productMap.equals(otherOrder.productMap);
+                && this.productMap.equals(otherOrder.productMap)
+                && this.stageContext.equals(otherOrder.stageContext);
     }
 
     @Override
@@ -322,18 +340,19 @@ public class Order implements Comparable<Order> {
     @Override
     public String toString() {
         Set<Product> set = productMap.keySet();
-        ArrayList<Product> productList = new ArrayList<>();
-        productList.addAll(set);
-        String str = "";
-        for (int k = 0; k < productList.size(); k++) {
-            str += productList.get(k).getName();
-            str += ",";
-            str += productMap.get(productList.get(k)).getValue();
-            str += "\n";
+        ArrayList<Product> productList = new ArrayList<>(set);
+        StringBuilder str = new StringBuilder();
+        for (Product product : productList) {
+            str.append(product.getName());
+            str.append(",");
+            str.append(productMap.get(product).getValue());
+            str.append("\n");
         }
-        str += "Total Cost: " + this.totalCost + "\n";
-        str += "Total Sales: " + this.totalSales + "\n";
-        str += "Profit: " + this.profit + "\n";
-        return str;
+        str.append(stageContext);
+        str.append("\n");
+        str.append("Total Cost: " + this.totalCost + "\n");
+        str.append("Total Sales: " + this.totalSales + "\n");
+        str.append("Profit: " + this.profit + "\n");
+        return str.toString();
     }
 }

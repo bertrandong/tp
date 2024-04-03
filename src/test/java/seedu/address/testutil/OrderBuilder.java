@@ -6,6 +6,8 @@ import java.util.Map;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
+import seedu.address.model.order.stage.StageContext;
+import seedu.address.model.order.stage.StageState;
 import seedu.address.model.person.Person;
 
 /**
@@ -16,10 +18,12 @@ import seedu.address.model.person.Person;
 public class OrderBuilder {
     public static final int DEFAULT_ID = 1;
     public static final Person DEFAULT_PERSON = TypicalPersons.ALICE;
+    public static final StageContext DEFAULT_STAGE_CONTEXT = new StageContext();
 
     private int id;
     private Map<Product, Quantity> productMap;
     private Person person;
+    private StageContext stageContext;
 
     /**
      * Creates a {@code OrderBuilder} with the default details.
@@ -28,6 +32,7 @@ public class OrderBuilder {
         id = DEFAULT_ID;
         productMap = new HashMap<>();
         person = DEFAULT_PERSON;
+        stageContext = DEFAULT_STAGE_CONTEXT;
     }
 
     /**
@@ -37,6 +42,7 @@ public class OrderBuilder {
         productMap = orderToCopy.getProductMap();
         id = orderToCopy.getId();
         person = orderToCopy.getCustomer();
+        stageContext = orderToCopy.getStageContext();
     }
 
     /**
@@ -81,6 +87,13 @@ public class OrderBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code StageContext} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withStage(StageState state) {
+        this.stageContext = new StageContext(state);
+        return this;
+    }
 
     /**
      * Builds the order
@@ -90,6 +103,7 @@ public class OrderBuilder {
     public Order build() {
         Order order = new Order(this.id);
         order.setProductMap(this.productMap);
+        order.setStageContext(this.stageContext);
         return order;
     }
 }

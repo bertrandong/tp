@@ -2,15 +2,22 @@ package seedu.address.model.order;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_COOKIE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_CUPCAKE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_ONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_THREE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_TWO;
 import static seedu.address.testutil.TypicalOrders.COOKIES_ONLY;
-import static seedu.address.testutil.TypicalOrders.CUPCAKES_AND_COOKIES;
 import static seedu.address.testutil.TypicalOrders.CUPCAKES_ONLY;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.order.stage.ReadyForDeliveryState;
+import seedu.address.model.order.stage.SentForDeliveryState;
 import seedu.address.testutil.OrderBuilder;
 
 public class OrderTest {
@@ -52,18 +59,34 @@ public class OrderTest {
         Order aliceCupcakes = new OrderBuilder(CUPCAKES_ONLY).withIndex(1).withPerson(ALICE).build();
         Order bobCupcakes = new OrderBuilder(CUPCAKES_ONLY).withIndex(2).withPerson(BOB).build();
         assertFalse(aliceCupcakes.equals(bobCupcakes));
+
+        // different stage -> returns false;
+        Order ready = new OrderBuilder(CUPCAKES_ONLY).withIndex(1)
+                .withStage(new ReadyForDeliveryState()).build();
+        Order sent = new OrderBuilder(CUPCAKES_ONLY).withIndex(2)
+                .withStage(new SentForDeliveryState()).build();
+        assertNotEquals(ready, sent);
     }
 
     @Test
     public void toStringMethod() {
+        Order newCupcakesOnly = new OrderBuilder().withIndex(1)
+                .withProductQuantity(VALID_PRODUCT_CUPCAKE, VALID_QUANTITY_THREE).build();
+        Order newCupcakesAndCookies = new OrderBuilder().withIndex(3)
+                .withProductQuantity(VALID_PRODUCT_CUPCAKE, VALID_QUANTITY_ONE)
+                .withProductQuantity(VALID_PRODUCT_COOKIE, VALID_QUANTITY_TWO).build();
+
         // single product order
-        String expectedCupcakes = "Cupcake,3\n" + "Total Cost: 0.0\n" + "Total Sales: 0.0\n" + "Profit: 0.0\n";
-        assertEquals(expectedCupcakes, CUPCAKES_ONLY.toString());
+        String expectedCupcakes = "Cupcake,3\n"
+                + newCupcakesOnly.getStageContext().toString() + "\n"
+                + "Total Cost: 0.0\n" + "Total Sales: 0.0\n" + "Profit: 0.0\n";
+        assertEquals(expectedCupcakes, newCupcakesOnly.toString());
 
         // multiple products order
-        String expectedCupcakesAndCookies = "Cookie,2\nCupcake,1\n" + "Total Cost: 0.0\n" + "Total Sales: 0.0\n"
-                + "Profit: 0.0\n";
-        assertEquals(expectedCupcakesAndCookies, CUPCAKES_AND_COOKIES.toString());
+        String expectedCupcakesAndCookies = "Cookie,2\nCupcake,1\n"
+                + newCupcakesAndCookies.getStageContext().toString() + "\n"
+                + "Total Cost: 0.0\n" + "Total Sales: 0.0\n" + "Profit: 0.0\n";
+        assertEquals(expectedCupcakesAndCookies, newCupcakesAndCookies.toString());
     }
 
     @Test
@@ -145,4 +168,11 @@ public class OrderTest {
         assertEquals(7 * 5, order.getProfit());
     }
 
+    @Test
+    public void copyOrder() {
+        Order order = new OrderBuilder().withProductPriceQuantity("Cupcakes", "0", "0", "5")
+                .build();
+        Order copiedOrder = new Order(order);
+        assertEquals(order, copiedOrder);
+    }
 }

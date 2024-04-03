@@ -242,6 +242,10 @@ public class AddMenuCommandTest {
         }
 
         @Override
+        public Order goToNextStage(Order target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void clearCompletedOrders() {
             throw new AssertionError("This method should not be called.");
         }

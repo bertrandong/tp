@@ -116,7 +116,16 @@ public interface Model {
     Order editOrder(Order target, Product currProduct, Quantity newQuantity);
 
     /**
+     * Advances the target order to the next stage.
+     *
+     * @param target order to update
+     * @return a copy of modified order.
+     */
+    Order goToNextStage(Order target);
+
+    /**
      * Method to check if the orderId has an Order in the addressbook.
+     *
      * @param orderId orderId to check if an Order exists in the addressbook
      * @return boolean value if Order exists for this orderId
      */

@@ -161,6 +161,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Order goToNextStage(Order target) {
+        requireNonNull(target);
+
+        return addressBook.goToNextStage(target);
+    }
+
     public boolean orderIdExists(int orderId) {
         return addressBook.orderIdExists(orderId);
     }

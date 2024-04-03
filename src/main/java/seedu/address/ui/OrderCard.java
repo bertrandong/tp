@@ -26,6 +26,8 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private FlowPane products;
     @FXML
+    private Label stage;
+    @FXML
     private Label totalCost;
     @FXML
     private Label totalSales;
@@ -47,5 +49,6 @@ public class OrderCard extends UiPart<Region> {
         ArrayList<String> productList = new ArrayList<>();
         order.getProductMap().forEach((product, quantity) -> productList.add(product + " x " + quantity));
         productList.stream().forEach(product -> products.getChildren().add(new Label(product)));
+        stage.setText(order.getStageContext().toString());
     }
 }
