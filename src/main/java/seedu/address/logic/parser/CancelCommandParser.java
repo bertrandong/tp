@@ -18,7 +18,8 @@ public class CancelCommandParser implements Parser<CancelCommand> {
      */
     public CancelCommand parse(String args) throws ParseException {
         try {
-            Index index = ParserUtil.parseIndex(args);
+            String trimmedArgs = args.trim();
+            Index index = ParserUtil.parseIndex(trimmedArgs);
             return new CancelCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(

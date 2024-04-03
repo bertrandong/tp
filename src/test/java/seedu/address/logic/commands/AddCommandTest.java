@@ -256,6 +256,21 @@ public class AddCommandTest {
         public ObservableList<Order> getFilteredOrderList() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void clearCompletedOrders() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void completeOrder(int id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean orderIdExists(int id) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
