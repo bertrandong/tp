@@ -183,6 +183,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         activeOrders.setOrder(target, edittedOrder);
     }
 
+    public Order getOrder(int id) {
+        return activeOrders.getOrder(id);
+    }
+
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.

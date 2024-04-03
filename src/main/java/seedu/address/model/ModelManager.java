@@ -127,6 +127,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Order getOrder(int id) {
+        return addressBook.getOrder(id);
+    }
+
+    @Override
     public void addOrder(Order newOrder, Person person) {
         newOrder.setCustomer(person);
         addressBook.addOrder(newOrder);
