@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.fail;
-import seedu.address.model.order.Deadline;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -18,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.exceptions.OrderNotFoundException;
+import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
@@ -121,7 +121,7 @@ public class EditOrderCommandTest {
         }
 
         @Override
-        public Order editOrderDeadline(Order order, Deadline deadline){
+        public Order editOrderDeadline(Order order, Deadline deadline) {
             throw new AssertionError("This method should not be called.");
         }
 
