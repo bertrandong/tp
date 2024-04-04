@@ -45,7 +45,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             EditMenuCommandParser editMenuCommandParser = new EditMenuCommandParser();
             return editMenuCommandParser.parse(args);
         } else {
-            throw new ParseException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(Messages.MESSAGE_SPECIFY_EDIT);
         }
     }
 }
