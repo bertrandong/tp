@@ -27,7 +27,7 @@ public class EditOrderCommandTest {
 
     @Test
     public void invalidOrderIndex_throwsException() {
-        EditOrderCommand command = new EditOrderCommand(Index.fromOneBased(1),
+        EditOrderCommand command = new EditOrderCommand(Index.fromOneBased(1), Index.fromOneBased(1),
                 new EditOrderCommand.EditOrderDescriptor());
         try {
             assertThrows(CommandException.class, () -> command.execute(new ModelStubGettingOrder()));
