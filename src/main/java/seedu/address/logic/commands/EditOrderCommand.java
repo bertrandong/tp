@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
@@ -32,13 +33,18 @@ public class EditOrderCommand extends EditCommand {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: [" + PREFIX_ORDER + "INDEX (must be a positive integer)] "
             + "[" + PREFIX_PRODUCT_QUANTITY + "PRODUCT_QUANTITY] "
+            + "[" + PREFIX_DEADLINE + "PRODUCT_QUANTITY] "
             + "Example: " + COMMAND_WORD + " " + PREFIX_ORDER + "1 "
             + PREFIX_PRODUCT_NAME + "cupcake "
-            + PREFIX_PRODUCT_QUANTITY + "2";
+            + PREFIX_PRODUCT_QUANTITY + "2 "
+            + "or " + COMMAND_WORD + " " + PREFIX_ORDER + "1 "
+            + PREFIX_DEADLINE + "01/04/2024";
 
     public static final String MESSAGE_EDIT_ORDER_SUCCESS = "Edited Order: %1$s";
     public static final String MESSAGE_NOT_EDITED =
             "Both product and quantity must be provided.";
+
+    public static final String MESSAGE_NOT_EDITED_EXTRA = "You can edit either product and quantity or the order's deadline";
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;

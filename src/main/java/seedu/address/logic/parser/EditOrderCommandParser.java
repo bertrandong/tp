@@ -59,6 +59,12 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
             throw new ParseException(EditOrderCommand.MESSAGE_NOT_EDITED);
         }
 
+        if (!argMultimap.getValue(PREFIX_PRODUCT_NAME).isPresent()
+                && !argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).isPresent()
+                && !argMultimap.getValue(PREFIX_DEADLINE).isPresent()) {
+            throw new ParseException(EditOrderCommand.MESSAGE_NOT_EDITED);
+        }
+
 
         return new EditOrderCommand(index, editOrderDescriptor);
     }
