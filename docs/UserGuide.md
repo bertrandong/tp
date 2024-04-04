@@ -203,15 +203,19 @@ Example:
 
 You can edit an existing order of a specific customer in your address book.
 
-Format: `edit o/ORDER_ID pn/PRODUCT_NAME pq/PRODUCT_QUANTITY`
+Format: `edit m/MENU_ID pq/PRODUCT_QUANTITY`
 
 * `ORDER_ID` is a unique number for each order.
 * The order id refers to the number shown under order id in the displayed customer's contact.
-* Products are edited based on `PRODUCT_NAME`.
+* Products are edited based on `MENU_ID`.
 * To remove product from order, specify `PRODUCT_QUANTITY` as `0`.
 
 Example:
-* `edit o/1 pn/Chicken Pie pq/2 pn/Macaron pq/6` will edit the order with order id of 1 and change `Chicken Pie` quantity to `2` and `Macaron` quantity to `6`.
+![before state for EditOrderCommand](images/EditOrderCommandBefore.png)
+* `edit o/4 m/3 pq/10` will edit the order with order id of `4` and change the product associated with menu id of `3`
+which is `tarts` quantity to `10`.
+
+![before state for EditOrderCommand](images/EditOrderCommandAfter.png)
 
 ### Completion of orders: `complete`
 
