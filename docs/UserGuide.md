@@ -130,7 +130,7 @@ Examples:
 * `find a/Lorong` returns customers with address that includes `Lorong`
 * `find p/85012345 p/12345678` returns customer with phone number of `85012345` and `12345678`
 * `find o/19 o/23` returns `Order 19` and `Order 23`.
-
+![result for finding order](images/FindCommand.png)
 ### Deleting a customer : `delete`
 
 You can delete the specified customer from your address book.
@@ -168,7 +168,7 @@ Examples:
 
 You can add products on the menu into the most recently created order.
 
-Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`
+Format: `product m/MENU_ID pq/PRODUCT_QUANTITY`
 * You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
 * This can be repeated as many times as necessary within one session of using Strack.io.
 * This means closing the Strack.io will no longer allow you to add products to the order you created previously
@@ -204,7 +204,7 @@ Format: `edit o/ORDER_ID pn/PRODUCT_NAME pq/PRODUCT_QUANTITY`
 Example:
 * `edit o/1 pn/Chicken Pie pq/2 pn/Macaron pq/6` will edit the order with order id of 1 and change `Chicken Pie` quantity to `2` and `Macaron` quantity to `6`.
 
-### Cancelling/Completion of orders: `delete`
+### Cancelling/Completion of orders: `cancel` `complete`
 
 You can remove an ongoing order in your address book.
 
@@ -213,8 +213,10 @@ Format: `cancel ORDER_ID`
 * `ORDER_ID` refers to the number shown under order id in the displayed persons contact.
 
 Example:
-* `delete 19` will delete order with `ORDER_ID` of `19`.
-
+* `cancel 19` will cancel order with `ORDER_ID` of `19`.
+![result for cancelling order](images/CancelOrder1.png)
+![result for cancelling order](images/CancelOrder2.png)
+  
 ### Adding a product to the menu: `menu`
 
 You can add a product to be displayed on the product menu.
@@ -234,7 +236,7 @@ Example:
 
 You can edit an existing product on the product menu.
 
-Format: `edit m/PRODUCT_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
+Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
 
 * Edits the product of the specified `MENU_ID`. The `MENU_ID` refers to the number reflected on the product menu beside the product name. The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -279,9 +281,6 @@ If your changes to the data file makes its format invalid, Strack.io will discar
 Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
