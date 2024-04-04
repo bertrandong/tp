@@ -149,11 +149,13 @@ Examples:
 
 You can create and assign an order to a specified customer in the address book.
 
-Format: `order p/PHONE_NUMBER`
+Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 
 * Orders are assigned to person with specified `PHONE_NUMBER`.
-* Strack will prompt `Input Products`.
-* Follow up with products to be added to the order using the following format. Format: `m/PRODUCT_ID pq/PRODUCT_QUANTITY`.
+* `DEADLINE` is an optional fields that is used to keep track of an order's deadline
+* Leaving Deadline blank will make the order's deadline marked as `Not Specified`
+* Strack will prompt users to input products using the product command
+* Follow up with products to be added to the order using the following format. Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`.
 * You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
 * This can be repeated as many times as necessary.
 
@@ -161,6 +163,18 @@ Examples:
 * `order p/99887766` will create an order for person with phone number `99887766` followed by `pid/1 pq/2` and `pid/2 pq/2` ending with `done` <br>
 ![result for creating order for alex](images/addOrderResult.png)
 <br>![system interaction for order creation](images/systemCreateOrder.png)
+
+### Editing of an order's deadline `edit`
+You can edit the deadline of an existing order of a specific customer in your address book.
+
+Format: `edit o/ORDER_ID by/DEADLINE`
+* `ORDER_ID` is a unique number for each order.
+* The order id refers to the number shown under order id in the displayed customer's contact.
+* The format for deadline is dd/MM/yyyy
+
+Example:
+* `edit o/1 by/07/04/2024` or `edit o/1 by/12/10/2024` will edit the deadline of the order with order id 1 to `07/04/2024` or `12/10/2024` respectively
+
 
 ### Editing of orders `edit`
 
