@@ -29,6 +29,9 @@ public class JsonAdaptedOrder {
     private String creationDate;
     private String deadline;
     private String stage;
+    private float totalCost;
+    private float totalSales;
+    private float profit;
 
     /**
      * Constructs a {@code JsonAdaptedOrder} with the given {@code order}.
@@ -41,9 +44,9 @@ public class JsonAdaptedOrder {
                             @JsonProperty("creationDate") String creationDate,
                             @JsonProperty("deadline") String deadline,
                             @JsonProperty("stage") String stage,
-                            @JsonProperty("totalCost") Integer totalCost,
-                            @JsonProperty("totalSales") Integer totalSales,
-                            @JsonProperty("profit") Integer profit
+                            @JsonProperty("totalCost") Float totalCost,
+                            @JsonProperty("totalSales") Float totalSales,
+                            @JsonProperty("profit") Float profit
                             ) {
         this.id = id;
         this.productMap = productMap;
@@ -52,6 +55,9 @@ public class JsonAdaptedOrder {
         this.creationDate = creationDate;
         this.deadline = deadline;
         this.stage = stage;
+        this.totalCost = totalCost;
+        this.totalSales = totalSales;
+        this.profit = profit;
     }
 
     /**
@@ -74,6 +80,9 @@ public class JsonAdaptedOrder {
         this.creationDate = order.getCreationDate();
         this.deadline = order.getDeadline();
         this.stage = order.getStageContext().toString();
+        this.totalCost = order.getTotalCost();
+        this.totalSales = order.getTotalSales();
+        this.profit = order.getProfit();
     }
 
     /**
@@ -94,6 +103,9 @@ public class JsonAdaptedOrder {
             map.put(currProd, currQuant);
         }
         modelOrder.setProductMap(map);
+        modelOrder.setTotalCost(totalCost);
+        modelOrder.setTotalSales(totalSales);
+        modelOrder.setProfit(profit);
         if (this.creationDate != null && !this.creationDate.isEmpty()) {
             modelOrder.setCreationDate(this.creationDate);
         }
