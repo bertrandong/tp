@@ -14,6 +14,7 @@ import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
+import seedu.address.model.order.stage.StageContext;
 import seedu.address.model.person.Person;
 
 /**
@@ -27,6 +28,7 @@ public class JsonAdaptedOrder {
     private String customerPhone;
     private String creationDate;
     private String deadline;
+    private String stage;
 
     /**
      * Constructs a {@code JsonAdaptedOrder} with the given {@code order}.
@@ -38,6 +40,7 @@ public class JsonAdaptedOrder {
                             @JsonProperty("customerPhone") String customerPhone,
                             @JsonProperty("creationDate") String creationDate,
                             @JsonProperty("deadline") String deadline,
+                            @JsonProperty("stage") String stage,
                             @JsonProperty("totalCost") Integer totalCost,
                             @JsonProperty("totalSales") Integer totalSales,
                             @JsonProperty("profit") Integer profit
@@ -48,6 +51,7 @@ public class JsonAdaptedOrder {
         this.customerPhone = customerPhone;
         this.creationDate = creationDate;
         this.deadline = deadline;
+        this.stage = stage;
     }
 
     /**
@@ -69,7 +73,7 @@ public class JsonAdaptedOrder {
         this.customerPhone = orderCustomer.getPhone().value;
         this.creationDate = order.getCreationDate();
         this.deadline = order.getDeadline();
-
+        this.stage = order.getStageContext().toString();
     }
 
     /**
@@ -77,7 +81,7 @@ public class JsonAdaptedOrder {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
-    public Order toModelType() {
+    public Order toModelType() throws IllegalValueException {
         Order modelOrder = new Order(this.id);
         Map<Product, Quantity> map = new HashMap<>();
         Set<String> jsonProduct = this.productMap.keySet();
@@ -97,6 +101,7 @@ public class JsonAdaptedOrder {
         if (this.deadline != null && !this.deadline.isEmpty() && Deadline.isValidDeadline(this.deadline)) {
             modelOrder.setDeadline(new Deadline(this.deadline));
         }
+        modelOrder.setStageContext(new StageContext(stage));
         return modelOrder;
     }
 }

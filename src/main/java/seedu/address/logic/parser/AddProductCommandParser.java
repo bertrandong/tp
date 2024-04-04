@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddOrderCommand;
 import seedu.address.logic.commands.AddProductCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.Quantity;
@@ -42,7 +41,7 @@ public class AddProductCommandParser {
             quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).get());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddOrderCommand.MESSAGE_USAGE), ive);
+                    AddProductCommand.MESSAGE_USAGE), ive);
         }
 
         return new AddProductCommand(productId, quantity);

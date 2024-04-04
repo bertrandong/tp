@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
-import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.core.index.Index;
@@ -14,6 +13,8 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.OrderNotFoundException;
+import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
@@ -57,20 +58,47 @@ public class EditOrderCommand extends EditCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Order> lastShownList = model.getFilteredOrderList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        try {
+            model.getOrder(index.getOneBased());
+        } catch (OrderNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Order orderToEdit = new Order(lastShownList.get(index.getZeroBased()));
+        Order orderToEdit = new Order(model.getOrder(index.getOneBased()));
 
-        Order editedOrder = model.editOrder(orderToEdit,
-                editOrderDescriptor.getProduct(), editOrderDescriptor.getQuantity());
+        Order editedOrder = createEditOrder(model, orderToEdit);
+
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
         return new CommandResult(String.format(MESSAGE_EDIT_ORDER_SUCCESS,
                 Messages.format(editedOrder)));
+    }
+    /**
+     * Creates or updates an order based on the specified edit descriptors.
+     * This method decides how to edit an existing order based on the presence of product,
+     * quantity, and deadline information within an edit descriptor.
+     *
+     * @param model The application model that contains the order data and editing methods.
+     * @param orderToEdit The order to be edited.
+     * @return The edited order with the updates applied.
+     */
+
+    public Order createEditOrder(Model model, Order orderToEdit) {
+        Order editedOrder;
+        if (editOrderDescriptor.getProduct() != null && editOrderDescriptor.getQuantity() != null) {
+            editedOrder = model.editOrder(orderToEdit,
+                    editOrderDescriptor.getProduct(), editOrderDescriptor.getQuantity());
+        } else if (editOrderDescriptor.getProduct() == null && editOrderDescriptor.getQuantity() == null &&
+                this.editOrderDescriptor.getDeadline() != null) {
+            editedOrder = model.editOrderDeadline(orderToEdit, this.editOrderDescriptor.getDeadline());
+        } else {
+            editedOrder = model.editOrder(orderToEdit,
+                    editOrderDescriptor.getProduct(), editOrderDescriptor.getQuantity());
+            editedOrder.setDeadline(this.editOrderDescriptor.getDeadline());
+        }
+
+        return editedOrder;
     }
 
     @Override
@@ -104,6 +132,7 @@ public class EditOrderCommand extends EditCommand {
     public static class EditOrderDescriptor {
         private Product product;
         private Quantity quantity;
+        private Deadline deadline;
 
         public EditOrderDescriptor() {}
 
@@ -114,6 +143,7 @@ public class EditOrderCommand extends EditCommand {
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
             setProduct(toCopy.product);
             setQuantity(toCopy.quantity);
+            setDeadline(toCopy.deadline);
         }
 
         /**
@@ -137,6 +167,14 @@ public class EditOrderCommand extends EditCommand {
 
         public Quantity getQuantity() {
             return quantity;
+        }
+
+        public void setDeadline(Deadline deadline) {
+            this.deadline = deadline;
+        }
+
+        public Deadline getDeadline() {
+            return this.deadline;
         }
 
         @Override
