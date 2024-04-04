@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddOrderCommand;
 import seedu.address.logic.commands.AddProductCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.Quantity;
