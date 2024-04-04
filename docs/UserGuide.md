@@ -202,6 +202,9 @@ Example:
 * `menu pn/Cupcake pc/1 ps/2`
 * `menu pn/Tart ps/6.30 pc/2.20`
 
+![add product command](images/AddProductCommand.png)
+<br>![add product command result](images/AddProductCommandResult.png)
+
 ### Editing a product on the menu: `edit`
 
 You can edit an existing product on the product menu.
@@ -216,6 +219,9 @@ Examples:
 * `edit m/1 pn/Pie` Edits the product name of the product with `MENU_ID` of 1 to be `Pie`.
 * `edit m/2 pc/5 ps/12` Edits the product costs and sales of the product with `MENU_ID` of 2 to be `5` and `12` respectively.
 
+![edit product command](images/EditProductCommand.png)
+<br>![edit product command result](images/EditProductCommandResult.png)
+
 ### Deleting a product from the menu: `delete`
 
 You can delete the specified product from the product menu.
@@ -225,6 +231,9 @@ Format: `delete m/MENU_ID`
 * Deletes the product of the specified `MENU_ID`.
 * The `MENU_ID` refers to the number reflected on the product menu beside the product name.
 * The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
+
+![delete product command](images/DeleteProductCommand.png)
+<br>![delete product command result](images/DeleteProductCommandResult.png)
 
 ### Clearing all entries : `clear`
 
