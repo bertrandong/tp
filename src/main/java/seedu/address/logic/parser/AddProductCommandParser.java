@@ -42,7 +42,7 @@ public class AddProductCommandParser {
             quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).get());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddOrderCommand.MESSAGE_USAGE), ive);
+                    AddProductCommand.MESSAGE_USAGE), ive);
         }
 
         return new AddProductCommand(productId, quantity);
