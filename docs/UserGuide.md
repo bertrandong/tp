@@ -222,7 +222,13 @@ Format: `complete ORDER_ID`
 * `ORDER_ID` refers to the number shown under order id in the displayed persons contact.
 
 Example:
-* `complete 19` will delete order with `ORDER_ID` of `19`.
+![Before state for CompleteCommand](images/CompleteCommandBefore.png)
+* `complete 1 2 3` will complete orders with `ORDER_ID`s of `1`, `2` and `3`.
+
+![After state for CompleteCommand](images/CompleteCommandAfter.png)
+* This would be collated in the csv file in this directory: `[JAR file location]/data/completedorders.csv`
+
+![CSV state for CompleteCommand](images/CompleteCommandCSV.png)
 
 ### Cancelling of orders: `cancel`
 
