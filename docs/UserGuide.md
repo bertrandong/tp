@@ -144,6 +144,8 @@ Format: `delete c/CUSTOMER_ID`
 Examples:
 * `list` followed by `delete c/2` deletes the person with customer_id of `2` in the address book.
 * `find Betsy` followed by `delete c/1` deletes the person with customer_id of `1` in the results of the `find` command.
+  ![Deleting customer 2](images/DeleteCommand.png)
+  ![Result for deleting customer 2](images/DeleteCommandResult.png)
 
 ### Creating of orders : `order`
 
@@ -153,6 +155,8 @@ Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 
 * Orders are assigned to person with specified `PHONE_NUMBER`.
 * `DEADLINE` is an optional fields that is used to keep track of an order's deadline
+* * The format for deadline dates are dd/MM/yyyy
+* For single digit days or months, please precede them with a zero.
 * Leaving Deadline blank will make the order's deadline marked as `Not Specified`
 * Strack will prompt users to input products using the product command
 * Follow up with products to be added to the order using the following format. Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`.
@@ -160,8 +164,9 @@ Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 * This can be repeated as many times as necessary.
 
 Examples:
-* `order p/99887766` will create an order for person with phone number `99887766` followed by `product m/1 pq/2` and `product m/2 pq/2` <br>
-![result for creating order for alex](images/addOrderResult.png)
+* `order p/87438807 by/08/04/2024` will create an order for person with phone number `99887766` with a deadline `08/04/2024`, start adding products for the order to be shown. <br>
+![input for creating order for alex](images/OrderCommand.png)
+![result for creating order for alex](images/OrderCommandResult.png)
 <br>
 
 ### Adding of products : `product`
@@ -174,8 +179,9 @@ Format: `product m/MENU_ID pq/PRODUCT_QUANTITY`
 * This means closing the Strack.io will no longer allow you to add products to the order you created previously
 
 Examples:
-* Assuming you have already created an order in this session for the phone number `99887766`, using `product m/1 pq/2` and `product m/2 pq/2` will add products corresponding to `PRODUCT_ID` 1 and 2 in the menu, in this example it would be cupcakes and cookies respectively. <br>
-  ![result for creating order for alex](images/addOrderResult.png)
+* Assuming you have already created an order in this session for the phone number `87438807`, using `product m/1 pq/2` and `product m/2 pq/2` will add products corresponding to `PRODUCT_ID` 1 and 2 in the menu, in this example it would be cupcakes and cookies respectively. <br>
+  ![input for adding products for alex](images/ProductCommand.png)
+  ![input for adding products for alex](images/ProductCommandResult.png)
   <br>
 
 ### Editing of an order's deadline `edit`
@@ -187,8 +193,10 @@ Format: `edit o/ORDER_ID by/DEADLINE`
 * The format for deadline is dd/MM/yyyy
 
 Example:
-* `edit o/1 by/07/04/2024` or `edit o/1 by/12/10/2024` will edit the deadline of the order with order id 1 to `07/04/2024` or `12/10/2024` respectively
-
+* `edit o/1 by/07/04/2024` or `edit o/1 by/12/10/2024` will edit the deadline of the order with order id 1 to `07/04/2024` or `12/10/2024` respectively. <br>
+  ![input for adding products for alex](images/EditDeadlineCommand.png)
+  ![input for adding products for alex](images/EditDeadlineCommandResult.png)
+<br>
 
 ### Editing of orders `edit`
 
