@@ -63,7 +63,7 @@ Strack.io is a **desktop app for Homemade food sellers to manage contacts of the
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### Viewing help : `help`
+### Viewing help: `help`
 
 You can show a message explaining how to access the help page.
 
@@ -86,13 +86,13 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-### Listing all customers and orders : `list`
+### Listing all customers and orders: `list`
 
 You can show a list of all customers and orders in your address book.
 
 Format: `list`
 
-### Editing a person : `edit`
+### Editing a person: `edit`
 
 You can edit an existing customer in your address book.
 
@@ -131,7 +131,8 @@ Examples:
 * `find p/85012345 p/12345678` returns customer with phone number of `85012345` and `12345678`
 * `find o/19 o/23` returns `Order 19` and `Order 23`.
 ![result for finding order](images/FindCommand.png)
-### Deleting a customer : `delete`
+
+### Deleting a customer: `delete`
 
 You can delete the specified customer from your address book.
 
@@ -147,7 +148,7 @@ Examples:
   ![Deleting customer 2](images/DeleteCommand.png)
   ![Result for deleting customer 2](images/DeleteCommandResult.png)
 
-### Creating of orders : `order`
+### Creating of orders: `order`
 
 You can create and assign an order to a specified customer in the address book.
 
@@ -169,7 +170,7 @@ Examples:
 ![result for creating order for alex](images/OrderCommandResult.png)
 <br>
 
-### Adding of products : `product`
+### Adding of products to order: `product`
 
 You can add products on the menu into the most recently created order.
 
@@ -184,7 +185,7 @@ Examples:
   ![input for adding products for alex](images/ProductCommandResult.png)
   <br>
 
-### Editing of an order's deadline `edit`
+### Editing of an order's deadline: `edit`
 You can edit the deadline of an existing order of a specific customer in your address book.
 
 Format: `edit o/ORDER_ID by/DEADLINE`
@@ -198,7 +199,7 @@ Example:
   ![input for adding products for alex](images/EditDeadlineCommandResult.png)
 <br>
 
-### Editing of orders `edit`
+### Editing of orders: `edit`
 
 You can edit an existing order of a specific customer in your address book.
 
@@ -291,13 +292,13 @@ Format: `delete m/MENU_ID`
 ![delete product command](images/DeleteProductCommand.png)
 <br>![delete product command result](images/DeleteProductCommandResult.png)
 
-### Clearing all entries : `clear`
+### Clearing all entries: `clear`
 
 You can clear all entries from your address book.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+### Exiting the program: `exit`
 
 You can exit the program using a command.
 
@@ -316,10 +317,6 @@ If your changes to the data file makes its format invalid, Strack.io will discar
 Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> branch-user-guide-update
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
