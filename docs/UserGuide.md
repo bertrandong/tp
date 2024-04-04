@@ -160,9 +160,23 @@ Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 * This can be repeated as many times as necessary.
 
 Examples:
-* `order p/99887766` will create an order for person with phone number `99887766` followed by `pid/1 pq/2` and `pid/2 pq/2` ending with `done` <br>
+* `order p/99887766` will create an order for person with phone number `99887766` followed by `product m/1 pq/2` and `product m/2 pq/2` <br>
 ![result for creating order for alex](images/addOrderResult.png)
-<br>![system interaction for order creation](images/systemCreateOrder.png)
+<br>
+
+### Adding of products : `product`
+
+You can add products on the menu into the most recently created order.
+
+Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`
+* You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
+* This can be repeated as many times as necessary within one session of using Strack.io.
+* This means closing the Strack.io will no longer allow you to add products to the order you created previously
+
+Examples:
+* Assuming you have already created an order in this session for the phone number `99887766`, using `product m/1 pq/2` and `product m/2 pq/2` will add products corresponding to `PRODUCT_ID` 1 and 2 in the menu, in this example it would be cupcakes and cookies respectively. <br>
+  ![result for creating order for alex](images/addOrderResult.png)
+  <br>
 
 ### Editing of an order's deadline `edit`
 You can edit the deadline of an existing order of a specific customer in your address book.
