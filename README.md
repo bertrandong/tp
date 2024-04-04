@@ -16,6 +16,9 @@
   * Edit order information
   * List out all active orders
   * Delete order when delivery is done
+  * Implement deadlines
+  * Staging of order status
+  * Tracking of cost, sales and profits
 * It is named `Strack.io` because it was created to help keep track of snack orders.
 * For the detailed documentation of this project, see the **[Strack.io Product Website](https://ay2324s2-cs2103t-t08-2.github.io/tp/)**.
 
