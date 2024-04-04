@@ -144,6 +144,8 @@ Format: `delete c/CUSTOMER_ID`
 Examples:
 * `list` followed by `delete c/2` deletes the person with customer_id of `2` in the address book.
 * `find Betsy` followed by `delete c/1` deletes the person with customer_id of `1` in the results of the `find` command.
+  ![Deleting customer 2](images/DeleteCommand.png)
+  ![Result for deleting customer 2](images/DeleteCommandResult.png)
 
 ### Creating of orders : `order`
 
