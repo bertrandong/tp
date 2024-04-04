@@ -27,9 +27,9 @@ public class AddOrderCommand extends Command {
             + "by the phone number of person. "
             + "\n"
             + "Parameters: phone number (must be a positive integer) "
-            + "p/ [PHONE_NUMBER]\n"
+            + "p/[PHONE_NUMBER]\n"
             + "Example: " + COMMAND_WORD
-            + "p/ 87438807.";
+            + " p/87438807.";
 
     private final Phone phone;
     private Order order;
