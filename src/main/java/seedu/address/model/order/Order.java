@@ -329,7 +329,7 @@ public class Order implements Comparable<Order> {
     /**
      * Updates the cost, sales and profit of the order.
      */
-    private void updateNumbers() {
+    public void updateNumbers() {
         updateTotalCost();
         updateTotalSales();
         updateProfit();
@@ -350,6 +350,30 @@ public class Order implements Comparable<Order> {
      */
     public float getTotalCost() {
         return this.totalCost;
+    }
+
+    /**
+     * Sets the total cost of the order for JSON use only.
+     * @param cost cost of the order
+     */
+    public void setTotalCost(float cost) {
+        this.totalCost = cost;
+    }
+
+    /**
+     * Sets the total sales of the order for JSON use only.
+     * @param sales sales of the order
+     */
+    public void setTotalSales(float sales) {
+        this.totalSales = sales;
+    }
+
+    /**
+     * Sets the profit of the order for JSON use only.
+     * @param profit profit of the order
+     */
+    public void setProfit(float profit) {
+        this.profit = profit;
     }
 
     /**
