@@ -89,8 +89,8 @@ public class EditOrderCommand extends EditCommand {
         if (editOrderDescriptor.getProduct() != null && editOrderDescriptor.getQuantity() != null) {
             editedOrder = model.editOrder(orderToEdit,
                     editOrderDescriptor.getProduct(), editOrderDescriptor.getQuantity());
-        } else if (editOrderDescriptor.getProduct() == null && editOrderDescriptor.getQuantity() == null &&
-                this.editOrderDescriptor.getDeadline() != null) {
+        } else if (editOrderDescriptor.getProduct() == null && editOrderDescriptor.getQuantity() == null
+                && this.editOrderDescriptor.getDeadline() != null) {
             editedOrder = model.editOrderDeadline(orderToEdit, this.editOrderDescriptor.getDeadline());
         } else {
             editedOrder = model.editOrder(orderToEdit,
