@@ -20,7 +20,11 @@ public class Order implements Comparable<Order> {
     private Map<Product, Quantity> productMap;
 
     private Person customer;
+    private CreationDate creationDate;
+    private Deadline deadline = null;
+
     private StageContext stageContext;
+
     private float totalCost = 0;
     private float totalSales = 0;
 
@@ -31,6 +35,7 @@ public class Order implements Comparable<Order> {
      */
     public Order() {
         this.productMap = new HashMap<>();
+        this.creationDate = new CreationDate();
         this.stageContext = new StageContext();
     }
 
@@ -42,7 +47,19 @@ public class Order implements Comparable<Order> {
     public Order(int id) {
         this.id = id;
         productMap = new HashMap<>();
+        this.creationDate = new CreationDate();
         this.stageContext = new StageContext();
+
+    }
+
+    /**
+     * Contructs an {@code Order} object with {@code map}.
+     * @param map Mappings of Products and Quantity
+     */
+    public Order(Map<Product, Quantity> map) {
+        productMap = map;
+        updateNumbers();
+        this.creationDate = new CreationDate();
     }
 
     /**
@@ -55,6 +72,7 @@ public class Order implements Comparable<Order> {
         productMap = map;
         this.stageContext = stageContext;
         updateNumbers();
+        this.creationDate = new CreationDate();
     }
 
     /**
@@ -67,6 +85,7 @@ public class Order implements Comparable<Order> {
         this.customer = order.getCustomer();
         this.stageContext = order.stageContext;
         updateNumbers();
+        this.creationDate = new CreationDate();
     }
 
     /**
@@ -194,6 +213,30 @@ public class Order implements Comparable<Order> {
         return this.customer;
     }
 
+    public String getDeadline() {
+        if (this.deadline != null) {
+            return TimeManager.formatter(this.deadline.getDeadline());
+        } else {
+            return "Not Specified";
+        }
+    }
+
+    public Deadline getDeadlineObject() {
+        return this.deadline;
+    }
+
+    public String getCreationDate() {
+        return this.creationDate.toString();
+    }
+
+    public void setDeadline(Deadline deadline) {
+        this.deadline = deadline;
+    }
+
+    public void setCreationDate(String date) {
+        this.creationDate.setCreationDate(date);
+    }
+
     /**
      * Sets the {@code Person} ordering the order.
      * @param person the customer that the order belongs to
@@ -201,6 +244,7 @@ public class Order implements Comparable<Order> {
     public void setCustomer(Person person) {
         this.customer = person;
     }
+
 
     /**
      * Advances the order to the next stage.
@@ -355,4 +399,5 @@ public class Order implements Comparable<Order> {
         str.append("Profit: " + this.profit + "\n");
         return str.toString();
     }
+
 }

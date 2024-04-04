@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -24,7 +25,7 @@ public class AddOrderCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the order of the person identified "
             + "by the phone number of person. "
-            + "Existing orders will be overwritten by the input.\n"
+            + "\n"
             + "Parameters: phone number (must be a positive integer) "
             + "p/ [PHONE_NUMBER]\n"
             + "Example: " + COMMAND_WORD
@@ -42,6 +43,28 @@ public class AddOrderCommand extends Command {
 
         this.phone = phone;
         this.order = new Order();
+    }
+
+    /**
+     * Creates an {@code AddOrderCommand} to add an order associated with the specified phone number and deadline.
+     * This constructor initializes a new order with the given deadline
+     * and associates it with the provided phone number.
+     * The newly created order is set as the last order processed by this command.
+     * <p>
+     * Note: The phone number is assumed to be validated before being passed to this constructor.
+     *
+     * @param phone The phone number associated with the new order.
+     *              This parameter is required and cannot be {@code null}.
+     * @param deadline The deadline for the new order. It can be {@code null}
+     *                 if the order does not have a specific deadline.
+     * @throws NullPointerException if the {@code phone} parameter is {@code null}.
+     */
+    public AddOrderCommand(Phone phone, Deadline deadline) {
+        requireAllNonNull(phone);
+
+        this.phone = phone;
+        this.order = new Order();
+        this.order.setDeadline(deadline);
     }
 
     @Override

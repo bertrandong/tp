@@ -149,18 +149,46 @@ Examples:
 
 You can create and assign an order to a specified customer in the address book.
 
-Format: `order p/PHONE_NUMBER`
+Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 
 * Orders are assigned to person with specified `PHONE_NUMBER`.
-* Strack will prompt `Input Products`.
-* Follow up with products to be added to the order using the following format. Format: `m/PRODUCT_ID pq/PRODUCT_QUANTITY`.
+* `DEADLINE` is an optional fields that is used to keep track of an order's deadline
+* Leaving Deadline blank will make the order's deadline marked as `Not Specified`
+* Strack will prompt users to input products using the product command
+* Follow up with products to be added to the order using the following format. Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`.
 * You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
 * This can be repeated as many times as necessary.
 
 Examples:
-* `order p/99887766` will create an order for person with phone number `99887766` followed by `pid/1 pq/2` and `pid/2 pq/2` ending with `done` <br>
+* `order p/99887766` will create an order for person with phone number `99887766` followed by `product m/1 pq/2` and `product m/2 pq/2` <br>
 ![result for creating order for alex](images/addOrderResult.png)
-<br>![system interaction for order creation](images/systemCreateOrder.png)
+<br>
+
+### Adding of products : `product`
+
+You can add products on the menu into the most recently created order.
+
+Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`
+* You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
+* This can be repeated as many times as necessary within one session of using Strack.io.
+* This means closing the Strack.io will no longer allow you to add products to the order you created previously
+
+Examples:
+* Assuming you have already created an order in this session for the phone number `99887766`, using `product m/1 pq/2` and `product m/2 pq/2` will add products corresponding to `PRODUCT_ID` 1 and 2 in the menu, in this example it would be cupcakes and cookies respectively. <br>
+  ![result for creating order for alex](images/addOrderResult.png)
+  <br>
+
+### Editing of an order's deadline `edit`
+You can edit the deadline of an existing order of a specific customer in your address book.
+
+Format: `edit o/ORDER_ID by/DEADLINE`
+* `ORDER_ID` is a unique number for each order.
+* The order id refers to the number shown under order id in the displayed customer's contact.
+* The format for deadline is dd/MM/yyyy
+
+Example:
+* `edit o/1 by/07/04/2024` or `edit o/1 by/12/10/2024` will edit the deadline of the order with order id 1 to `07/04/2024` or `12/10/2024` respectively
+
 
 ### Editing of orders `edit`
 
@@ -284,6 +312,7 @@ Action | Format, Examples
 **Create order** | `order`
 **Cancel order** | `cancel ORDER_ID`
 **Edit order** | `edit o/ORDER_ID pn/PRODUCT_NAME pq/PRODUCT_QUANTITY`
+**Edit order deadline** | `edit o/ORDER_ID by/DEADLINE`
 **Add product to menu** | `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
 **Edit product on menu** | `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
 **Delete product on menu** | `delete m/MENU_ID`

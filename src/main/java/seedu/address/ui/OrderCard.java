@@ -24,6 +24,10 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label customerName;
     @FXML
+    private Label deadline;
+    @FXML
+    private Label creationDate;
+    @FXML
     private FlowPane products;
     @FXML
     private Label stage;
@@ -42,6 +46,10 @@ public class OrderCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
         orderId.setText("Order " + order.getId());
+
+        deadline.setText("Deadline: " + order.getDeadline());
+        creationDate.setText("Created On: " + order.getCreationDate());
+        setDeadlineUrgency();
         customerName.setText(order.getCustomer().getName().fullName);
         totalCost.setText("Total Cost: " + order.getTotalCost());
         totalSales.setText("Total Sales: " + order.getTotalSales());
@@ -50,5 +58,19 @@ public class OrderCard extends UiPart<Region> {
         order.getProductMap().forEach((product, quantity) -> productList.add(product + " x " + quantity));
         productList.stream().forEach(product -> products.getChildren().add(new Label(product)));
         stage.setText(order.getStageContext().toString());
+    }
+
+    /**
+     * Sets the text color of the {@code deadline} label based on the urgency of the deadline.
+     * If the deadline is within 3 days from the current date, the text color is set to red,
+     * indicating urgency. Otherwise, the text color is set to white, indicating that the
+     * deadline is not urgent.
+     */
+    public void setDeadlineUrgency() {
+        if (order.getDeadlineObject() != null && order.getDeadlineObject().isWithinDaysFromNow(3)) {
+            deadline.setStyle("-fx-text-fill: red;");
+        } else {
+            deadline.setStyle("-fx-text-fill: #FFFFFF;");
+        }
     }
 }
