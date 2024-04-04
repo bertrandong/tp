@@ -1,5 +1,9 @@
 package seedu.address.logic;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MENU;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,6 +37,14 @@ public class Messages {
 
     public static final String MESSAGE_COEXISTING_CUSTOMER_AND_ORDER =
             "Customer ID and order ID cannot coexist here.";
+
+    public static final String MESSAGE_SPECIFY_EDIT = "Please follow up with either "
+            + PREFIX_CUSTOMER_ID + "INDEX (for customer index)"
+            + " , "
+            + PREFIX_ORDER + "INDEX (for order index)"
+            + " or "
+            + PREFIX_MENU + "INDEX (for menu index)"
+            + " to edit either customers, orders or menu items respectively";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

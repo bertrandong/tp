@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
@@ -21,7 +22,7 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
-                        PREFIX_ORDER, PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_QUANTITY);
+                        PREFIX_ORDER, PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_QUANTITY, PREFIX_DEADLINE);
 
         Index index;
 
@@ -46,9 +47,24 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
                     argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).get()));
         }
 
-        if (!editOrderDescriptor.isAllFieldsEdited()) {
+        if (argMultimap.getValue(PREFIX_DEADLINE).isPresent()) {
+            editOrderDescriptor.setDeadline(ParserUtil.parseDeadline(
+                    argMultimap.getValue(PREFIX_DEADLINE).get()));
+        }
+
+        if ((argMultimap.getValue(PREFIX_PRODUCT_NAME).isPresent()
+                && !argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).isPresent())
+                || (!argMultimap.getValue(PREFIX_PRODUCT_NAME).isPresent()
+                && argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).isPresent())) {
             throw new ParseException(EditOrderCommand.MESSAGE_NOT_EDITED);
         }
+
+        if (!argMultimap.getValue(PREFIX_PRODUCT_NAME).isPresent()
+                && !argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).isPresent()
+                && !argMultimap.getValue(PREFIX_DEADLINE).isPresent()) {
+            throw new ParseException(EditOrderCommand.MESSAGE_NOT_EDITED);
+        }
+
 
         return new EditOrderCommand(index, editOrderDescriptor);
     }

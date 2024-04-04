@@ -130,7 +130,7 @@ Examples:
 * `find a/Lorong` returns customers with address that includes `Lorong`
 * `find p/85012345 p/12345678` returns customer with phone number of `85012345` and `12345678`
 * `find o/19 o/23` returns `Order 19` and `Order 23`.
-
+![result for finding order](images/FindCommand.png)
 ### Deleting a customer : `delete`
 
 You can delete the specified customer from your address book.
@@ -144,23 +144,59 @@ Format: `delete c/CUSTOMER_ID`
 Examples:
 * `list` followed by `delete c/2` deletes the person with customer_id of `2` in the address book.
 * `find Betsy` followed by `delete c/1` deletes the person with customer_id of `1` in the results of the `find` command.
+  ![Deleting customer 2](images/DeleteCommand.png)
+  ![Result for deleting customer 2](images/DeleteCommandResult.png)
 
 ### Creating of orders : `order`
 
 You can create and assign an order to a specified customer in the address book.
 
-Format: `order p/PHONE_NUMBER`
+Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 
 * Orders are assigned to person with specified `PHONE_NUMBER`.
-* Strack will prompt `Input Products`.
-* Follow up with products to be added to the order using the following format. Format: `m/PRODUCT_ID pq/PRODUCT_QUANTITY`.
+* `DEADLINE` is an optional fields that is used to keep track of an order's deadline
+* * The format for deadline dates are dd/MM/yyyy
+* For single digit days or months, please precede them with a zero.
+* Leaving Deadline blank will make the order's deadline marked as `Not Specified`
+* Strack will prompt users to input products using the product command
+* Follow up with products to be added to the order using the following format. Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`.
 * You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
 * This can be repeated as many times as necessary.
 
 Examples:
-* `order p/99887766` will create an order for person with phone number `99887766` followed by `pid/1 pq/2` and `pid/2 pq/2` ending with `done` <br>
-![result for creating order for alex](images/addOrderResult.png)
-<br>![system interaction for order creation](images/systemCreateOrder.png)
+* `order p/87438807 by/08/04/2024` will create an order for person with phone number `99887766` with a deadline `08/04/2024`, start adding products for the order to be shown. <br>
+![input for creating order for alex](images/OrderCommand.png)
+![result for creating order for alex](images/OrderCommandResult.png)
+<br>
+
+### Adding of products : `product`
+
+You can add products on the menu into the most recently created order.
+
+Format: `product m/MENU_ID pq/PRODUCT_QUANTITY`
+* You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
+* This can be repeated as many times as necessary within one session of using Strack.io.
+* This means closing the Strack.io will no longer allow you to add products to the order you created previously
+
+Examples:
+* Assuming you have already created an order in this session for the phone number `87438807`, using `product m/1 pq/2` and `product m/2 pq/2` will add products corresponding to `PRODUCT_ID` 1 and 2 in the menu, in this example it would be cupcakes and cookies respectively. <br>
+  ![input for adding products for alex](images/ProductCommand.png)
+  ![input for adding products for alex](images/ProductCommandResult.png)
+  <br>
+
+### Editing of an order's deadline `edit`
+You can edit the deadline of an existing order of a specific customer in your address book.
+
+Format: `edit o/ORDER_ID by/DEADLINE`
+* `ORDER_ID` is a unique number for each order.
+* The order id refers to the number shown under order id in the displayed customer's contact.
+* The format for deadline is dd/MM/yyyy
+
+Example:
+* `edit o/1 by/07/04/2024` or `edit o/1 by/12/10/2024` will edit the deadline of the order with order id 1 to `07/04/2024` or `12/10/2024` respectively. <br>
+  ![input for adding products for alex](images/EditDeadlineCommand.png)
+  ![input for adding products for alex](images/EditDeadlineCommandResult.png)
+<br>
 
 ### Editing of orders `edit`
 
@@ -197,8 +233,10 @@ Format: `cancel ORDER_ID`
 * `ORDER_ID` refers to the number shown under order id in the displayed persons contact.
 
 Example:
-* `cancel 19` will delete order with `ORDER_ID` of `19`.
-
+* `cancel 19` will cancel order with `ORDER_ID` of `19`.
+![result for cancelling order](images/CancelOrder1.png)
+![result for cancelling order](images/CancelOrder2.png)
+  
 ### Adding a product to the menu: `menu`
 
 You can add a product to be displayed on the product menu.
@@ -218,7 +256,7 @@ Example:
 
 You can edit an existing product on the product menu.
 
-Format: `edit m/PRODUCT_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
+Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
 
 * Edits the product of the specified `MENU_ID`. The `MENU_ID` refers to the number reflected on the product menu beside the product name. The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -263,6 +301,10 @@ If your changes to the data file makes its format invalid, Strack.io will discar
 Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch-user-guide-update
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -292,6 +334,7 @@ Action | Format, Examples
 **Cancel order** | `cancel ORDER_ID`
 **Complete order** | `complete ORDER_ID`
 **Edit order** | `edit o/ORDER_ID pn/PRODUCT_NAME pq/PRODUCT_QUANTITY`
+**Edit order deadline** | `edit o/ORDER_ID by/DEADLINE`
 **Add product to menu** | `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
 **Edit product on menu** | `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
 **Delete product on menu** | `delete m/MENU_ID`

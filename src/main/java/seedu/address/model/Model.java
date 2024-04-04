@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
@@ -114,6 +115,15 @@ public interface Model {
      * @param newQuantity new Quantity of the specified product.
      */
     Order editOrder(Order target, Product currProduct, Quantity newQuantity);
+
+    /**
+     * Edits the deadline of an existing order in the address book.
+     * This method updates the deadline of a specified order with a new deadline.
+     * @param target The order whose deadline is to be updated. Must not be null.
+     * @param deadline The new deadline to set for the order. Must not be null.
+     * @return The updated order with the new deadline set.
+     */
+    Order editOrderDeadline(Order target, Deadline deadline);
 
     /**
      * Advances the target order to the next stage.
