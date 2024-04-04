@@ -203,7 +203,7 @@ Example:
 
 You can edit an existing order of a specific customer in your address book.
 
-Format: `edit m/MENU_ID pq/PRODUCT_QUANTITY`
+Format: `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`
 
 * `ORDER_ID` is a unique number for each order.
 * The order id refers to the number shown under order id in the displayed customer's contact.
@@ -213,7 +213,7 @@ Format: `edit m/MENU_ID pq/PRODUCT_QUANTITY`
 Example:
 ![before state for EditOrderCommand](images/EditOrderCommandBefore.png)
 * `edit o/4 m/3 pq/10` will edit the order with order id of `4` and change the product associated with menu id of `3`
-which is `tarts` quantity to `10`.
+which is `tarts` quantity to `10`. 
 
 ![before state for EditOrderCommand](images/EditOrderCommandAfter.png)
 
@@ -346,10 +346,10 @@ Action | Format, Examples
 **Edit customer** | `edit c/CUSTOMER_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find customer/order** | `find [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [o/ORDER_ID]`<br> e.g., `find James Jake`
 **List all contacts and orders** | `list`
-**Create order** | `order`
+**Create order** | `order p/PHONE_NUMBER [by/DEADLINE]`
 **Cancel order** | `cancel ORDER_ID`
 **Complete order** | `complete ORDER_ID`
-**Edit order** | `edit o/ORDER_ID pn/PRODUCT_NAME pq/PRODUCT_QUANTITY`
+**Edit order** | `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`
 **Edit order deadline** | `edit o/ORDER_ID by/DEADLINE`
 **Add product to menu** | `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
 **Edit product on menu** | `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
