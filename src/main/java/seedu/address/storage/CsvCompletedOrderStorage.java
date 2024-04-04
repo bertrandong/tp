@@ -88,23 +88,23 @@ public class CsvCompletedOrderStorage {
     }
 
     private String convertSubtotalCostToReadable(Order order, Product product) {
-        int quantity = order.getProductMap().get(product).getValue();
-        int unitCost = Integer.parseInt(product.getCost());
-        int subtotalCost = quantity * unitCost;
-        return Integer.toString(subtotalCost);
+        float quantity = order.getProductMap().get(product).getValue();
+        float unitCost = Float.parseFloat(product.getCost());
+        float subtotalCost = quantity * unitCost;
+        return Float.toString(subtotalCost);
     }
 
     private String convertSubtotalRevenueToReadable(Order order, Product product) {
-        int quantity = order.getProductMap().get(product).getValue();
-        int unitRevenue = Integer.parseInt(product.getSales());
-        int subtotalRevenue = quantity * unitRevenue;
-        return Integer.toString(subtotalRevenue);
+        float quantity = order.getProductMap().get(product).getValue();
+        float unitRevenue = Float.parseFloat(product.getSales());
+        float subtotalRevenue = quantity * unitRevenue;
+        return Float.toString(subtotalRevenue);
     }
 
     private String convertSubtotalProfitToReadable(Order order, Product product) {
-        int subtotalCost = Integer.parseInt(convertSubtotalCostToReadable(order, product));
-        int subtotalRevenue = Integer.parseInt(convertSubtotalRevenueToReadable(order, product));
-        int subtotalProfit = subtotalRevenue - subtotalCost;
-        return Integer.toString(subtotalProfit);
+        float subtotalCost = Float.parseFloat(convertSubtotalCostToReadable(order, product));
+        float subtotalRevenue = Float.parseFloat(convertSubtotalRevenueToReadable(order, product));
+        float subtotalProfit = subtotalRevenue - subtotalCost;
+        return Float.toString(subtotalProfit);
     }
 }
