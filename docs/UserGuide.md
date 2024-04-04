@@ -176,7 +176,19 @@ Format: `edit o/ORDER_ID pn/PRODUCT_NAME pq/PRODUCT_QUANTITY`
 Example:
 * `edit o/1 pn/Chicken Pie pq/2 pn/Macaron pq/6` will edit the order with order id of 1 and change `Chicken Pie` quantity to `2` and `Macaron` quantity to `6`.
 
-### Cancelling/Completion of orders: `delete`
+### Completion of orders: `complete`
+
+You can demarcate an order in your address book as complete. Strack will collate completed orders into a csv file.
+The csv file can be accessed in this directory: `[JAR file location]/data/completedorders.csv`
+
+Format: `complete ORDER_ID`
+
+* `ORDER_ID` refers to the number shown under order id in the displayed persons contact.
+
+Example:
+* `complete 19` will delete order with `ORDER_ID` of `19`.
+
+### Cancelling of orders: `cancel`
 
 You can remove an ongoing order in your address book.
 
@@ -185,7 +197,7 @@ Format: `cancel ORDER_ID`
 * `ORDER_ID` refers to the number shown under order id in the displayed persons contact.
 
 Example:
-* `delete 19` will delete order with `ORDER_ID` of `19`.
+* `cancel 19` will delete order with `ORDER_ID` of `19`.
 
 ### Adding a product to the menu: `menu`
 
@@ -251,10 +263,6 @@ If your changes to the data file makes its format invalid, Strack.io will discar
 Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -278,11 +286,11 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete customer** | `delete c/CUSTOMER_ID`<br> e.g., `delete c/3`
 **Edit customer** | `edit c/CUSTOMER_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [o/ORDER_ID]`<br> e.g., `find James Jake`
-**List contacts** | `list`
-**List orders** | `list orders`
+**Find customer/order** | `find [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [o/ORDER_ID]`<br> e.g., `find James Jake`
+**List all contacts and orders** | `list`
 **Create order** | `order`
 **Cancel order** | `cancel ORDER_ID`
+**Complete order** | `complete ORDER_ID`
 **Edit order** | `edit o/ORDER_ID pn/PRODUCT_NAME pq/PRODUCT_QUANTITY`
 **Add product to menu** | `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
 **Edit product on menu** | `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`

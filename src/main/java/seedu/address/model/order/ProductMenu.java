@@ -80,6 +80,19 @@ public class ProductMenu implements Iterable<Product> {
         internalList.set(index, editedProduct);
     }
 
+    /**
+     * Finds the index of the product in the product menu based on its name.
+     * @param name String value of the product name.
+     * @return index value of the product found.
+     */
+    public int findProductByName(String name) {
+        requireNonNull(name);
+
+        Product productToBeSearched = new Product(name);
+        int index = internalList.indexOf(productToBeSearched);
+        return index;
+    }
+
     @Override
     public String toString() {
         return internalList.toString();

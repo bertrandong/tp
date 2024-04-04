@@ -63,6 +63,11 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
+        for (JsonAdaptedProduct jsonAdaptedProduct : menu) {
+            Product product = jsonAdaptedProduct.toModelType();
+            addressBook.addProduct(product);
+
+        }
         for (JsonAdaptedOrder jsonAdaptedOrder : orders) {
             Order order = jsonAdaptedOrder.toModelType();
             addressBook.addOrderWithID(order);
@@ -80,10 +85,6 @@ class JsonSerializableAddressBook {
                 currOrder.setCustomer(person);
             }
             addressBook.addPerson(person);
-        }
-        for (JsonAdaptedProduct jsonAdaptedProduct : menu) {
-            Product product = jsonAdaptedProduct.toModelType();
-            addressBook.addProduct(product);
         }
         return addressBook;
     }
