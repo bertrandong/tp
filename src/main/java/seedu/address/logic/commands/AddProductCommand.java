@@ -21,7 +21,7 @@ public class AddProductCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds products to the last created order\n"
             + "Parameters: "
-            + PREFIX_MENU + "PRODUCT INDEX (must be a positive integer)"
+            + PREFIX_MENU + "MENU INDEX (must be a positive integer) "
             + PREFIX_PRODUCT_QUANTITY + "QUANTITY (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MENU + "1 "
@@ -74,6 +74,9 @@ public class AddProductCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (productId.getOneBased() < 1 || productId.getOneBased() > model.getFilteredMenuList().size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_MENU_DISPLAYED_INDEX);
+        }
         if (lastOrder == null) {
             throw new CommandException(Messages.MESSAGE_ORDER_NOT_CREATED);
         }
