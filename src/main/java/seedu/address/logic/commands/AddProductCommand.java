@@ -19,10 +19,10 @@ public class AddProductCommand extends Command {
     public static final String COMMAND_WORD = "product";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds products to the last created order "
+            + ": Adds products to the last created order\n"
             + "Parameters: "
-            + PREFIX_MENU + "PRODUCT INDEX "
-            + PREFIX_PRODUCT_QUANTITY + "QUANTITY\n"
+            + PREFIX_MENU + "PRODUCT INDEX (must be a positive integer)"
+            + PREFIX_PRODUCT_QUANTITY + "QUANTITY (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MENU + "1 "
             + PREFIX_PRODUCT_QUANTITY + "2";
