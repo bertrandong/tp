@@ -20,8 +20,8 @@ public class AddOrderCommand extends Command {
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
     public static final String MESSAGE_ADD_ORDER_SUCCESS = "Added order to Person: %1$s";
     public static final String MESSAGE_DELETE_ORDER_SUCCESS = "Removed order from Person: %1$s";
-    public static final String MESSAGE_ADD_PRODUCTS = "Add products using this command:"
-            + "product m/[PRODUCT_ID] and pq/[QUANTITY]";
+    public static final String MESSAGE_ADD_PRODUCTS = "Add products using this command: "
+            + "product m/[PRODUCT_ID] pq/[QUANTITY]";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the order of the person identified "
             + "by the phone number of person. "
