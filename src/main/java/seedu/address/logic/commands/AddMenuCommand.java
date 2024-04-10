@@ -19,11 +19,11 @@ public class AddMenuCommand extends Command {
     public static final String COMMAND_WORD = "menu";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds products to the last created order "
+            + ": Adds products to the last created order\n"
             + "Parameters: "
             + PREFIX_PRODUCT_NAME + "PRODUCT NAME "
             + PREFIX_PRODUCT_COST + "PRODUCT COST "
-            + PREFIX_PRODUCT_SALES + "PRODUCT SALES "
+            + PREFIX_PRODUCT_SALES + "PRODUCT SALES\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PRODUCT_NAME + "cake "
             + PREFIX_PRODUCT_COST + "15 "
