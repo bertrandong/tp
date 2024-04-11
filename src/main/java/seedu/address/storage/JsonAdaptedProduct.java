@@ -15,10 +15,10 @@ public class JsonAdaptedProduct {
 
     public static final String MISSING_NAME_FIELD_MESSAGE = "Product's %s field is missing!";
 
-    private final String name;
-    private final String sales;
+    private String name;
+    private String sales;
 
-    private final String cost;
+    private String cost;
 
 
     /**
@@ -42,6 +42,30 @@ public class JsonAdaptedProduct {
         this.sales = source.getSales();
     }
 
+    public String getCost() {
+        return cost;
+    }
+
+    public String getSales() {
+        return sales;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSales(String sales) {
+        this.sales = sales;
+    }
+
     /**
      * Converts this Jackson-friendly adapted product object into the model's {@code Product}.
      * @return Model-friendly version of product object.
@@ -58,5 +82,9 @@ public class JsonAdaptedProduct {
             throw new IllegalValueException(String.format(MISSING_NAME_FIELD_MESSAGE, "sales"));
         }
         return new Product(this.name, this.cost, this.sales);
+    }
+
+    public int hashCode() {
+        return this.name.hashCode();
     }
 }

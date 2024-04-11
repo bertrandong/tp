@@ -28,6 +28,7 @@ public class CsvUtil {
         for (String[] dataLine : data) {
             String writeLine = convertToCsvFormat(dataLine);
             formatingCsvLineForCompletedOrders(bw, isFileEmpty, writeLine, headers);
+            isFileEmpty = false;
         }
         bw.close();
     }
