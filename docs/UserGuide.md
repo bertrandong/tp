@@ -129,7 +129,7 @@ Examples:
 * `find n/alex n/John` returns `Alex`, `john` and `John Doe`<br>
 * `find a/Lorong` returns customers with address that includes `Lorong`
 * `find p/85012345 p/12345678` returns customer with phone number of `85012345` and `12345678`
-* `find o/19 o/23` returns `Order 19` and `Order 23`.
+* `find o/4 o/6` returns `Order 4` and `Order 6`.
 ![result for finding order](images/FindCommand.png)
 ### Deleting a customer : `delete`
 
