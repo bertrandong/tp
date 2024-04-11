@@ -29,7 +29,7 @@ Strack.io is a **desktop app for Homemade food sellers to manage contacts of the
 
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete c/3` : Deletes the 3rd contact shown in the current list.
 
    * `clear` : Deletes all contacts.
 
@@ -347,6 +347,7 @@ Action | Format, Examples
 **Find customer/order** | `find [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [o/ORDER_ID]`<br> e.g., `find James Jake`
 **List all contacts and orders** | `list`
 **Create order** | `order p/PHONE_NUMBER [by/DEADLINE]`
+**Add product to order** | `product m/MENU_ID pq/PRODUCT_QUANTITY`
 **Cancel order** | `cancel ORDER_ID`
 **Complete order** | `complete ORDER_ID`
 **Edit order** | `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`

@@ -74,6 +74,9 @@ public class AddProductCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (productId.getOneBased() < 1 || productId.getOneBased() > model.getFilteredMenuList().size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_MENU_DISPLAYED_INDEX);
+        }
         if (lastOrder == null) {
             throw new CommandException(Messages.MESSAGE_ORDER_NOT_CREATED);
         }

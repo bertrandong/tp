@@ -28,7 +28,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             DeleteMenuCommandParser deleteMenuCommandParser = new DeleteMenuCommandParser();
             return deleteMenuCommandParser.parse(args);
         } else {
-            throw new ParseException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(Messages.MESSAGE_SPECIFY_DELETE);
         }
     }
 
