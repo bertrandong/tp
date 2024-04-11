@@ -48,6 +48,12 @@ public class Messages {
             + PREFIX_MENU + "INDEX (for menu index)"
             + " to edit either customers, orders or menu items respectively";
 
+    public static final String MESSAGE_SPECIFY_DELETE = "Please follow up with either "
+            + PREFIX_CUSTOMER_ID + "INDEX (for customer index)"
+            + " or "
+            + PREFIX_MENU + "INDEX (for menu index)"
+            + " to delete either customers or menu items respectively";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
