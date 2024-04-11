@@ -25,10 +25,13 @@ public class CsvUtil {
         File writeFile = filePath.toFile();
         boolean isFileEmpty = writeFile.length() == 0;
         BufferedWriter bw = new BufferedWriter(new FileWriter(writeFile, true));
+        if (isFileEmpty) {
+            String headerString = convertToCsvFormat(headers);
+            bw.append(headerString);
+        }
         for (String[] dataLine : data) {
             String writeLine = convertToCsvFormat(dataLine);
-            formatingCsvLineForCompletedOrders(bw, isFileEmpty, writeLine, headers);
-            isFileEmpty = false;
+            formatingCsvLineForCompletedOrders(bw, writeLine);
         }
         bw.close();
     }
@@ -38,17 +41,8 @@ public class CsvUtil {
         return str;
     }
 
-    private static void formatingCsvLineForCompletedOrders(BufferedWriter writer, boolean isFileEmpty, String data,
-                                                           String[] headers) throws IOException {
-        if (isFileEmpty) {
-            String headerString = convertToCsvFormat(headers);
-            writer.append(headerString);
-            writer.newLine();
-            writer.append(data);
-        } else {
-            writer.newLine();
-            writer.append(data);
-        }
+    private static void formatingCsvLineForCompletedOrders(BufferedWriter writer, String data) throws IOException {
+        writer.newLine();
+        writer.append(data);
     }
-
 }
