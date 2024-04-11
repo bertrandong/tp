@@ -347,6 +347,7 @@ Action | Format, Examples
 **Find customer/order** | `find [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [o/ORDER_ID]`<br> e.g., `find James Jake`
 **List all contacts and orders** | `list`
 **Create order** | `order p/PHONE_NUMBER [by/DEADLINE]`
+**Add product to order** | `product m/MENU_ID pq/PRODUCT_QUANTITY`
 **Cancel order** | `cancel ORDER_ID`
 **Complete order** | `complete ORDER_ID`
 **Edit order** | `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`
