@@ -3,7 +3,10 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
@@ -287,6 +290,25 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setProduct(Product target, Product editedProduct) {
         requireNonNull(editedProduct);
+
+        OrderList updatedOrders = new OrderList();
+        OrderList activeOrdersCopy = activeOrders;
+        for (Map.Entry<Integer, Order> orderList : activeOrdersCopy.getOrderMap().entrySet()) {
+            Order currOrder = new Order();
+            for (Map.Entry<Product, Quantity> set : orderList.getValue().getProductMap().entrySet()) {
+                if (set.getKey().getName() == target.getName()) {
+                    currOrder.addProduct(editedProduct, set.getValue());
+                } else {
+                    currOrder.addProduct(set.getKey(), set.getValue());
+                }
+                currOrder.setID(orderList.getValue().getId());
+                currOrder.setCreationDate(orderList.getValue().getCreationDate());
+                currOrder.setDeadline(orderList.getValue().getDeadlineObject());
+                currOrder.setCustomer(orderList.getValue().getCustomer());
+            }
+            updatedOrders.addOrderWithID(currOrder, currOrder.getId());
+        }
+        activeOrders.setOrders(updatedOrders);
 
         menu.editProduct(target, editedProduct);
     }

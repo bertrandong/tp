@@ -263,4 +263,8 @@ public class OrderList implements Iterable<Order> {
         }
         return true;
     }
+
+    public HashMap<Integer, Order> getOrderMap() {
+        return orderList;
+    }
 }
