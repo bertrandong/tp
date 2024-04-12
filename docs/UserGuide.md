@@ -29,7 +29,7 @@ Strack.io is a **desktop app for Homemade food sellers to manage contacts of the
 
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete c/3` : Deletes the 3rd contact shown in the current list.
 
    * `clear` : Deletes all contacts.
 
@@ -129,7 +129,7 @@ Examples:
 * `find n/alex n/John` returns `Alex`, `john` and `John Doe`<br>
 * `find a/Lorong` returns customers with address that includes `Lorong`
 * `find p/85012345 p/12345678` returns customer with phone number of `85012345` and `12345678`
-* `find o/19 o/23` returns `Order 19` and `Order 23`.
+* `find o/4 o/6` returns `Order 4` and `Order 6`.
 ![result for finding order](images/FindCommand.png)
 
 ### Deleting a customer: `delete`
@@ -216,6 +216,26 @@ Example:
 which is `tarts` quantity to `10`. 
 
 ![before state for EditOrderCommand](images/EditOrderCommandAfter.png)
+
+### Staging of orders: `stage`
+
+You can move an order to the next stage, in the chain of the four stages defined by Strack, in order namely: `Under Preparation`, `Ready for Delivery`,
+`Sent for delivery` and `Received by customer`. However, you cannot go back to a previous stage.
+
+Format: `stage o/ORDER`
+
+* `ORDER_ID` is a unique number for each order.
+* Any order just created will be in `Under Preparation` stage.
+
+Example:
+* Suppose the order with id 1 is in initial `Under Preparation` stage.
+![Before running stage command](images/StageCommandBefore.png)
+
+* Running `stage o/1` once will move the order with id 1 to `Ready for Delivery`.
+![Run stage command once](images/StageCommandOnce.png)
+
+* Running `stage o/1` three or more times will move the order with id 1 to `Received by customer`.
+![Run stage command three times](images/StageCommandTrice.png)
 
 ### Completion of orders: `complete`
 
@@ -347,6 +367,7 @@ Action | Format, Examples
 **Find customer/order** | `find [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [o/ORDER_ID]`<br> e.g., `find James Jake`
 **List all contacts and orders** | `list`
 **Create order** | `order p/PHONE_NUMBER [by/DEADLINE]`
+**Add product to order** | `product m/MENU_ID pq/PRODUCT_QUANTITY`
 **Cancel order** | `cancel ORDER_ID`
 **Complete order** | `complete ORDER_ID`
 **Edit order** | `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`
