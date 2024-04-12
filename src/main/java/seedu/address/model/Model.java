@@ -243,4 +243,13 @@ public interface Model {
      * @return the product to search for
      */
     Product findProductByIndex(int id);
+
+    /**
+     * Refreshes the order list to display up-to-date customer information in orders
+     * after customer is edited.
+     *
+     * @param oldCustomer customer before the change.
+     * @param newCustomer customer after the change.
+     */
+    void refreshCustomer(Person oldCustomer, Person newCustomer);
 }
