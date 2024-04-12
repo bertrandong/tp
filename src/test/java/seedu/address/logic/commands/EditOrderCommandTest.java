@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.exceptions.OrderNotFoundException;
+import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
@@ -26,7 +27,7 @@ public class EditOrderCommandTest {
 
     @Test
     public void invalidOrderIndex_throwsException() {
-        EditOrderCommand command = new EditOrderCommand(Index.fromOneBased(1),
+        EditOrderCommand command = new EditOrderCommand(Index.fromOneBased(1), Index.fromOneBased(1),
                 new EditOrderCommand.EditOrderDescriptor());
         try {
             assertThrows(CommandException.class, () -> command.execute(new ModelStubGettingOrder()));
@@ -116,6 +117,11 @@ public class EditOrderCommandTest {
 
         @Override
         public Order editOrder(Order order, Product product, Quantity quantity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Order editOrderDeadline(Order order, Deadline deadline) {
             throw new AssertionError("This method should not be called.");
         }
 

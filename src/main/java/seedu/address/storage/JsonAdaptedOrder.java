@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
@@ -25,7 +26,12 @@ public class JsonAdaptedOrder {
     private Map<String, Integer> productMap;
     private String customerName;
     private String customerPhone;
+    private String creationDate;
+    private String deadline;
     private String stage;
+    private float totalCost;
+    private float totalSales;
+    private float profit;
 
     /**
      * Constructs a {@code JsonAdaptedOrder} with the given {@code order}.
@@ -35,16 +41,23 @@ public class JsonAdaptedOrder {
                             @JsonProperty("productMap") Map<String, Integer> productMap,
                             @JsonProperty("customerName") String customerName,
                             @JsonProperty("customerPhone") String customerPhone,
+                            @JsonProperty("creationDate") String creationDate,
+                            @JsonProperty("deadline") String deadline,
                             @JsonProperty("stage") String stage,
-                            @JsonProperty("totalCost") Integer totalCost,
-                            @JsonProperty("totalSales") Integer totalSales,
-                            @JsonProperty("profit") Integer profit
+                            @JsonProperty("totalCost") Float totalCost,
+                            @JsonProperty("totalSales") Float totalSales,
+                            @JsonProperty("profit") Float profit
                             ) {
         this.id = id;
         this.productMap = productMap;
         this.customerName = customerName;
         this.customerPhone = customerPhone;
+        this.creationDate = creationDate;
+        this.deadline = deadline;
         this.stage = stage;
+        this.totalCost = totalCost;
+        this.totalSales = totalSales;
+        this.profit = profit;
     }
 
     /**
@@ -64,7 +77,12 @@ public class JsonAdaptedOrder {
         Person orderCustomer = order.getCustomer();
         this.customerName = orderCustomer.getName().fullName;
         this.customerPhone = orderCustomer.getPhone().value;
+        this.creationDate = order.getCreationDate();
+        this.deadline = order.getDeadline();
         this.stage = order.getStageContext().toString();
+        this.totalCost = order.getTotalCost();
+        this.totalSales = order.getTotalSales();
+        this.profit = order.getProfit();
     }
 
     /**
@@ -85,6 +103,16 @@ public class JsonAdaptedOrder {
             map.put(currProd, currQuant);
         }
         modelOrder.setProductMap(map);
+        modelOrder.setTotalCost(totalCost);
+        modelOrder.setTotalSales(totalSales);
+        modelOrder.setProfit(profit);
+        if (this.creationDate != null && !this.creationDate.isEmpty()) {
+            modelOrder.setCreationDate(this.creationDate);
+        }
+
+        if (this.deadline != null && !this.deadline.isEmpty() && Deadline.isValidDeadline(this.deadline)) {
+            modelOrder.setDeadline(new Deadline(this.deadline));
+        }
         modelOrder.setStageContext(new StageContext(stage));
         return modelOrder;
     }

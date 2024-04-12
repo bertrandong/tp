@@ -1,8 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MENU;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
@@ -14,6 +15,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.OrderNotFoundException;
+import seedu.address.model.exceptions.ProductNotFoundException;
+import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
@@ -30,27 +33,37 @@ public class EditOrderCommand extends EditCommand {
             + "by the index number used in the displayed order list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: [" + PREFIX_ORDER + "INDEX (must be a positive integer)] "
-            + "[" + PREFIX_PRODUCT_QUANTITY + "PRODUCT_QUANTITY] "
+            + "[" + PREFIX_MENU + "MENU_ID] "
+            + "[" + PREFIX_DEADLINE + "DEADLINE] "
             + "Example: " + COMMAND_WORD + " " + PREFIX_ORDER + "1 "
-            + PREFIX_PRODUCT_NAME + "cupcake "
-            + PREFIX_PRODUCT_QUANTITY + "2";
+            + PREFIX_MENU + "1 "
+            + PREFIX_PRODUCT_QUANTITY + "2 "
+            + "or " + COMMAND_WORD + " " + PREFIX_ORDER + "1 "
+            + PREFIX_DEADLINE + "01/04/2024";
 
     public static final String MESSAGE_EDIT_ORDER_SUCCESS = "Edited Order: %1$s";
     public static final String MESSAGE_NOT_EDITED =
             "Both product and quantity must be provided.";
 
-    private final Index index;
+    public static final String MESSAGE_NOT_EDITED_EXTRA = "You can edit either product and quantity "
+            + "or the order's deadline";
+
+    private final Index orderIndex;
+    private final Index productIndex;
     private final EditOrderDescriptor editOrderDescriptor;
 
     /**
-     * @param index of the order in the filtered order list to edit
+     * @param orderIndex of the order in the filtered order list to edit
+     * @param productIndex of the product in the filtered product menu to edit
      * @param editOrderDescriptor details to edit the order with
      */
-    public EditOrderCommand(Index index, EditOrderDescriptor editOrderDescriptor) {
-        requireNonNull(index);
+    public EditOrderCommand(Index orderIndex, Index productIndex, EditOrderDescriptor editOrderDescriptor) {
+        requireNonNull(orderIndex);
+        requireNonNull(productIndex);
         requireNonNull(editOrderDescriptor);
 
-        this.index = index;
+        this.orderIndex = orderIndex;
+        this.productIndex = productIndex;
         this.editOrderDescriptor = new EditOrderDescriptor(editOrderDescriptor);
     }
 
@@ -59,19 +72,52 @@ public class EditOrderCommand extends EditCommand {
         requireNonNull(model);
 
         try {
-            model.getOrder(index.getOneBased());
+            model.getOrder(orderIndex.getOneBased());
         } catch (OrderNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Order orderToEdit = new Order(model.getOrder(index.getOneBased()));
+        try {
+            model.findProductByIndex(productIndex.getZeroBased());
+        } catch (ProductNotFoundException e) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        }
 
-        Order editedOrder = model.editOrder(orderToEdit,
-                editOrderDescriptor.getProduct(), editOrderDescriptor.getQuantity());
+        Order orderToEdit = new Order(model.getOrder(orderIndex.getOneBased()));
+        Product productToEdit = new Product(model.findProductByIndex(productIndex.getZeroBased()));
+        editOrderDescriptor.setProduct(productToEdit);
+        Order editedOrder = createEditOrder(model, orderToEdit);
+
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
         return new CommandResult(String.format(MESSAGE_EDIT_ORDER_SUCCESS,
                 Messages.format(editedOrder)));
+    }
+    /**
+     * Creates or updates an order based on the specified edit descriptors.
+     * This method decides how to edit an existing order based on the presence of product,
+     * quantity, and deadline information within an edit descriptor.
+     *
+     * @param model The application model that contains the order data and editing methods.
+     * @param orderToEdit The order to be edited.
+     * @return The edited order with the updates applied.
+     */
+
+    public Order createEditOrder(Model model, Order orderToEdit) {
+        Order editedOrder;
+        if (editOrderDescriptor.getProduct() != null && editOrderDescriptor.getQuantity() != null) {
+            editedOrder = model.editOrder(orderToEdit,
+                    editOrderDescriptor.getProduct(), editOrderDescriptor.getQuantity());
+        } else if (editOrderDescriptor.getProduct() == null && editOrderDescriptor.getQuantity() == null
+                && this.editOrderDescriptor.getDeadline() != null) {
+            editedOrder = model.editOrderDeadline(orderToEdit, this.editOrderDescriptor.getDeadline());
+        } else {
+            editedOrder = model.editOrder(orderToEdit,
+                    editOrderDescriptor.getProduct(), editOrderDescriptor.getQuantity());
+            editedOrder.setDeadline(this.editOrderDescriptor.getDeadline());
+        }
+
+        return editedOrder;
     }
 
     @Override
@@ -86,14 +132,16 @@ public class EditOrderCommand extends EditCommand {
         }
 
         EditOrderCommand otherEditOrderCommand = (EditOrderCommand) other;
-        return index.equals(otherEditOrderCommand.index)
+        return orderIndex.equals(otherEditOrderCommand.orderIndex)
+                && productIndex.equals(otherEditOrderCommand.productIndex)
                 && editOrderDescriptor.equals(otherEditOrderCommand.editOrderDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("index", index)
+                .add("orderIndex", orderIndex)
+                .add("productIndex", productIndex)
                 .add("editPersonDescriptor", editOrderDescriptor)
                 .toString();
     }
@@ -105,6 +153,7 @@ public class EditOrderCommand extends EditCommand {
     public static class EditOrderDescriptor {
         private Product product;
         private Quantity quantity;
+        private Deadline deadline;
 
         public EditOrderDescriptor() {}
 
@@ -115,6 +164,7 @@ public class EditOrderCommand extends EditCommand {
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
             setProduct(toCopy.product);
             setQuantity(toCopy.quantity);
+            setDeadline(toCopy.deadline);
         }
 
         /**
@@ -138,6 +188,14 @@ public class EditOrderCommand extends EditCommand {
 
         public Quantity getQuantity() {
             return quantity;
+        }
+
+        public void setDeadline(Deadline deadline) {
+            this.deadline = deadline;
+        }
+
+        public Deadline getDeadline() {
+            return this.deadline;
         }
 
         @Override

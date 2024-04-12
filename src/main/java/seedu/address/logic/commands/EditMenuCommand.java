@@ -34,7 +34,7 @@ public class EditMenuCommand extends EditCommand {
     public static final String MESSAGE_EDIT_PRODUCT_SUCCESS = "Edited Product: %1$s";
 
     public static final String MESSAGE_NOT_EDITED =
-            "New product name must be provided.";
+            "Either a new product name, product cost or product sales must be provided.";
 
     public static final String MESSAGE_DUPLICATE_PRODUCT = "This product already exists in the menu.";
 

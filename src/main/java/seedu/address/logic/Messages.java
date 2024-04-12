@@ -1,5 +1,9 @@
 package seedu.address.logic;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MENU;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,6 +23,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_ORDER_DISPLAYED_INDEX = "The order index provided is invalid";
     public static final String MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX = "The product index provided is invalid";
+    public static final String MESSAGE_INVALID_MENU_DISPLAYED_INDEX = "The menu index provided is invalid,"
+            + " make sure there is an existing item on the menu";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_ORDERS_LISTED_OVERVIEW = "%1$d orders listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
@@ -33,6 +39,20 @@ public class Messages {
 
     public static final String MESSAGE_COEXISTING_CUSTOMER_AND_ORDER =
             "Customer ID and order ID cannot coexist here.";
+
+    public static final String MESSAGE_SPECIFY_EDIT = "Please follow up with either "
+            + PREFIX_CUSTOMER_ID + "INDEX (for customer index)"
+            + " , "
+            + PREFIX_ORDER + "INDEX (for order index)"
+            + " or "
+            + PREFIX_MENU + "INDEX (for menu index)"
+            + " to edit either customers, orders or menu items respectively";
+
+    public static final String MESSAGE_SPECIFY_DELETE = "Please follow up with either "
+            + PREFIX_CUSTOMER_ID + "INDEX (for customer index)"
+            + " or "
+            + PREFIX_MENU + "INDEX (for menu index)"
+            + " to delete either customers or menu items respectively";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

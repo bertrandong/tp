@@ -7,6 +7,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderList;
 import seedu.address.model.order.Product;
@@ -195,6 +196,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     public Order editOrder(Order target, Product currProduct, Quantity newQuantity) {
         requireNonNull(target);
         return target.updateOrder(currProduct, newQuantity);
+    }
+
+    /**
+     * Sets a new deadline for a given order.
+     * Updates the deadline of the target order object with the provided deadline.
+     *
+     * @param target The order whose deadline is to be updated. Must not be null.
+     * @param deadline The new deadline to apply to the order. Must not be null.
+     * @return The same order object passed as a parameter, now updated with the new deadline.
+     */
+    public Order editOrderDeadline(Order target, Deadline deadline) {
+        requireNonNull(target);
+        target.setDeadline(deadline);
+        return target;
     }
 
     /**

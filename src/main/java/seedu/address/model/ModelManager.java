@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
@@ -163,6 +164,13 @@ public class ModelManager implements Model {
         requireAllNonNull(target, currProduct, newQuantity);
 
         return addressBook.editOrder(target, currProduct, newQuantity);
+    }
+
+    @Override
+    public Order editOrderDeadline(Order target, Deadline deadline) {
+        requireAllNonNull(target, deadline);
+
+        return addressBook.editOrderDeadline(target, deadline);
     }
 
     @Override
