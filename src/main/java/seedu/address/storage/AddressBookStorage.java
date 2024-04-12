@@ -23,12 +23,12 @@ public interface AddressBookStorage {
      *
      * @throws DataLoadingException if loading the data from storage failed.
      */
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException;
+    Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException, IOException;
 
     /**
      * @see #getAddressBookFilePath()
      */
-    Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataLoadingException;
+    Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataLoadingException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAddressBook} to the storage.

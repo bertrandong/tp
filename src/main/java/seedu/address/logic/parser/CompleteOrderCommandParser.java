@@ -14,8 +14,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class CompleteOrderCommandParser implements Parser<CompleteOrderCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the CompleteCommand
+     * and returns a CompleteCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public CompleteOrderCommand parse(String args) throws ParseException {
@@ -25,6 +25,9 @@ public class CompleteOrderCommandParser implements Parser<CompleteOrderCommand> 
             ArrayList<Index> indexArr = new ArrayList<>();
             for (String s : nameKeywords) {
                 Index index = ParserUtil.parseIndex(s);
+                if (indexArr.contains(index)) {
+                    throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+                }
                 indexArr.add(index);
             }
             return new CompleteOrderCommand(indexArr);

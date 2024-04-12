@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,8 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.order.Deadline;
@@ -63,15 +66,17 @@ public class JsonAdaptedOrder {
     /**
      * Converts a given {@code Order} into this class for Jackson use.
      */
-    public JsonAdaptedOrder(Order order) {
+    public JsonAdaptedOrder(Order order) throws JsonProcessingException {
         this.id = order.getId();
         Map<Product, Quantity> productQuantityMap = order.getProductMap();
         List<Product> productKeySet = productQuantityMap.keySet().stream().collect(Collectors.toList());
         Map<String, Integer> map = new HashMap<>();
         for (int k = 0; k < productKeySet.size(); k++) {
             Product currProd = productKeySet.get(k);
+            JsonAdaptedProduct currJsonProd = new JsonAdaptedProduct(currProd);
+            String prodString = new ObjectMapper().writeValueAsString(currJsonProd);
             Quantity currQuant = productQuantityMap.get(currProd);
-            map.put(currProd.getName(), currQuant.getValue());
+            map.put(prodString, currQuant.getValue());
         }
         this.productMap = map;
         Person orderCustomer = order.getCustomer();
@@ -88,19 +93,19 @@ public class JsonAdaptedOrder {
     /**
      * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted order.
      */
-    public Order toModelType() throws IllegalValueException {
+    public Order toModelType() throws IllegalValueException, IOException {
         Order modelOrder = new Order(this.id);
         Map<Product, Quantity> map = new HashMap<>();
         Set<String> jsonProduct = this.productMap.keySet();
         List<String> productList = jsonProduct.stream().collect(Collectors.toList());
         for (int k = 0; k < jsonProduct.size(); k++) {
-            String currProdString = productList.get(k);
+            String currJsonProd = productList.get(k);
             Integer currQuantInt = this.productMap.get(productList.get(k));
-            Product currProd = new Product(currProdString);
+            JsonAdaptedProduct currProd = new ObjectMapper().readValue(currJsonProd, JsonAdaptedProduct.class);
             Quantity currQuant = new Quantity(currQuantInt);
-            map.put(currProd, currQuant);
+            map.put(currProd.toModelType(), currQuant);
         }
         modelOrder.setProductMap(map);
         modelOrder.setTotalCost(totalCost);
