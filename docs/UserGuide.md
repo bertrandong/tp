@@ -352,9 +352,13 @@ Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Known issues
+## Known issues and constraints
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+2. **Constraint on number of customers, menu items and orders**: <= 1 billion, which should be sufficient for almost all homemade bakers. Our app might be unable to handle numbers larger than that.
+3. **Some fields, such as names of customers**, are not wrapped in GUI. You can drag the window wider to see full text, which should be sufficient to accommodate almost all common names.
+4. **Customer Names** can only contain alphanumeric characters. If the name involves slashes or special alphabets, you have to use an alternative, such as using double space in place of slash.
+5. **Error Messages and suggestions** may not always be given in the most straight-forward way, often because slashes in commands may be interpreted in a few different ways. Refer to the user guide if you think error messages and suggestions shown in the app are unclear.
 
 --------------------------------------------------------------------------------------------------------------------
 
