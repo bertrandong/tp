@@ -12,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.exceptions.InvalidDateException;
 import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
@@ -212,6 +213,12 @@ public class ParserUtil {
         if (!Deadline.isValidDeadline(trimmedDeadline)) {
             throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
         }
-        return new Deadline(trimmedDeadline);
+        Deadline result;
+        try {
+            result = new Deadline(trimmedDeadline);
+        } catch (InvalidDateException e) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE));
+        }
+        return result;
     }
 }

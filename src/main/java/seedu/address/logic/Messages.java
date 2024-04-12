@@ -31,6 +31,7 @@ public class Messages {
                 "Multiple values specified for the following single-valued field(s): ";
 
     public static final String MESSAGE_INVALID_PHONE_NUMBER = "Phone number provided not found";
+    public static final String MESSAGE_INVALID_DATE = "Please specify a valid date.";
 
     public static final String MESSAGE_PHONE_NUMBER_NOT_FOUND = "Phone number provided not found";
     public static final String MESSAGE_ORDER_NOT_CREATED = "Please create an order before adding products.";
