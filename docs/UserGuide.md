@@ -217,6 +217,26 @@ which is `tarts` quantity to `10`.
 
 ![before state for EditOrderCommand](images/EditOrderCommandAfter.png)
 
+### Staging of orders: `stage`
+
+You can move an order to the next stage, in the chain of the four stages defined by Strack, in order namely: `Under Preparation`, `Ready for Delivery`,
+`Sent for delivery` and `Received by customer`. However, you cannot go back to a previous stage.
+
+Format: `stage o/ORDER`
+
+* `ORDER_ID` is a unique number for each order.
+* Any order just created will be in `Under Preparation` stage.
+
+Example:
+* Suppose the order with id 1 is in initial `Under Preparation` stage.
+![Before running stage command](images/StageCommandBefore.png)
+
+* Running `stage o/1` once will move the order with id 1 to `Ready for Delivery`.
+![Run stage command once](images/StageCommandOnce.png)
+
+* Running `stage o/1` three or more times will move the order with id 1 to `Received by customer`.
+![Run stage command three times](images/StageCommandTrice.png)
+
 ### Completion of orders: `complete`
 
 You can demarcate an order in your address book as complete. Strack will collate completed orders into a csv file.
