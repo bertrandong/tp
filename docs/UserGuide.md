@@ -145,8 +145,8 @@ Format: `delete c/CUSTOMER_ID`
 Examples:
 * `list` followed by `delete c/2` deletes the person with customer_id of `2` in the address book.
 * `find Betsy` followed by `delete c/1` deletes the person with customer_id of `1` in the results of the `find` command.
-  ![Deleting customer 2](images/DeleteCommand.png)
-  ![Result for deleting customer 2](images/DeleteCommandResult.png)
+ ![Deleting customer 2](images/DeleteCommand.png)
+ ![Result for deleting customer 2](images/DeleteCommandResult.png)
 
 ### Creating of orders: `order`
 
@@ -158,7 +158,7 @@ Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 * `DEADLINE` is an optional fields that is used to keep track of an order's deadline
 * * The format for deadline dates are dd/MM/yyyy
 * For single digit days or months, please precede them with a zero.
-* Leaving Deadline blank will make the order's deadline marked as `Not Specified`
+* Leaving `DEADLINE` blank will make the order's deadline marked as `Not Specified`
 * Strack will prompt users to input products using the product command
 * Follow up with products to be added to the order using the following format. Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`.
 * You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.

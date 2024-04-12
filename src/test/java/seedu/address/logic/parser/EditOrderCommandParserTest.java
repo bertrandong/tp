@@ -30,7 +30,7 @@ public class EditOrderCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no field specified
-        assertParseFailure(parser, " " + PREFIX_ORDER + "1", EditOrderCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, " " + PREFIX_ORDER + "1", EditOrderCommand.MESSAGE_NOT_EDITED_EXTRA);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);

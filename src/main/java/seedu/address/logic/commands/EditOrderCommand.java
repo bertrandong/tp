@@ -45,8 +45,8 @@ public class EditOrderCommand extends EditCommand {
     public static final String MESSAGE_NOT_EDITED =
             "Both product and quantity must be provided.";
 
-    public static final String MESSAGE_NOT_EDITED_EXTRA = "You can edit either product and quantity "
-            + "or the order's deadline";
+    public static final String MESSAGE_NOT_EDITED_EXTRA = "Please provide either both product and quantity, "
+            + "or the order's deadline to be edited";
 
     private final Index orderIndex;
     private final Index productIndex;

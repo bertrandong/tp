@@ -23,7 +23,7 @@ public class AddOrderCommand extends Command {
     public static final String MESSAGE_ADD_PRODUCTS = "Add products using this command:"
             + "product m/[PRODUCT_ID] pq/[QUANTITY]";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the order of the person identified "
+            + ": Creates an order for the person identified "
             + "by the phone number of person. "
             + "\n"
             + "Parameters: phone number (must be a positive integer) "
