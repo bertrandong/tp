@@ -270,6 +270,11 @@ public class AddMenuCommandTest {
         public boolean orderIdExists(int id) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void refreshCustomer(Person oldCustomer, Person newCustomer) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

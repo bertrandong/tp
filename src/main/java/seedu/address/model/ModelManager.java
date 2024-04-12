@@ -303,4 +303,7 @@ public class ModelManager implements Model {
         return addressBook.findProductByIndex(id);
     }
 
+    public void refreshCustomer(Person oldCustomer, Person newCustomer) {
+        addressBook.refreshCustomer(oldCustomer, newCustomer);
+    }
 }

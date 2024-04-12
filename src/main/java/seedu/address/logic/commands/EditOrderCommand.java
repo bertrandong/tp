@@ -93,6 +93,7 @@ public class EditOrderCommand extends EditCommand {
         return new CommandResult(String.format(MESSAGE_EDIT_ORDER_SUCCESS,
                 Messages.format(editedOrder)));
     }
+
     /**
      * Creates or updates an order based on the specified edit descriptors.
      * This method decides how to edit an existing order based on the presence of product,
@@ -102,7 +103,6 @@ public class EditOrderCommand extends EditCommand {
      * @param orderToEdit The order to be edited.
      * @return The edited order with the updates applied.
      */
-
     public Order createEditOrder(Model model, Order orderToEdit) {
         Order editedOrder;
         if (editOrderDescriptor.getProduct() != null && editOrderDescriptor.getQuantity() != null) {
