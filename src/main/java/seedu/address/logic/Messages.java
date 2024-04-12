@@ -34,6 +34,7 @@ public class Messages {
 
     public static final String MESSAGE_PHONE_NUMBER_NOT_FOUND = "Phone number provided not found";
     public static final String MESSAGE_ORDER_NOT_CREATED = "Please create an order before adding products.";
+    public static final String MESSAGE_LARGE_QUANTITY = "Quantity specified is too large, please try again.";
 
     public static final String MESSAGE_ONLY_ONE_FIELD = "Only one field can be provided";
 

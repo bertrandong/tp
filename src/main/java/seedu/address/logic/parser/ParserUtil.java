@@ -155,7 +155,8 @@ public class ParserUtil {
         if (!Quantity.isValidQuantity(trimmedQuantity)) {
             throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
         }
-        return new Quantity(Integer.parseInt(trimmedQuantity));
+        int result = Integer.parseInt(trimmedQuantity);
+        return new Quantity(result);
     }
 
     /**
