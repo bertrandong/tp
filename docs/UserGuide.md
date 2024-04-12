@@ -246,7 +246,7 @@ The csv file can be accessed in this directory: `[JAR file location]/data/comple
 
 Format: `complete ORDER_ID`
 
-* `ORDER_ID` refers to the number shown under order id in the displayed persons contact.
+* `ORDER_ID` is a unique number for each order.
 
 Example:
 ![Before state for CompleteCommand](images/CompleteCommandBefore.png)
@@ -263,7 +263,7 @@ You can remove an ongoing order in your address book.
 
 Format: `cancel ORDER_ID`
 
-* `ORDER_ID` refers to the number shown under order id in the displayed persons contact.
+* `ORDER_ID` is a unique number for each order.
 
 Example:
 * `cancel 19` will cancel order with `ORDER_ID` of `19`.
