@@ -213,7 +213,7 @@ Format: `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`
 Example:
 ![before state for EditOrderCommand](images/EditOrderCommandBefore.png)
 * `edit o/4 m/3 pq/10` will edit the order with order id of `4` and change the product associated with menu id of `3`
-which is `tarts` quantity to `10`. 
+which is `tarts` quantity to `10`.
 
 ![before state for EditOrderCommand](images/EditOrderCommandAfter.png)
 
@@ -267,7 +267,7 @@ Example:
 * `cancel 19` will cancel order with `ORDER_ID` of `19`.
 ![result for cancelling order](images/CancelOrder1.png)
 ![result for cancelling order](images/CancelOrder2.png)
-  
+
 ### Adding a product to the menu: `menu`
 
 You can add a product to be displayed on the product menu.
