@@ -1,0 +1,87 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant ":DeleteMenuCommandParser" as DeleteMenuCommandParser LOGIC_COLOR
+participant "d:DeleteMenuCommand" as DeleteMenuCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("delete m/1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("delete m/1")
+activate AddressBookParser
+
+create DeleteCommandParser
+AddressBookParser -> DeleteCommandParser
+activate DeleteCommandParser
+
+DeleteCommandParser --> AddressBookParser
+deactivate DeleteCommandParser
+
+AddressBookParser -> DeleteCommandParser : parse("m/1")
+activate DeleteCommandParser
+
+create DeleteMenuCommandParser
+DeleteCommandParser -> DeleteMenuCommandParser
+activate DeleteMenuCommandParser
+
+DeleteMenuCommandParser --> DeleteCommandParser
+deactivate DeleteMenuCommandParser
+
+DeleteCommandParser -> DeleteMenuCommandParser : parse("1")
+activate DeleteMenuCommandParser
+
+create DeleteMenuCommand
+DeleteMenuCommandParser -> DeleteMenuCommand
+activate DeleteMenuCommand
+
+DeleteMenuCommand --> DeleteMenuCommandParser :
+deactivate DeleteMenuCommand
+
+DeleteMenuCommandParser --> DeleteCommandParser : d
+deactivate DeleteMenuCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteMenuCommandParser -[hidden]-> DeleteCommandParser
+destroy DeleteMenuCommandParser
+
+DeleteCommandParser --> AddressBookParser : d
+deactivate DeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> AddressBookParser
+destroy DeleteCommandParser
+
+AddressBookParser --> LogicManager : d
+deactivate AddressBookParser
+
+LogicManager -> DeleteMenuCommand : execute(m)
+activate DeleteMenuCommand
+
+DeleteMenuCommand -> Model : deleteProduct(id)
+activate Model
+
+Model --> DeleteMenuCommand
+deactivate Model
+
+create CommandResult
+DeleteMenuCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteMenuCommand
+deactivate CommandResult
+
+DeleteMenuCommand --> LogicManager : r
+deactivate DeleteMenuCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
