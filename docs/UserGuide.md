@@ -85,8 +85,7 @@ Format: `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
 * Decimals are supported.
 
 Example:
-* `menu pn/Cupcake pc/1 ps/2`
-* `menu pn/Tart ps/6.30 pc/2.20`
+* `menu pn/Cupcake pc/1 ps/3.50` adds the product `Cupcake` to the menu.
 
 ![add product command](images/AddProductCommand.png)
 <br>![add product command result](images/AddProductCommandResult.png)
@@ -102,24 +101,27 @@ Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
 * Existing values will be updated to the input values.
 
 > [!NOTE]
+> 
 > Editing a product on the menu will not update the products on existing orders.
 
-Examples:
+Example:
 * `edit m/1 pn/Pie` Edits the product name of the product with `MENU_ID` of 1 to be `Pie`.
-* `edit m/2 pc/5 ps/12` Edits the product costs and sales of the product with `MENU_ID` of 2 to be `5` and `12` respectively.
 
 ![edit product command](images/EditProductCommand.png)
 <br>![edit product command result](images/EditProductCommandResult.png)
 
 ### Deleting a product from the menu: `delete`
 
-You can delete the specified product from the product menu.
+You can delete the specified product from the menu.
 
 Format: `delete m/MENU_ID`
 
 * Deletes the product of the specified `MENU_ID`.
 * The `MENU_ID` refers to the number reflected on the product menu beside the product name.
 * The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
+
+Example:
+* `delete m/1` deletes the product on the menu with a `MENU_ID` of `1`.
 
 ![delete product command](images/DeleteProductCommand.png)
 <br>![delete product command result](images/DeleteProductCommandResult.png)
