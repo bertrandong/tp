@@ -80,6 +80,7 @@ public class AddProductCommand extends Command {
         if (lastOrder == null) {
             throw new CommandException(Messages.MESSAGE_ORDER_NOT_CREATED);
         }
+
         Product product = model.findProductByIndex(productId.getZeroBased());
         //Add ability to add product to order
         if (lastOrder.getProductMap().containsKey(product)) {

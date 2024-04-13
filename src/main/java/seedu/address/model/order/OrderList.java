@@ -10,6 +10,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.exceptions.OrderNotFoundException;
+import seedu.address.model.person.Person;
 
 /**
  * Represents the list of active orders in the addressbook.
@@ -218,6 +219,21 @@ public class OrderList implements Iterable<Order> {
      */
     public ObservableList<Order> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Refreshes the order list to display up-to-date customer information in orders
+     * after customer is edited.
+     * @param oldCustomer customer before the change.
+     * @param newCustomer customer after the change.
+     */
+    public void refreshCustomer(Person oldCustomer, Person newCustomer) {
+        for (int i = 0; i < internalList.size(); i++) {
+            if (internalList.get(i).getCustomer().isSamePerson(oldCustomer)) {
+                internalList.get(i).setCustomer(newCustomer);
+                internalList.set(i, new Order(internalList.get(i)));
+            }
+        }
     }
 
     @Override

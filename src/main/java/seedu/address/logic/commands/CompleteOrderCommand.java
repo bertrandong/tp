@@ -38,6 +38,8 @@ public class CompleteOrderCommand extends Command {
             if (!model.orderIdExists(targetIndex.getOneBased())) {
                 throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
             }
+        }
+        for (Index targetIndex : targetIndexArr) {
             model.completeOrder(targetIndex.getOneBased());
             if (isFirstOrderToBeCompleted) {
                 successStr += targetIndex.getOneBased();

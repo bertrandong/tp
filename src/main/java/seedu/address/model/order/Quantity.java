@@ -74,4 +74,5 @@ public class Quantity {
     public static boolean isValidQuantity(String test) {
         return test.matches(VALIDATION_REGEX);
     }
+
 }

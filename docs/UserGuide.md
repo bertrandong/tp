@@ -14,11 +14,11 @@ Strack.io is a **desktop app for Homemade food sellers to manage contacts of the
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `strackio.jar` from [here](https://github.com/AY2324S2-CS2103T-T08-2/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for Strack.io.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar strackio.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -26,8 +26,10 @@ Strack.io is a **desktop app for Homemade food sellers to manage contacts of the
    Some example commands you can try:
 
    * `list` : Lists all contacts.
+   
+   * `menu pn/Cupcake pc/2 ps/5` : Adds a product named `Cupcake` to the menu.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the customer list.
 
    * `delete c/3` : Deletes the 3rd contact shown in the current list.
 
@@ -71,12 +73,64 @@ You can show a message explaining how to access the help page.
 
 Format: `help`
 
+### Adding a product to the menu: `menu`
+
+You can start off by adding a product to be displayed on the product menu.
+
+Format: `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
+
+* `PRODUCT_COSTS` refer to the costs incurred to make the product.
+* `PRODUCT_SALES` refer to how much the product is being sold for.
+* The order of which `pc/PRODUCT_COSTS` or `ps/PRODUCT_SALES` is being input does not matter.
+* Decimals are supported.
+
+Example:
+* `menu pn/Cupcake pc/1 ps/2`
+* `menu pn/Tart ps/6.30 pc/2.20`
+
+![add product command](images/AddProductCommand.png)
+<br>![add product command result](images/AddProductCommandResult.png)
+
+### Editing a product on the menu: `edit`
+
+You can edit an existing product on the product menu.
+
+Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
+
+* Edits the product of the specified `MENU_ID`. The `MENU_ID` refers to the number reflected on the product menu beside the product name. The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+> [!NOTE]
+> Editing a product on the menu will not update the products on existing orders.
+
+Examples:
+* `edit m/1 pn/Pie` Edits the product name of the product with `MENU_ID` of 1 to be `Pie`.
+* `edit m/2 pc/5 ps/12` Edits the product costs and sales of the product with `MENU_ID` of 2 to be `5` and `12` respectively.
+
+![edit product command](images/EditProductCommand.png)
+<br>![edit product command result](images/EditProductCommandResult.png)
+
+### Deleting a product from the menu: `delete`
+
+You can delete the specified product from the product menu.
+
+Format: `delete m/MENU_ID`
+
+* Deletes the product of the specified `MENU_ID`.
+* The `MENU_ID` refers to the number reflected on the product menu beside the product name.
+* The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
+
+![delete product command](images/DeleteProductCommand.png)
+<br>![delete product command result](images/DeleteProductCommandResult.png)
 
 ### Adding a customer: `add`
 
 You can add a customer to your address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+
+* Names must be unique.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
@@ -130,6 +184,7 @@ Examples:
 * `find a/Lorong` returns customers with address that includes `Lorong`
 * `find p/85012345 p/12345678` returns customer with phone number of `85012345` and `12345678`
 * `find o/4 o/6` returns `Order 4` and `Order 6`.
+
 ![result for finding order](images/FindCommand.png)
 
 ### Deleting a customer: `delete`
@@ -145,8 +200,9 @@ Format: `delete c/CUSTOMER_ID`
 Examples:
 * `list` followed by `delete c/2` deletes the person with customer_id of `2` in the address book.
 * `find Betsy` followed by `delete c/1` deletes the person with customer_id of `1` in the results of the `find` command.
-  ![Deleting customer 2](images/DeleteCommand.png)
-  ![Result for deleting customer 2](images/DeleteCommandResult.png)
+
+ ![Deleting customer 2](images/DeleteCommand.png)
+ ![Result for deleting customer 2](images/DeleteCommandResult.png)
 
 ### Creating of orders: `order`
 
@@ -158,7 +214,7 @@ Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 * `DEADLINE` is an optional fields that is used to keep track of an order's deadline
 * * The format for deadline dates are dd/MM/yyyy
 * For single digit days or months, please precede them with a zero.
-* Leaving Deadline blank will make the order's deadline marked as `Not Specified`
+* Leaving `DEADLINE` blank will make the order's deadline marked as `Not Specified`
 * Strack will prompt users to input products using the product command
 * Follow up with products to be added to the order using the following format. Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`.
 * You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
@@ -166,6 +222,7 @@ Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 
 Examples:
 * `order p/87438807 by/08/04/2024` will create an order for person with phone number `99887766` with a deadline `08/04/2024`, start adding products for the order to be shown. <br>
+
 ![input for creating order for alex](images/OrderCommand.png)
 ![result for creating order for alex](images/OrderCommandResult.png)
 <br>
@@ -181,8 +238,9 @@ Format: `product m/MENU_ID pq/PRODUCT_QUANTITY`
 
 Examples:
 * Assuming you have already created an order in this session for the phone number `87438807`, using `product m/1 pq/2` and `product m/2 pq/2` will add products corresponding to `PRODUCT_ID` 1 and 2 in the menu, in this example it would be cupcakes and cookies respectively. <br>
-  ![input for adding products for alex](images/ProductCommand.png)
-  ![input for adding products for alex](images/ProductCommandResult.png)
+
+![input for adding products for alex](images/ProductCommand.png)
+![input for adding products for alex](images/ProductCommandResult.png)
   <br>
 
 ### Editing of an order's deadline: `edit`
@@ -195,8 +253,9 @@ Format: `edit o/ORDER_ID by/DEADLINE`
 
 Example:
 * `edit o/1 by/07/04/2024` or `edit o/1 by/12/10/2024` will edit the deadline of the order with order id 1 to `07/04/2024` or `12/10/2024` respectively. <br>
-  ![input for adding products for alex](images/EditDeadlineCommand.png)
-  ![input for adding products for alex](images/EditDeadlineCommandResult.png)
+
+![input for adding products for alex](images/EditDeadlineCommand.png)
+![input for adding products for alex](images/EditDeadlineCommandResult.png)
 <br>
 
 ### Editing of orders: `edit`
@@ -213,9 +272,32 @@ Format: `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`
 Example:
 ![before state for EditOrderCommand](images/EditOrderCommandBefore.png)
 * `edit o/4 m/3 pq/10` will edit the order with order id of `4` and change the product associated with menu id of `3`
-which is `tarts` quantity to `10`. 
+which is `tarts` quantity to `10`.
 
 ![before state for EditOrderCommand](images/EditOrderCommandAfter.png)
+
+### Staging of orders: `stage`
+
+You can move an order to the next stage, in the chain of the four stages defined by Strack, in order namely: `Under Preparation`, `Ready for Delivery`,
+`Sent for delivery` and `Received by customer`. However, you cannot go back to a previous stage.
+
+Format: `stage o/ORDER`
+
+* `ORDER_ID` is a unique number for each order.
+* Any order just created will be in `Under Preparation` stage.
+
+Example:
+* Suppose the order with id 1 is in initial `Under Preparation` stage.
+
+![Before running stage command](images/StageCommandBefore.png)
+
+* Running `stage o/1` once will move the order with id 1 to `Ready for Delivery`.
+
+![Run stage command once](images/StageCommandOnce.png)
+
+* Running `stage o/1` three or more times will move the order with id 1 to `Received by customer`.
+
+![Run stage command three times](images/StageCommandTrice.png)
 
 ### Completion of orders: `complete`
 
@@ -224,7 +306,7 @@ The csv file can be accessed in this directory: `[JAR file location]/data/comple
 
 Format: `complete ORDER_ID`
 
-* `ORDER_ID` refers to the number shown under order id in the displayed persons contact.
+* `ORDER_ID` is a unique number for each order.
 
 Example:
 ![Before state for CompleteCommand](images/CompleteCommandBefore.png)
@@ -241,60 +323,13 @@ You can remove an ongoing order in your address book.
 
 Format: `cancel ORDER_ID`
 
-* `ORDER_ID` refers to the number shown under order id in the displayed persons contact.
+* `ORDER_ID` is a unique number for each order.
 
 Example:
 * `cancel 19` will cancel order with `ORDER_ID` of `19`.
+
 ![result for cancelling order](images/CancelOrder1.png)
 ![result for cancelling order](images/CancelOrder2.png)
-  
-### Adding a product to the menu: `menu`
-
-You can add a product to be displayed on the product menu.
-
-Format: `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
-
-* `PRODUCT_COSTS` refer to the costs incurred to make the product.
-* `PRODUCT_SALES` refer to how much the product is being sold for.
-* The order of which `pc/PRODUCT_COSTS` or `ps/PRODUCT_SALES` is being input does not matter.
-* Decimals are supported.
-
-Example:
-* `menu pn/Cupcake pc/1 ps/2`
-* `menu pn/Tart ps/6.30 pc/2.20`
-
-![add product command](images/AddProductCommand.png)
-<br>![add product command result](images/AddProductCommandResult.png)
-
-### Editing a product on the menu: `edit`
-
-You can edit an existing product on the product menu.
-
-Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
-
-* Edits the product of the specified `MENU_ID`. The `MENU_ID` refers to the number reflected on the product menu beside the product name. The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-
-Examples:
-* `edit m/1 pn/Pie` Edits the product name of the product with `MENU_ID` of 1 to be `Pie`.
-* `edit m/2 pc/5 ps/12` Edits the product costs and sales of the product with `MENU_ID` of 2 to be `5` and `12` respectively.
-
-![edit product command](images/EditProductCommand.png)
-<br>![edit product command result](images/EditProductCommandResult.png)
-
-### Deleting a product from the menu: `delete`
-
-You can delete the specified product from the product menu.
-
-Format: `delete m/MENU_ID`
-
-* Deletes the product of the specified `MENU_ID`.
-* The `MENU_ID` refers to the number reflected on the product menu beside the product name.
-* The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
-
-![delete product command](images/DeleteProductCommand.png)
-<br>![delete product command result](images/DeleteProductCommandResult.png)
 
 ### Clearing all entries: `clear`
 
@@ -330,9 +365,13 @@ Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Known issues
+## Known issues and constraints
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+2. **Constraint on number of customers, menu items and orders**: <= 1 billion, which should be sufficient for almost all homemade bakers. Our app might be unable to handle numbers larger than that.
+3. **Some fields, such as names of customers**, are not wrapped in GUI. You can drag the window wider to see full text, which should be sufficient to accommodate almost all common names.
+4. **Customer Names** can only contain alphanumeric characters. If the name involves slashes or special alphabets, you have to use an alternative, such as using double space in place of slash.
+5. **Error Messages and suggestions** may not always be given in the most straight-forward way, often because slashes in commands may be interpreted in a few different ways. Refer to the user guide if you think error messages and suggestions shown in the app are unclear.
 
 --------------------------------------------------------------------------------------------------------------------
 

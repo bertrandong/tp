@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_LARGE_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MENU;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 
@@ -39,6 +40,8 @@ public class AddProductCommandParser {
         try {
             productId = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_MENU).get());
             quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).get());
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_LARGE_QUANTITY), e);
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddProductCommand.MESSAGE_USAGE), ive);

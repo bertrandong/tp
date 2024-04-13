@@ -5,11 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalOrders.CUPCAKES_ONLY;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.exceptions.OrderNotFoundException;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.OrderBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class OrderListTest {
 
@@ -149,5 +153,19 @@ public class OrderListTest {
     @Test
     public void getOrder_orderDoesNotExist_throwsOrderNotFoundException() {
         assertThrows(OrderNotFoundException.class, () -> orderList.getOrder(1));
+    }
+
+    @Test
+    public void refreshCustomer_updatesInternalList() {
+        Person oldCustomer = new PersonBuilder(ALICE).build();
+        Person newCustomer = new PersonBuilder(BENSON).build();
+
+        Order order = new OrderBuilder(CUPCAKES_ONLY).build();
+        order.setCustomer(oldCustomer);
+
+        orderList.addOrder(order);
+        orderList.refreshCustomer(oldCustomer, newCustomer);
+
+        assertEquals(newCustomer, orderList.getOrder(CUPCAKES_ONLY.getId()).getCustomer());
     }
 }

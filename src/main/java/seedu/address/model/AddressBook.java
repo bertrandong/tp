@@ -356,6 +356,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         return activeOrders.size();
     }
 
+    /**
+     * Refreshes the order lists to display up-to-date customer information in orders
+     * after customer is edited.
+     *
+     * @param oldCustomer customer before the change.
+     * @param newCustomer customer after the change.
+     */
+    public void refreshCustomer(Person oldCustomer, Person newCustomer) {
+        activeOrders.refreshCustomer(oldCustomer, newCustomer);
+        completedOrders.refreshCustomer(oldCustomer, newCustomer);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
