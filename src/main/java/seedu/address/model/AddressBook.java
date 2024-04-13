@@ -291,11 +291,14 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         OrderList updatedOrders = new OrderList();
         OrderList activeOrdersCopy = activeOrders;
+        Product editedProductCopy = new Product(editedProduct);
+        editedProductCopy.setCost(target.getCost());
+        editedProductCopy.setSales(target.getSales());
         for (Map.Entry<Integer, Order> orderList : activeOrdersCopy.getOrderMap().entrySet()) {
             Order currOrder = new Order();
             for (Map.Entry<Product, Quantity> set : orderList.getValue().getProductMap().entrySet()) {
                 if (set.getKey().getName().equals(target.getName())) {
-                    currOrder.addProduct(editedProduct, set.getValue());
+                    currOrder.addProduct(editedProductCopy, set.getValue());
                 } else {
                     currOrder.addProduct(set.getKey(), set.getValue());
                 }
