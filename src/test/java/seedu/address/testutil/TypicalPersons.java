@@ -87,6 +87,17 @@ public class TypicalPersons {
         return ab;
     }
 
+    public static AddressBook getTypicalAddressBookWithPersonsOnly() {
+        AddressBook ab = new AddressBook();
+        ArrayList<Person> typicalPersons = new ArrayList<>();
+        for (Person person : getTypicalPersons()) {
+            Person copy = new PersonBuilder(person).build();
+            ab.addPerson(copy);
+            typicalPersons.add(copy);
+        }
+        return ab;
+    }
+
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
