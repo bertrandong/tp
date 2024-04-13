@@ -23,17 +23,22 @@ Class JsonAdaptedTag
 Class JsonAdaptedOrder
 }
 
+package "CompletedOrder Storage" #F4F6F6{
+Class "<<interface>>\nCompletedOrderStorage" as CompletedOrderStorage
+Class CsvCompletedOrderStorage
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Storage
 
-StorageManager .up.|> Storage
+StorageManager .left.|> Storage
 StorageManager -up-> "1" UserPrefsStorage
-StorageManager -up-> "1" AddressBookStorage
+StorageManager -down-> "1" AddressBookStorage
+StorageManager -up-> "1" CompletedOrderStorage
 
 Storage -left-|> UserPrefsStorage
 Storage -right-|> AddressBookStorage
+Storage -up-|> CompletedOrderStorage
 
 JsonUserPrefsStorage .up.|> UserPrefsStorage
 JsonAddressBookStorage .up.|> AddressBookStorage
@@ -41,5 +46,7 @@ JsonAddressBookStorage ..> JsonSerializableAddressBook
 JsonSerializableAddressBook --> "*" JsonAdaptedPerson
 JsonAdaptedPerson --> "*" JsonAdaptedTag
 JsonSerializableAddressBook --> "*" JsonAdaptedOrder
+
+CsvCompletedOrderStorage .right.|> CompletedOrderStorage
 
 @enduml

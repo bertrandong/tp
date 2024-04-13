@@ -40,7 +40,7 @@ public class CsvCompletedOrderStorageTest {
     private void saveCompletedOrders(ReadOnlyAddressBook addressBook, Path filePath) {
         try {
             new CsvCompletedOrderStorage(filePath)
-                    .saveCompletedOrder(addressBook);
+                    .saveCompletedOrders(addressBook);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

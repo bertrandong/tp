@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MENU;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class DeleteMenuCommand extends DeleteCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the product identified by the index number used in the displayed menu.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_MENU + "1";
 
     public static final String MESSAGE_DELETE_PRODUCT_SUCCESS = "Deleted Product: %1$s";
 
