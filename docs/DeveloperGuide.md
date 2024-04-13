@@ -240,6 +240,18 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### Adding order feature
+
+### Implementation
+
+Adds an `Order` to to a `Person` based on the person's `Phone` number. Example: `order p/8899 7788`
+The process of adding an order is illustrated by the following diagrams.
+
+![OrderSequenceDiagram-Logic](images/OrderSequenceDiagram.png)
+
+After parsing the `order` command, the `LogicManager` will call the `Model#findPersonByPhoneNumber(number)` which returns the `Person` instance with matching number.
+The `AddOrderCommand` will then call its own `addOrder(order, maybeEditablePeson)` which will add an order to the corresponding person, provided a person with matching number exists.
+
 ### Removing order feature
 
 #### Implementation
