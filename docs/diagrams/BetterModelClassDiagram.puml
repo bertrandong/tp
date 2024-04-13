@@ -6,6 +6,7 @@ skinparam classBackgroundColor MODEL_COLOR
 
 AddressBook *-right-> "1" UniquePersonList
 AddressBook *-right-> "1" UniqueTagList
+AddressBook *-down-> "1" MenuList
 AddressBook *-down-> "1" OrderList
 UniqueTagList -[hidden]down- UniquePersonList
 UniqueTagList -[hidden]down- UniquePersonList
@@ -14,6 +15,7 @@ UniqueTagList -right-> "*" Tag
 UniquePersonList -right-> Person
 
 Person -up-> "*" Tag
+Person "1" <-left-> "*" Order
 
 Person *--> Name
 Person *--> Phone
@@ -24,4 +26,6 @@ OrderList -down-> Order
 
 Order *--> "*" Product
 Order *--> "*" Quantity
+
+MenuList -down-> Product
 @enduml
