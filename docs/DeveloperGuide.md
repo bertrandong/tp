@@ -514,7 +514,7 @@ Use case ends.
 * **Stage of an order**: Under preparation, Ready for delivery, Sent for delivery, Received by customer(Completed)
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Planned Enhancements**
-
+Team Size: 5
 ### Limit input of cost and sales
 * Currently, the input of cost and sales of product can be negative, or very high until Infinity is reached.
 * Future plans is to add boundaries and limit the pricing to be between 0 inclusive and 1 billion.
@@ -585,7 +585,7 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 
 ### Adding a product
-1. Adding a product to the product list
+1. Adding a product to the menu
    2. Test case: `menu pn/Cupcake pc/3 ps/4`<br>
    Expected: Product named Cupcake is added to the product list with the corresponding MENU_ID.
    3. Test case: `menu pn/Tart pc/a ps/b`<br>
@@ -593,7 +593,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Adding an order
 1. Adding an order
-   2. Prerequisites: There must at least be one product in the product list and one customer in the customer list.
+   2. Prerequisites: There must at least be one product in the menu and one customer in the customer list.
    3. Test case: `order p/12345678`<br>
    Expected: No order is added yet. Instructions to add product to order in status message.
    4. Test case: `product m/1 pq/5`<br>
@@ -639,9 +639,9 @@ testers are expected to do more *exploratory* testing.
    Expected: Contact with phone `12345678` listed in the customer list. Number of customers listed in the status message.
 
 ### Deleting a product
-1. Deleting a product in the product list
+1. Deleting a product in the menu
 
-    1. Prerequisites: There must be existing products in the product list.
+    1. Prerequisites: There must be existing products in the menu.
     1. Test case: `delete m/1`<br>
        Expected: First product is deleted from the list. Details of the deleted product shown in the status message.
     1. Test case: `delete m/0`<br>
@@ -656,8 +656,8 @@ testers are expected to do more *exploratory* testing.
    Expected: Product 1 is removed from Order 1. Details of edit shown in the status message.
    
 ### Editing a product
-1. Editing a product in the product list
-   2. Prerequisites: There must be existing products in the product list.
+1. Editing a product in the menu
+   2. Prerequisites: There must be existing products in the menu.
    3. Test case: `edit m/1 pn/Eggtart`<br>
    Expected: Product 1 is renamed to `Eggtart`. Details of edit shown in the status message.
    4. Test case: `edit m/1 pc/4`<br>
