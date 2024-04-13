@@ -239,14 +239,16 @@ Example:
 * Running `stage o/1` three or more times will move the order with id 1 to `Received by customer`.
 ![Run stage command three times](images/StageCommandTrice.png)
 
-### Completion of orders: `complete`
+### Completing of orders: `complete`
 
 You can demarcate an order in your address book as complete. Strack will collate completed orders into a csv file.
 The csv file can be accessed in this directory: `[JAR file location]/data/completedorders.csv`
 
-Format: `complete ORDER_ID`
+Format: `complete ORDER_ID...`
 
 * `ORDER_ID` is a unique number for each order.
+* `ORDER_ID...` can accept *multiple, unique* Order ID to be marked as completed.
+* `complete ORDER_ID...` with at least one *non-valid* Order ID value will be invalid.
 
 Example:
 ![Before state for CompleteCommand](images/CompleteCommandBefore.png)
@@ -324,6 +326,9 @@ You can clear all entries from your address book.
 
 Format: `clear`
 
+* Resets Order ID for the next order to 1.
+* The records of completed orders will not be cleared.
+
 ### Exiting the program: `exit`
 
 You can exit the program using a command.
@@ -336,7 +341,7 @@ Strack.io data are saved in the hard disk automatically after any command that c
 
 ### Editing the data file
 
-Strack.io data are saved automatically as a JSON file `[JAR file location]/data/Strack.io.json`. Advanced users are welcome to update data directly by editing that data file.
+Strack.io data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, Strack.io will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
@@ -382,3 +387,7 @@ Action | Format, Examples
 **Edit product on menu** | `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
 **Delete product on menu** | `delete m/MENU_ID`
 **Help** | `help`
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Glossary table
