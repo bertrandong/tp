@@ -271,6 +271,44 @@ Have another `fulfil` command which removes an order and logs the completed orde
 5. If `PREFIX_ADDRESS`, a `FindPersonCommand` with a `AddressContainsKeywordsPredicate` will be created.
 
 The `Predicate` will then be used to filter the list using `stream()`. The updated `FilteredOrderList` will then be reflected in the GUI.
+
+### Add a product to menu feature
+
+Adds a `Product` to the menu. Example: `menu pn/Cupcake pc/2.50 ps/5`. The sequence of events are illustrated by the diagram below, starting with the parsing of the command.
+
+![AddMenuCommandSequenceDiagram](images/AddMenuSequenceDiagram-Logic.png)
+
+The `AddMenuCommand` class which extends the `Command` abstract class will be executed by the `LogicManager` which will update the `Product Menu` in the `Model`.
+
+![AddMenuCommandModelDiagram](images/AddMenuSequenceDiagram-Model.png)
+
+After parsing the `menu` command, the `LogicManager` will call the `Model#addProduct(id)` which calls `AddressBook#addProduct(id)`. The `addProduct` of `ProductMenu` will then be called, which will add a new product to the `ArrayList<Product>`.
+
+### Delete a product from menu feature
+
+Deletes a `Product` from the menu. Example: `delete m/1`. The sequence of events are illustrated by the diagram below, starting with the parsing of the command.
+
+![DeleteMenuCommandSequenceDiagram](images/DeleteMenuSequenceDiagram-Logic.png)
+
+The `DeleteMenuCommand` class which extends the `Command` abstract class will be executed by the `LogicManager` which will update the `Product Menu` in the `Model`.
+
+![DeleteMenuCommandModelDiagram](images/DeleteMenuSequenceDiagram-Model.png)
+
+After parsing the `menu` command, the `LogicManager` will call the `Model#deleteProduct(id)` which calls `AddressBook#deleteProduct(id)`. The `deleteProduct` of `ProductMenu` will then be called, which deletes a product from the `ArrayList<Product` according to the specified `MENU_ID`.
+
+`DeleteCommandParser` will construct the respective command based on the accompanying prefixes:
+1. If `PREFIX_MENU`, a `DeleteMenuCommand` will be created.
+2. If `PREFIX_CUSTOMER_ID`, a `DeleteCustomerCommand` will be created.
+
+### Edit a product in the menu feature
+
+Edits a `Product` on the menu. Example: `edit m/1 pn/Pie`. The `edit` command works in a similar way as the `delete` command.
+
+`EditCommandParser` will construct the respective command based on the accompanying prefixes:
+1. If `PREFIX_MENU`, a `EditMenuCommand` will be created.
+2. If `PREFIX_CUSTOMER_ID`, a `EditCustomerCommand` will be created.
+3. If `PREFIX_ORDER_ID`, an `EditOrderCommand` will be created.
+
 ### Known Limitations
 1. As `StringUtil#containsWordIgnoreCase` searches by entire word, searching for `945` in `94567122` for `Phone` will result in false. This is also consistent in `Email`.
 

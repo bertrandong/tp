@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddMenuCommandParser" as AddMenuCommandParser LOGIC_COLOR
+participant "a:AddMenuCommand" as AddMenuCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("menu pn/Cupcake pc/2.50 ps/5")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("menu pn/Cupcake pc/2.50 ps/5")
+activate AddressBookParser
+
+create AddMenuCommandParser
+AddressBookParser -> AddMenuCommandParser
+activate AddMenuCommandParser
+
+AddMenuCommandParser --> AddressBookParser
+deactivate AddMenuCommandParser
+
+AddressBookParser -> AddMenuCommandParser : parse("pn/Cupcake pc/2.50 ps/5")
+activate AddMenuCommandParser
+
+create AddMenuCommand
+AddMenuCommandParser -> AddMenuCommand
+activate AddMenuCommand
+
+AddMenuCommand --> AddMenuCommandParser :
+deactivate AddMenuCommand
+
+AddMenuCommandParser --> AddressBookParser : a
+deactivate AddMenuCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddMenuCommandParser -[hidden]-> AddressBookParser
+destroy AddMenuCommandParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> AddMenuCommand : execute(m)
+activate AddMenuCommand
+
+AddMenuCommand -> Model : deleteProduct(id)
+activate Model
+
+Model --> AddMenuCommand
+deactivate Model
+
+create CommandResult
+AddMenuCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddMenuCommand
+deactivate CommandResult
+
+AddMenuCommand --> LogicManager : r
+deactivate AddMenuCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

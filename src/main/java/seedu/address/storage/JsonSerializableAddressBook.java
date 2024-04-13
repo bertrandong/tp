@@ -70,7 +70,7 @@ class JsonSerializableAddressBook {
         AddressBook addressBook = new AddressBook();
         for (JsonAdaptedProduct jsonAdaptedProduct : menu) {
             Product product = jsonAdaptedProduct.toModelType();
-            addressBook.addProduct(product);
+            addressBook.deleteProduct(id);
 
         }
         for (JsonAdaptedOrder jsonAdaptedOrder : orders) {
