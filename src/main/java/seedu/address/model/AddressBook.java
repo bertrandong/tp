@@ -117,7 +117,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The product must not already exist in the menu.
      */
     public void addProduct(Product product) {
-        menu.deleteProduct(id);
+        menu.addProduct(product);
     }
 
     /**
