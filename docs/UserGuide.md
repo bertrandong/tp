@@ -223,7 +223,7 @@ Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 * This can be repeated as many times as necessary.
 
 Examples:
-* `order p/87438807 by/08/04/2024` will create an order for person with phone number `99887766` with a deadline `08/04/2024`, start adding products for the order to be shown. <br>
+* `order p/87438807 by/08/04/2024` will create an order for person with phone number `87438807` with a deadline `08/04/2024`, start adding products for the order to be shown. <br>
 
 ![input for creating order for alex](images/OrderCommand.png)
 ![result for creating order for alex](images/OrderCommandResult.png)
