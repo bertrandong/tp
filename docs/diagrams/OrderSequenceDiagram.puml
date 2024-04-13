@@ -12,6 +12,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
+participant ":Person" as Person MODEL_COLOR
 end box
 
 [-> LogicManager : execute("order p/87438807")
@@ -34,14 +35,11 @@ create AddOrderCommand
 AddOrderCommandParser -> AddOrderCommand
 activate AddOrderCommand
 
-AddOrderCommand --> AddOrderCommandParser :
+AddOrderCommand --> AddOrderCommandParser : new(order)
 deactivate AddOrderCommand
 
 AddOrderCommandParser --> AddressBookParser : a
 deactivate AddOrderCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-AddOrderCommandParser -[hidden]-> AddressBookParser
-destroy AddOrderCommandParser
 
 AddressBookParser --> LogicManager : a
 deactivate AddressBookParser
@@ -51,11 +49,16 @@ activate AddOrderCommand
 
 AddOrderCommand -> Model : findPersonByPhoneNumber("87438807")
 activate Model
-Model --> AddOrderCommand : person
+
+Model --> AddOrderCommand : maybeEditablePerson
 deactivate Model
 
-AddOrderCommand -> Model : addOrder(order, person)
+AddOrderCommand -> Model : addOrder(order, maybeEditablePerson.get())
 activate Model
+Model -> Person : addOrder(order)
+activate Person
+Person --> Model
+deactivate Person
 Model --> AddOrderCommand
 deactivate Model
 
@@ -63,7 +66,7 @@ create CommandResult
 AddOrderCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> AddOrderCommand
+CommandResult --> AddOrderCommand : generateSuccessMessage(maybeEditablePerson.get())
 deactivate CommandResult
 
 AddOrderCommand --> LogicManager : r
@@ -71,4 +74,4 @@ deactivate AddOrderCommand
 
 [<--LogicManager
 deactivate LogicManager
-@endumlml
+@enduml
