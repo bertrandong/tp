@@ -513,7 +513,7 @@ Use case ends.
 * **Stage of an order**: Under preparation, Ready for delivery, Sent for delivery, Received by customer(Completed)
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Planned Enhancements**
-
+Team Size: 5
 ### Limit input of cost and sales
 * Currently, the input of cost and sales of product can be negative, or very high until Infinity is reached.
 * Future plans is to add boundaries and limit the pricing to be between 0 inclusive and 1 billion.

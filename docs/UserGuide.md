@@ -361,7 +361,20 @@ Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g
 5. **Error Messages and suggestions** may not always be given in the most straight-forward way, often because slashes in commands may be interpreted in a few different ways. Refer to the user guide if you think error messages and suggestions shown in the app are unclear.
 
 --------------------------------------------------------------------------------------------------------------------
+## Glossary
+Term | Description
+--------|------------------
+**Cancel** | The deletion of an order without fulfiling it
+**Complete** | The deletion of an order after fulfiling it
+**Dates** | In the format dd/MM/yyyy e.g. 23/03/2024
+**Product** | The entity you will be selling to your customers
+**Precede** | Add to the front of
+**Stage** | The status of an order
+**Demarcate** | Mark or distinguish
+**CSV** | File that ends in .csv. Refers to a spreadsheet file.
+**JSON** | File that stores data, ends in .json.
 
+--------------------------------------------------------------------------------------------------------------------
 ## Command summary
 
 Action | Format, Examples
@@ -369,7 +382,7 @@ Action | Format, Examples
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
 **Delete customer** | `delete c/CUSTOMER_ID`<br> e.g., `delete c/3`
-**Edit customer** | `edit c/CUSTOMER_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit customer** | `edit c/CUSTOMER_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit c/2 n/James Lee e/jameslee@example.com`
 **Find customer/order** | `find [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [o/ORDER_ID]`<br> e.g., `find n/James n/Jake` `find o/1`
 **List all contacts and orders** | `list`
 **Create order** | `order p/PHONE_NUMBER [by/DEADLINE]`
