@@ -587,8 +587,14 @@ after.
 flexibility in names.
 
 ### Allow text-wrapping when characters are too long
-* Currently. when certain values are too long like product names, text will overflow out of the app instead of going to
+* Currently, when certain values are too long like product names, text will overflow out of the app instead of going to
 a new line. Future fixes will allow text-wrapping into a new line.
+
+### Disallow duplicate phone numbers for different customers
+* Currently, duplicate phone numbers is not checked for. If different customers share a phone number, order from that
+* phone number will be added to the first customer in the contact list.
+* In the future, we will check phone number against existing contact list when adding new customers, so as to remove
+* such ambiguities.
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
 
