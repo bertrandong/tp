@@ -303,6 +303,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 currOrder.setCreationDate(orderList.getValue().getCreationDate());
                 currOrder.setDeadline(orderList.getValue().getDeadlineObject());
                 currOrder.setCustomer(orderList.getValue().getCustomer());
+                currOrder.setStageContext(orderList.getValue().getStageContext());
             }
             updatedOrders.addOrderWithID(currOrder, currOrder.getId());
         }
