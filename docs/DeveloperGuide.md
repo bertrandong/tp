@@ -519,7 +519,7 @@ Use case ends.
 * Future plans is to add boundaries and limit the pricing to be between 0 inclusive and 1 billion.
 
 ### Limit Phone number
-* Currently, the phone number is minimally of length 3. 
+* Currently, the phone number is minimally of length 3.
 * As this product is created mainly for Singaporeans, future enhancement is to increase limit to 8, which is the norm in
 Singapore. This will prevent errors where phone number of length 7 is entered but gone unnoticed.
 
@@ -565,9 +565,8 @@ testers are expected to do more *exploratory* testing.
 
 ### Adding a person
 1. Adding a person  
-   2. Test case: `add n/Jackson p/12345678 a/NUS e/jackson@gmail.com`  
-   Expected: Contact named Jackson is added to the customer list. Details of the added contact shown in the status
-   message and in the list.
+   2. Test case: `add n/Jackson p/12345678 a/NUS e/jackson@gmail.com`
+   Expected: Contact named Jackson is added to the customer list. Details of the added contact shown in the status message and in the list.
 
 ### Deleting a person
 
@@ -586,57 +585,56 @@ testers are expected to do more *exploratory* testing.
 
 ### Adding a product
 1. Adding a product to the product list
-   2. Test case: `menu pn/Cupcake pc/3 ps/4`  
+   2. Test case: `menu pn/Cupcake pc/3 ps/4`<br>
    Expected: Product named Cupcake is added to the product list with the corresponding MENU_ID.
-   3. Test case: `menu pn/Tart pc/a ps/b`  
+   3. Test case: `menu pn/Tart pc/a ps/b`<br>
    Expected: No product is added. Error details shown in the status message.
 
 ### Adding an order
 1. Adding an order
-   2. Prerequisites: There must at least be one product in the product list and one customer in the customer list.  
-   3. Test case: `order p/12345678`  
+   2. Prerequisites: There must at least be one product in the product list and one customer in the customer list.
+   3. Test case: `order p/12345678`<br>
    Expected: No order is added yet. Instructions to add product to order in status message.
-   4. Test case: `product m/1 pq/5`  
-   Expected : Order is added to order list and under the corresponding customer. Order in order list includes details of
-   order.
+   4. Test case: `product m/1 pq/5`<br>
+   Expected : Order is added to order list and under the corresponding customer. Order in order list includes details of order.
    
 ### Cancelling an order
 1. Cancelling an order that will not be fulfilled
-   2. Test case `cancel 1`  
+   2. Test case `cancel 1`<br>
    Expected: First order is deleted from the order list. ORDER_ID of the cancelled order shown in the status message.
-   3.  Test case: `cancel 0`  
+   3.  Test case: `cancel 0`<br>
    Expected: No order is deleted from the order list. Error details shown in the status message.
 
 ### Completing an order
 1. Completing an order that have been fulfilled
    2. Prerequisites: `completedorders.csv` file must not be open.
-   3. Test case: `complete 1`  
+   3. Test case: `complete 1`<br>
    Expected: Order is deleted from the order list. ORDER_ID of the completed order is shown in the status message.
    Details of the order is logged in `data/completedorders.csv` file.
 
 ### Staging an order
 1. Staging an order that have been placed
    2. Prerequisites: There must be existing orders in the order list.
-   3. Test case: `stage o/1`  
+   3. Test case: `stage o/1`<br>
    Expected: Stage of order changes from `Under Preparation` to `Ready For Delivery`. Details of staged order in status
    message.
-   4. Test case: `stage o/1`  
+   4. Test case: `stage o/1`<br>
    Expected: Stage of order changes from `Ready For Delivery` to `Sent For Delivery`. Details of staged order in status
    message. 
-   5. Test case: `stage o/1`  
+   5. Test case: `stage o/1`<br>
    Expected: Stage of order changes from `Sent For Delivery` to `Received By Customer`. Details of staged order in 
    status message.
 
 ### Finding an order
 1. Finding an order in the order list
    2. Prerequisites: There must be existing orders in the order list.
-   3. Test case: `find o/1 o/3`
+   3. Test case: `find o/1 o/3`<br>
    Expected: Order 1 and 3 is listed in the order list. Number of orders listed in the status message.
 
 ### Finding a customer
 1. Finding an customer in the customer list
    2. Prerequisites: There must be existing customers in the customer list.
-   3. Test case: `find p/12345678`
+   3. Test case: `find p/12345678`<br>
    Expected: Contact with phone `12345678` listed in the customer list. Number of customers listed in the status message.
 
 ### Deleting a product
@@ -651,17 +649,17 @@ testers are expected to do more *exploratory* testing.
 ### Editing an order
 1. Editing an order in the order list
    2. Prerequisites: There must be existing orders in the order list.
-   3. Test case: `edit o/1 m/1 pq/5`  
+   3. Test case: `edit o/1 m/1 pq/5`<br>
    Expected: 5 x Product 1 is added to Order 1. Details of edit shown in the status message.
-   4. Test case: `edit o/1 m/1 pq/0`  
+   4. Test case: `edit o/1 m/1 pq/0`<br>
    Expected: Product 1 is removed from Order 1. Details of edit shown in the status message.
    
 ### Editing a product
 1. Editing a product in the product list
    2. Prerequisites: There must be existing products in the product list.
-   3. Test case: `edit m/1 pn/Eggtart`  
+   3. Test case: `edit m/1 pn/Eggtart`<br>
    Expected: Product 1 is renamed to `Eggtart`. Details of edit shown in the status message.
-   4. Test case: `edit m/1 pc/4`  
+   4. Test case: `edit m/1 pc/4`<br>
    Expected: Cost of product 1 is changed to $4. Details of edit shown in the status message.
-   5. Test case: `edit m/1 ps/5`
+   5. Test case: `edit m/1 ps/5`<br>
    Expected: Sales of product 1 is changed to $5. Details of edit shown in the status message.
