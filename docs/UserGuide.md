@@ -391,3 +391,7 @@ Action | Format, Examples
 --------------------------------------------------------------------------------------------------------------------
 
 ## Glossary table
+Terms | Definition
+--------|------------------
+**Stage of an order** | Under preparation, Ready for delivery, Sent for delivery, Received by customer(Completed).
+**Deadline of an order** | A date by which the user sets upon himself to complete an order.
