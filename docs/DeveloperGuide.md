@@ -251,9 +251,6 @@ The sequence of events is illustrated by the diagram below, starting with parsin
 After parsing the `cancel` command, the `LogicManager` will call the `Model#deleteOrder(id)` which calls
 `AddressBook#deleteOrder(id)`. The `Order` instance will then call its own `removeOrder(id)` which will remove this order from the customer's `ArrayList<Order>`.
 
-#### Future Changes
-Have another `fulfil` command which removes an order and logs the completed order in a file. `cancel` instead is used when an order is cancelled without being completed, and will not be logged.
-
 ### Find customer or order feature
 
 #### Implementation
@@ -515,7 +512,33 @@ Use case ends.
 * **Sensitive customer information**: Customer's name, email, phone number, address and any other personal information which is saved locally in this app
 * **Stage of an order**: Under preparation, Ready for delivery, Sent for delivery, Received by customer(Completed)
 --------------------------------------------------------------------------------------------------------------------
+## **Appendix: Planned Enhancements**
 
+### Limit input of cost and sales
+* Currently, the input of cost and sales of product can be negative, or very high until Infinity is reached.
+* Future plans is to add boundaries and limit the pricing to be between 0 inclusive and 1 billion.
+
+### Limit Phone number
+* Currently, the phone number is minimally of length 3. 
+* As this product is created mainly for Singaporeans, future enhancement is to increase limit to 8, which is the norm in
+Singapore. This will prevent errors where phone number of length 7 is entered but gone unnoticed.
+
+### Allow duplicate customer names
+* Currently, customers entered cannot have the same name. However, most commands are either done with phone number or
+CUSTOMER_ID, future plans would allow for duplicate customer names.
+
+### Restrict deadline dates to be after creation date
+* Currently, deadline dates can be set to be before order creation date. Future plans will fix so that it can only be
+after.
+
+### Allow customer names to contain slash and other legal non-alphanumeric characters
+* Currently, sequence of characters like s/o is not allowed as a valid input. Future tweaks will allow for more
+flexibility in names.
+
+### Allow text-wrapping when characters are too long
+* Currently. when certain values are too long like product names, text will overflow out of the app instead of going to
+a new line. Future fixes will allow text-wrapping into a new line.
+--------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
@@ -540,7 +563,11 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Adding a person
+1. Adding a person  
+   2. Test case: `add n/Jackson p/12345678 a/NUS e/jackson@gmail.com`  
+   Expected: Contact named Jackson is added to the customer list. Details of the added contact shown in the status
+   message and in the list.
 
 ### Deleting a person
 
@@ -548,21 +575,93 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
+   1. Test case: `delete c/1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: `delete c/0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Adding a product
+1. Adding a product to the product list
+   2. Test case: `menu pn/Cupcake pc/3 ps/4`  
+   Expected: Product named Cupcake is added to the product list with the corresponding MENU_ID.
+   3. Test case: `menu pn/Tart pc/a ps/b`  
+   Expected: No product is added. Error details shown in the status message.
 
-### Saving data
+### Adding an order
+1. Adding an order
+   2. Prerequisites: There must at least be one product in the product list and one customer in the customer list.  
+   3. Test case: `order p/12345678`  
+   Expected: No order is added yet. Instructions to add product to order in status message.
+   4. Test case: `product m/1 pq/5`  
+   Expected : Order is added to order list and under the corresponding customer. Order in order list includes details of
+   order.
+   
+### Cancelling an order
+1. Cancelling an order that will not be fulfilled
+   2. Test case `cancel 1`  
+   Expected: First order is deleted from the order list. ORDER_ID of the cancelled order shown in the status message.
+   3.  Test case: `cancel 0`  
+   Expected: No order is deleted from the order list. Error details shown in the status message.
 
-1. Dealing with missing/corrupted data files
+### Completing an order
+1. Completing an order that have been fulfilled
+   2. Prerequisites: `completedorders.csv` file must not be open.
+   3. Test case: `complete 1`  
+   Expected: Order is deleted from the order list. ORDER_ID of the completed order is shown in the status message.
+   Details of the order is logged in `data/completedorders.csv` file.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+### Staging an order
+1. Staging an order that have been placed
+   2. Prerequisites: There must be existing orders in the order list.
+   3. Test case: `stage o/1`  
+   Expected: Stage of order changes from `Under Preparation` to `Ready For Delivery`. Details of staged order in status
+   message.
+   4. Test case: `stage o/1`  
+   Expected: Stage of order changes from `Ready For Delivery` to `Sent For Delivery`. Details of staged order in status
+   message. 
+   5. Test case: `stage o/1`  
+   Expected: Stage of order changes from `Sent For Delivery` to `Received By Customer`. Details of staged order in 
+   status message.
 
-1. _{ more test cases …​ }_
+### Finding an order
+1. Finding an order in the order list
+   2. Prerequisites: There must be existing orders in the order list.
+   3. Test case: `find o/1 o/3`
+   Expected: Order 1 and 3 is listed in the order list. Number of orders listed in the status message.
+
+### Finding a customer
+1. Finding an customer in the customer list
+   2. Prerequisites: There must be existing customers in the customer list.
+   3. Test case: `find p/12345678`
+   Expected: Contact with phone `12345678` listed in the customer list. Number of customers listed in the status message.
+
+### Deleting a product
+1. Deleting a product in the product list
+
+    1. Prerequisites: There must be existing products in the product list.
+    1. Test case: `delete m/1`<br>
+       Expected: First product is deleted from the list. Details of the deleted product shown in the status message.
+    1. Test case: `delete m/0`<br>
+       Expected: No product is deleted. Error details shown in the status message.
+
+### Editing an order
+1. Editing an order in the order list
+   2. Prerequisites: There must be existing orders in the order list.
+   3. Test case: `edit o/1 m/1 pq/5`  
+   Expected: 5 x Product 1 is added to Order 1. Details of edit shown in the status message.
+   4. Test case: `edit o/1 m/1 pq/0`  
+   Expected: Product 1 is removed from Order 1. Details of edit shown in the status message.
+   
+### Editing a product
+1. Editing a product in the product list
+   2. Prerequisites: There must be existing products in the product list.
+   3. Test case: `edit m/1 pn/Eggtart`  
+   Expected: Product 1 is renamed to `Eggtart`. Details of edit shown in the status message.
+   4. Test case: `edit m/1 pc/4`  
+   Expected: Cost of product 1 is changed to $4. Details of edit shown in the status message.
+   5. Test case: `edit m/1 ps/5`
+   Expected: Sales of product 1 is changed to $5. Details of edit shown in the status message.
