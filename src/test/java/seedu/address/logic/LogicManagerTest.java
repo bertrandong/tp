@@ -28,6 +28,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.storage.CompletedOrderStorage;
 import seedu.address.storage.CsvCompletedOrderStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -49,7 +50,7 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        CsvCompletedOrderStorage completedOrderStorage =
+        CompletedOrderStorage completedOrderStorage =
                 new CsvCompletedOrderStorage(temporaryFolder.resolve("completedOrders.csv"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, completedOrderStorage);
         logic = new LogicManager(model, storage);
@@ -163,7 +164,7 @@ public class LogicManagerTest {
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        CsvCompletedOrderStorage completedOrderStorage =
+        CompletedOrderStorage completedOrderStorage =
                 new CsvCompletedOrderStorage(temporaryFolder.resolve("completedOrders.csv"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, completedOrderStorage);
 

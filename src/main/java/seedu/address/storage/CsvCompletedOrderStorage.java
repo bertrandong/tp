@@ -16,7 +16,7 @@ import seedu.address.model.order.Product;
 /**
  * Class that stores completed orders temperari
  */
-public class CsvCompletedOrderStorage {
+public class CsvCompletedOrderStorage implements CompletedOrderStorage {
 
     private static final String[] STRING_TYPE_SPECIFIER = new String[0];
 
@@ -38,7 +38,7 @@ public class CsvCompletedOrderStorage {
      * @param addressBook Addressbook containing the completed order.
      * @throws IOException
      */
-    public void saveCompletedOrder(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveCompletedOrders(ReadOnlyAddressBook addressBook) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 
