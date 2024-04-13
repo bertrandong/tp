@@ -385,7 +385,7 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete customer** | `delete c/CUSTOMER_ID`<br> e.g., `delete c/3`
 **Edit customer** | `edit c/CUSTOMER_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find customer/order** | `find [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [o/ORDER_ID]`<br> e.g., `find James Jake`
+**Find customer/order** | `find [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [o/ORDER_ID]`<br> e.g., `find n/James n/Jake` `find o/1`
 **List all contacts and orders** | `list`
 **Create order** | `order p/PHONE_NUMBER [by/DEADLINE]`
 **Add product to order** | `product m/MENU_ID pq/PRODUCT_QUANTITY`
