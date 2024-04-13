@@ -164,6 +164,7 @@ public interface Model {
     Optional<Person> findPersonByPhoneNumber(String phoneNumber);
 
     Order findOrderByIndex(int id);
+
     /**
      * Returns an unmodifiable view of the filtered person list.
      *

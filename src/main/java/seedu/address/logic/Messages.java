@@ -41,6 +41,7 @@ public class Messages {
 
     public static final String MESSAGE_COEXISTING_CUSTOMER_AND_ORDER =
             "Customer ID and order ID cannot coexist here.";
+    public static final String MESSAGE_CUSTOMER_HAS_ORDER = "Customer has active order and cannot be removed.";
 
     public static final String MESSAGE_SPECIFY_EDIT = "Please follow up with either "
             + PREFIX_CUSTOMER_ID + "INDEX (for customer index)"

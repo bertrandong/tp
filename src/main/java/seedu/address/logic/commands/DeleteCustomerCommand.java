@@ -40,6 +40,9 @@ public class DeleteCustomerCommand extends DeleteCommand {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        if (personToDelete.getOrders().size() != 0) {
+            throw new CommandException(Messages.MESSAGE_CUSTOMER_HAS_ORDER);
+        }
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }

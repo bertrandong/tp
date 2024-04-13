@@ -101,7 +101,6 @@ Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
 * Existing values will be updated to the input values.
 
 > [!NOTE]
-> 
 > Editing a product on the menu will not update the products on existing orders.
 
 Example:
