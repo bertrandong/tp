@@ -391,9 +391,11 @@ Term | Description
 **Precede** | Add to the front of
 **Stage** | The status of an order
 **Demarcate** | Mark or distinguish
-**CSV** | File that ends in .csv. Refers to a spreadsheet file.
-**JSON** | File that stores data, ends in .json.
-
+**CSV** | File that ends in .csv. Refers to a spreadsheet file
+**JSON** | File that stores data, ends in .json
+**Command Line Interface** | The text-based chatbox at the top of Strack.io where you can input commands
+**Graphical User Interface** | The digital interface you see and interact with such as buttons
+**Tag** | A word you can associate a customer with
 --------------------------------------------------------------------------------------------------------------------
 ## Command summary
 
@@ -417,9 +419,3 @@ Action | Format, Examples
 **Help** | `help`
 
 --------------------------------------------------------------------------------------------------------------------
-
-## Glossary table
-Terms | Definition
---------|------------------
-**Stage of an order** | Under preparation, Ready for delivery, Sent for delivery, Received by customer(Completed).
-**Deadline of an order** | A date by which the user sets upon himself to complete an order.
