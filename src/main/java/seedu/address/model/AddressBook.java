@@ -3,10 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
@@ -296,7 +294,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         for (Map.Entry<Integer, Order> orderList : activeOrdersCopy.getOrderMap().entrySet()) {
             Order currOrder = new Order();
             for (Map.Entry<Product, Quantity> set : orderList.getValue().getProductMap().entrySet()) {
-                if (set.getKey().getName() == target.getName()) {
+                if (set.getKey().getName().equals(target.getName())) {
                     currOrder.addProduct(editedProduct, set.getValue());
                 } else {
                     currOrder.addProduct(set.getKey(), set.getValue());
