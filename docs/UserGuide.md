@@ -213,6 +213,7 @@ You can create and assign an order to a specified customer in the address book.
 Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 
 * Orders are assigned to person with specified `PHONE_NUMBER`.
+* There must be existing customers in the customer list and products in the menu.
 * `DEADLINE` is an optional fields that is used to keep track of an order's deadline
 * * The format for deadline dates are dd/MM/yyyy
 * For single digit days or months, please precede them with a zero.
