@@ -26,8 +26,10 @@ Strack.io is a **desktop app for Homemade food sellers to manage contacts of the
    Some example commands you can try:
 
    * `list` : Lists all contacts.
+   
+   * `menu pn/Cupcake pc/2 ps/5` : Adds a product named `Cupcake` to the menu.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the customer list.
 
    * `delete c/3` : Deletes the 3rd contact shown in the current list.
 
@@ -71,6 +73,56 @@ You can show a message explaining how to access the help page.
 
 Format: `help`
 
+### Adding a product to the menu: `menu`
+
+You can start off by adding a product to be displayed on the product menu.
+
+Format: `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
+
+* `PRODUCT_COSTS` refer to the costs incurred to make the product.
+* `PRODUCT_SALES` refer to how much the product is being sold for.
+* The order of which `pc/PRODUCT_COSTS` or `ps/PRODUCT_SALES` is being input does not matter.
+* Decimals are supported.
+
+Example:
+* `menu pn/Cupcake pc/1 ps/2`
+* `menu pn/Tart ps/6.30 pc/2.20`
+
+![add product command](images/AddProductCommand.png)
+<br>![add product command result](images/AddProductCommandResult.png)
+
+### Editing a product on the menu: `edit`
+
+You can edit an existing product on the product menu.
+
+Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
+
+* Edits the product of the specified `MENU_ID`. The `MENU_ID` refers to the number reflected on the product menu beside the product name. The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+> [!NOTE]
+> Editing a product on the menu will not update the products on existing orders.
+
+Examples:
+* `edit m/1 pn/Pie` Edits the product name of the product with `MENU_ID` of 1 to be `Pie`.
+* `edit m/2 pc/5 ps/12` Edits the product costs and sales of the product with `MENU_ID` of 2 to be `5` and `12` respectively.
+
+![edit product command](images/EditProductCommand.png)
+<br>![edit product command result](images/EditProductCommandResult.png)
+
+### Deleting a product from the menu: `delete`
+
+You can delete the specified product from the product menu.
+
+Format: `delete m/MENU_ID`
+
+* Deletes the product of the specified `MENU_ID`.
+* The `MENU_ID` refers to the number reflected on the product menu beside the product name.
+* The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
+
+![delete product command](images/DeleteProductCommand.png)
+<br>![delete product command result](images/DeleteProductCommandResult.png)
 
 ### Adding a customer: `add`
 
@@ -132,6 +184,7 @@ Examples:
 * `find a/Lorong` returns customers with address that includes `Lorong`
 * `find p/85012345 p/12345678` returns customer with phone number of `85012345` and `12345678`
 * `find o/4 o/6` returns `Order 4` and `Order 6`.
+
 ![result for finding order](images/FindCommand.png)
 
 ### Deleting a customer: `delete`
@@ -147,6 +200,7 @@ Format: `delete c/CUSTOMER_ID`
 Examples:
 * `list` followed by `delete c/2` deletes the person with customer_id of `2` in the address book.
 * `find Betsy` followed by `delete c/1` deletes the person with customer_id of `1` in the results of the `find` command.
+
  ![Deleting customer 2](images/DeleteCommand.png)
  ![Result for deleting customer 2](images/DeleteCommandResult.png)
 
@@ -168,6 +222,7 @@ Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 
 Examples:
 * `order p/87438807 by/08/04/2024` will create an order for person with phone number `99887766` with a deadline `08/04/2024`, start adding products for the order to be shown. <br>
+
 ![input for creating order for alex](images/OrderCommand.png)
 ![result for creating order for alex](images/OrderCommandResult.png)
 <br>
@@ -183,8 +238,9 @@ Format: `product m/MENU_ID pq/PRODUCT_QUANTITY`
 
 Examples:
 * Assuming you have already created an order in this session for the phone number `87438807`, using `product m/1 pq/2` and `product m/2 pq/2` will add products corresponding to `PRODUCT_ID` 1 and 2 in the menu, in this example it would be cupcakes and cookies respectively. <br>
-  ![input for adding products for alex](images/ProductCommand.png)
-  ![input for adding products for alex](images/ProductCommandResult.png)
+
+![input for adding products for alex](images/ProductCommand.png)
+![input for adding products for alex](images/ProductCommandResult.png)
   <br>
 
 ### Editing of an order's deadline: `edit`
@@ -197,8 +253,9 @@ Format: `edit o/ORDER_ID by/DEADLINE`
 
 Example:
 * `edit o/1 by/07/04/2024` or `edit o/1 by/12/10/2024` will edit the deadline of the order with order id 1 to `07/04/2024` or `12/10/2024` respectively. <br>
-  ![input for adding products for alex](images/EditDeadlineCommand.png)
-  ![input for adding products for alex](images/EditDeadlineCommandResult.png)
+
+![input for adding products for alex](images/EditDeadlineCommand.png)
+![input for adding products for alex](images/EditDeadlineCommandResult.png)
 <br>
 
 ### Editing of orders: `edit`
@@ -231,12 +288,15 @@ Format: `stage o/ORDER`
 
 Example:
 * Suppose the order with id 1 is in initial `Under Preparation` stage.
+
 ![Before running stage command](images/StageCommandBefore.png)
 
 * Running `stage o/1` once will move the order with id 1 to `Ready for Delivery`.
+
 ![Run stage command once](images/StageCommandOnce.png)
 
 * Running `stage o/1` three or more times will move the order with id 1 to `Received by customer`.
+
 ![Run stage command three times](images/StageCommandTrice.png)
 
 ### Completion of orders: `complete`
@@ -267,56 +327,9 @@ Format: `cancel ORDER_ID`
 
 Example:
 * `cancel 19` will cancel order with `ORDER_ID` of `19`.
+
 ![result for cancelling order](images/CancelOrder1.png)
 ![result for cancelling order](images/CancelOrder2.png)
-
-### Adding a product to the menu: `menu`
-
-You can add a product to be displayed on the product menu.
-
-Format: `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
-
-* `PRODUCT_COSTS` refer to the costs incurred to make the product.
-* `PRODUCT_SALES` refer to how much the product is being sold for.
-* The order of which `pc/PRODUCT_COSTS` or `ps/PRODUCT_SALES` is being input does not matter.
-* Decimals are supported.
-
-Example:
-* `menu pn/Cupcake pc/1 ps/2`
-* `menu pn/Tart ps/6.30 pc/2.20`
-
-![add product command](images/AddProductCommand.png)
-<br>![add product command result](images/AddProductCommandResult.png)
-
-### Editing a product on the menu: `edit`
-
-You can edit an existing product on the product menu.
-
-Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
-
-* Edits the product of the specified `MENU_ID`. The `MENU_ID` refers to the number reflected on the product menu beside the product name. The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-
-Examples:
-* `edit m/1 pn/Pie` Edits the product name of the product with `MENU_ID` of 1 to be `Pie`.
-* `edit m/2 pc/5 ps/12` Edits the product costs and sales of the product with `MENU_ID` of 2 to be `5` and `12` respectively.
-
-![edit product command](images/EditProductCommand.png)
-<br>![edit product command result](images/EditProductCommandResult.png)
-
-### Deleting a product from the menu: `delete`
-
-You can delete the specified product from the product menu.
-
-Format: `delete m/MENU_ID`
-
-* Deletes the product of the specified `MENU_ID`.
-* The `MENU_ID` refers to the number reflected on the product menu beside the product name.
-* The `MENU_ID` **must be a positive integer** 1, 2, 3, ...
-
-![delete product command](images/DeleteProductCommand.png)
-<br>![delete product command result](images/DeleteProductCommandResult.png)
 
 ### Clearing all entries: `clear`
 
