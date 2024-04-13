@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="title" prefHeight="30.0" prefWidth="247.0" text="Menu">
+      <font>
+         <Font size="24.0" />
+      </font></Label>
+    <ListView fx:id="productMenuView" styleClass="cell_small_label" VBox.vgrow="ALWAYS">
+      <VBox.margin>
+         <Insets />
+      </VBox.margin></ListView>
+</VBox>
