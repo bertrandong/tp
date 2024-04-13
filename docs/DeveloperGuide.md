@@ -307,6 +307,18 @@ Edits a `Product` on the menu. Example: `edit m/1 pn/Pie`. The `edit` command wo
 2. If `PREFIX_CUSTOMER_ID`, a `EditCustomerCommand` will be created.
 3. If `PREFIX_ORDER_ID`, an `EditOrderCommand` will be created.
 
+### Stage order feature
+Moves an order to the next stage, in the chain of the four stages, in order namely: `Under Preparation`, `Ready for Delivery`,
+`Sent for delivery` and `Received by customer`. However, you cannot go back to a previous stage.
+
+Example: `stage o/1`
+
+The sequence of events are illustrated by the diagram below, starting with the parsing of the command.
+![StageCommandSequenceDiagram-Logic](images/StageCommandSequenceDiagram-Logic.png)
+
+The `StageCommand` class which extends the `Command` abstract class will be executed by the `LogicManager` which will update the `addressBook` in the `Model`.
+![StageCommandSequenceDiagram-Model](images/StageCommandSequenceDiagram-Model.png)
+
 ### Known Limitations
 1. As `StringUtil#containsWordIgnoreCase` searches by entire word, searching for `945` in `94567122` for `Phone` will result in false. This is also consistent in `Email`.
 
