@@ -53,7 +53,7 @@ fast, Strack.io can get your customer and order management tasks done faster tha
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -109,7 +109,7 @@ Editing a product on the menu will not update the products on existing orders.
 </div>
 
 Example:
-* `edit m/1 pn/Pie` Edits the product name of the product with `MENU_ID` of 1 to be `Pie`.
+* `edit m/1 pn/Pie` Edits the product name of the product with `MENU_ID` of `1` to be `Pie`.
 
 ![edit product command](images/EditProductCommand.png)
 <br>![edit product command result](images/EditProductCommandResult.png)
@@ -144,7 +144,7 @@ with the same phone number.
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A person can have any number of tags (including 0).
 </div>
 
 Examples:
@@ -163,37 +163,37 @@ You can edit an existing customer in your address book.
 
 Format: `edit c/CUSTOMER_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
-* Edits the person of the specified `CUSTOMER_ID`. The customer_id refers to the number shown in the customers's contact under "customer id". The customer id **must be a positive integer** 1, 2, 3, …​
+* Edits the person of the specified `CUSTOMER_ID`. `CUSTOMER_ID` refers to the number shown beside the customer's name. `CUSTOMER_ID` **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the customer will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the customer will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
 Examples:
-*  `edit c/1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the person with customer_id of 1 to be `91234567` and `johndoe@example.com` respectively.
-*  `edit c/2 n/Betsy Crower t/` Edits the name of the person with customer_id of 2 to be `Betsy Crower` and clears all existing tags.
+*  `edit c/1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the person with `CUSTOMER_ID` of `1` to be `91234567` and `johndoe@example.com` respectively.
+*  `edit c/2 n/Betsy Crower t/` Edits the name of the person with `CUSTOMER_ID` of `2` to be `Betsy Crower` and clears all existing tags.
 
 ### Locating customers and orders: `find`
 
-You can find customers based on name, phone number, address or email and find orders based on order index in Strack.io.
+You can find customers based on name, phone number, address or email and find orders based on `ORDER_ID` in Strack.io.
 
 Format: `find [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [o/ORDER_ID]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`.
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * At least one of the optional fields must be provided and only choose one field.
 * You can add different keywords for one chosen field and customers with any matching keyword will be included.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one of the specified information will be returned (i.e. `OR` search).
+* Only full words will be matched e.g. `Han` will not match `Hans`.
+* Persons matching at least one of the specified information will be returned (i.e. `OR` search).<br>
   Examples:
 * `n/Hans n/Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find n/John` returns `john` and `John Doe`
-* `find n/alex n/John` returns `Alex`, `john` and `John Doe`<br>
-* `find a/Lorong` returns customers with address that includes `Lorong`
-* `find p/85012345 p/12345678` returns customer with phone number of `85012345` and `12345678`
+* `find n/John` returns `john` and `John Doe`.
+* `find n/alex n/John` returns `Alex`, `john` and `John Doe`.<br>
+* `find a/Lorong` returns customers with address that includes `Lorong`.
+* `find p/85012345 p/12345678` returns customers with phone number of `85012345` and `12345678`.
 * `find o/4 o/6` returns `Order 4` and `Order 6`.
 
 ![result for finding order](images/FindCommand.png)
@@ -205,12 +205,12 @@ You can delete the specified customer from Strack.io.
 Format: `delete c/CUSTOMER_ID`
 
 * Deletes the customer of the specified `CUSTOMER_ID`.
-* The `CUSTOMER_ID` refers to the number shown under customer id in the displayed customer contact.
+* The `CUSTOMER_ID` refers to the number shown beside the customer name in the displayed customer contact.
 * The `CUSTOMER_ID` **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete c/2` deletes the person with customer_id of `2` in the address book.
-* `find Betsy` followed by `delete c/1` deletes the person with customer_id of `1` in the results of the `find` command.
+* `list` followed by `delete c/2` deletes the person with `CUSTOMER_ID` of `2` in the address book.
+* `find Betsy` followed by `delete c/1` deletes the person with `CUSTOMER_ID` of `1` in the results of the `find` command.
 
  ![Deleting customer 2](images/DeleteCommand.png)
  ![Result for deleting customer 2](images/DeleteCommandResult.png)
@@ -223,13 +223,13 @@ Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 
 * Orders are assigned to person with specified `PHONE_NUMBER`.
 * There must be existing customers in the customer list and products in the menu.
-* `DEADLINE` is an optional fields that is used to keep track of an order's deadline
-* * The format for deadline dates are dd/MM/yyyy
+* `DEADLINE` is an optional fields that is used to keep track of an order's deadline.
+* * The format for deadline dates are dd/MM/yyyy.
 * For single digit days or months, please precede them with a zero.
-* Leaving `DEADLINE` blank will make the order's deadline marked as `Not Specified`
-* Strack.io will prompt users to input products using the product command
+* Leaving `DEADLINE` blank will make the order's deadline marked as `Not Specified`.
+* Strack.io will prompt users to input products using the product command.
 * Follow up with products to be added to the order using the following format. Format: `product m/MENU_ID pq/PRODUCT_QUANTITY`.
-* You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
+* You can refer to the menu for the `MENU_ID`, i.e. `1. Cupcake` `MENU_ID` is `1`.
 * This can be repeated as many times as necessary.
 
 Examples:
@@ -244,12 +244,12 @@ Examples:
 You can add products on the menu into the most recently created order.
 
 Format: `product m/MENU_ID pq/PRODUCT_QUANTITY`
-* You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
+* You can refer to the menu for the `MENU_ID`, i.e. `1. Cupcake` `MENU_ID` is `1`.
 * This can be repeated as many times as necessary within one session of using Strack.io.
-* This means closing the Strack.io will no longer allow you to add products to the order you created previously
+* This means closing Strack.io will no longer allow you to add products to the order you created previously.
 
 Examples:
-* Assuming you have already created an order in this session for the phone number `87438807`, using `product m/1 pq/2` and `product m/2 pq/2` will add products corresponding to `MENU_ID` 1 and 2 in the menu, in this example it would be cupcakes and cookies respectively. <br>
+* Assuming you have already created an order in this session for the phone number `87438807`, using `product m/1 pq/2` and `product m/2 pq/2` will add products corresponding to `MENU_ID` 1 and 2 in the menu, in this example it would be `cupcakes` and `cookies` respectively. <br>
 
 ![input for adding products for alex](images/ProductCommand.png)
 ![input for adding products for alex](images/ProductCommandResult.png)
@@ -257,13 +257,17 @@ Examples:
 
 ### Editing of orders: `edit`
 
-You can edit an existing order of a specific customer in Strack.io.
+You can edit an existing order of a customer in Strack.io.
 
 Format: `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`
 
 * `ORDER_ID` is a unique number for each order.
+<<<<<<< HEAD
 * `ORDER_ID` refers to the number shown under order id in the displayed customer's contact or the order number
   in the order list
+=======
+* `ORDER_ID` refers to the order number in the displayed order.
+>>>>>>> master
 * Products are edited based on `MENU_ID`.
 * To remove product from order, specify `PRODUCT_QUANTITY` as `0`.
 
@@ -279,12 +283,17 @@ You can edit the deadline of an existing order of a specific customer in Strack.
 
 Format: `edit o/ORDER_ID by/DEADLINE`
 * `ORDER_ID` is a unique number for each order.
+<<<<<<< HEAD
 * `ORDER_ID` refers to the number shown under order id in the displayed customer's contact or the order number 
 in the order list
 * The format for deadline is dd/MM/yyyy
+=======
+* `ORDER_ID` refers to the order number in the displayed order.
+* The format for deadline is dd/MM/yyyy.
+>>>>>>> master
 
 Example:
-* `edit o/1 by/07/04/2024` or `edit o/1 by/12/10/2024` will edit the deadline of the order with order id 1 to `07/04/2024` or `12/10/2024` respectively. <br>
+* `edit o/1 by/07/04/2024` or `edit o/1 by/12/10/2024` will edit the deadline of the order with `Order_ID` of `1` to `07/04/2024` or `12/10/2024` respectively. <br>
 
 ![input for adding products for alex](images/EditDeadlineCommand.png)
 ![input for adding products for alex](images/EditDeadlineCommandResult.png)
@@ -302,6 +311,7 @@ Format: `stage o/ORDER`
 * Any order just created will be in `Under Preparation` stage.
 
 Example:
+<<<<<<< HEAD
 * Suppose the order with `ORDER_ID` 1 is in initial `Under Preparation` stage.
 
 ![Before running stage command](images/StageCommandBefore.png)
@@ -311,6 +321,17 @@ Example:
 ![Run stage command once](images/StageCommandOnce.png)
 
 * Running `stage o/1` three or more times will move the order with `ORDER_ID` 1 to `Received by customer`.
+=======
+* Suppose the order with `ORDER_ID` of `1` is in the initial `Under Preparation` stage.
+
+![Before running stage command](images/StageCommandBefore.png)
+
+* Running `stage o/1` once will move the order with `ORDER_ID` of `1` to `Ready for Delivery`.
+
+![Run stage command once](images/StageCommandOnce.png)
+
+* Running `stage o/1` three or more times will move the order with `ORDER_ID` of `1` to `Received by customer`.
+>>>>>>> master
 
 ![Run stage command three times](images/StageCommandTrice.png)
 
