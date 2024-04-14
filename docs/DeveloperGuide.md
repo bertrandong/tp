@@ -712,6 +712,7 @@ testers are expected to do more *exploratory* testing.
    Expected: Cost of product 1 is changed to $4. Details of edit shown in the status message.
    5. Test case: `edit m/1 ps/5`<br>
    Expected: Sales of product 1 is changed to $5. Details of edit shown in the status message.
+
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Effort**
 
