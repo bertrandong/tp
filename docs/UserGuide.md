@@ -228,7 +228,7 @@ Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 * For single digit days or months, please precede them with a zero.
 * Leaving `DEADLINE` blank will make the order's deadline marked as `Not Specified`
 * Strack.io will prompt users to input products using the product command
-* Follow up with products to be added to the order using the following format. Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`.
+* Follow up with products to be added to the order using the following format. Format: `product m/MENU_ID pq/PRODUCT_QUANTITY`.
 * You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
 * This can be repeated as many times as necessary.
 
@@ -243,13 +243,13 @@ Examples:
 
 You can add products on the menu into the most recently created order.
 
-Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`
+Format: `product m/MENU_ID pq/PRODUCT_QUANTITY`
 * You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
 * This can be repeated as many times as necessary within one session of using Strack.io.
 * This means closing the Strack.io will no longer allow you to add products to the order you created previously
 
 Examples:
-* Assuming you have already created an order in this session for the phone number `87438807`, using `product m/1 pq/2` and `product m/2 pq/2` will add products corresponding to `PRODUCT_ID` 1 and 2 in the menu, in this example it would be cupcakes and cookies respectively. <br>
+* Assuming you have already created an order in this session for the phone number `87438807`, using `product m/1 pq/2` and `product m/2 pq/2` will add products corresponding to `MENU_ID` 1 and 2 in the menu, in this example it would be cupcakes and cookies respectively. <br>
 
 ![input for adding products for alex](images/ProductCommand.png)
 ![input for adding products for alex](images/ProductCommandResult.png)
@@ -259,11 +259,11 @@ Examples:
 
 You can edit an existing order of a specific customer in Strack.io.
 
-Format: `edit o/ORDER_ID m/PRODUCT_ID pq/PRODUCT_QUANTITY`
+Format: `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`
 
 * `ORDER_ID` is a unique number for each order.
 * `ORDER_ID` refers to the number shown under order id in the displayed customer's contact.
-* Products are edited based on `PRODUCT_ID`.
+* Products are edited based on `MENU_ID`.
 * To remove product from order, specify `PRODUCT_QUANTITY` as `0`.
 
 Example:
@@ -417,21 +417,23 @@ Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete customer** | `delete c/CUSTOMER_ID`<br> e.g., `delete c/3`
+**Help** | `help`
+**Add product to menu** | `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`<br> e.g., `menu pn/cupcake pc/5 ps/10`
+**Edit product on menu** | `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`<br> e.g., `edit m/1 pc/20`
+**Delete product on menu** | `delete m/MENU_ID`
+**Add customer** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**List all contacts and orders** | `list`
 **Edit customer** | `edit c/CUSTOMER_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit c/2 n/James Lee e/jameslee@example.com`
 **Find customer/order** | `find [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [o/ORDER_ID]`<br> e.g., `find n/James n/Jake` `find o/1`
-**Add product to menu** | `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`<br> e.g., `menu pn/cupcake pc/5 ps/10`
-**Edit product on menu** | `edit m/PRODUCT_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`<br> e.g., `edit m/1 pc/20`
-**Delete product on menu** | `delete m/PRODUCT_ID`
-**List all contacts and orders** | `list`
+**Delete customer** | `delete c/CUSTOMER_ID`<br> e.g., `delete c/3`
 **Create order** | `order p/PHONE_NUMBER [by/DEADLINE]`<br> e.g., `order p/22224444 by/02/04/2024`
-**Add product to order** | `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`<br> e.g., `product m/1 pq/10`
-**Cancel order** | `cancel ORDER_ID`<br> e.g., `cancel 1`
-**Complete order** | `complete ORDER_ID`<br> e.g., `complete 1`
-**Edit order** | `edit o/ORDER_ID m/PRODUCT_ID pq/PRODUCT_QUANTITY`<br> e.g., `edit o/1 m/1 pq/10`
+**Add product to order** | `product m/MENU_ID pq/PRODUCT_QUANTITY`<br> e.g., `product m/1 pq/10`
 **Edit order deadline** | `edit o/ORDER_ID by/DEADLINE`<br> e.g., `edit o/1 by/02/04/2024`
-**Help** | `help`
+**Edit order** | `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`<br> e.g., `edit o/1 m/1 pq/10`
+**Stage order** | `stage o/ORDER_ID`<br> e.g., `stage o/1`
+**Complete order** | `complete ORDER_ID`<br> e.g., `complete 1`
+**Cancel order** | `cancel ORDER_ID`<br> e.g., `cancel 1`
+**Clear** | `clear`
+**Exit** | `exit`
 
 --------------------------------------------------------------------------------------------------------------------
