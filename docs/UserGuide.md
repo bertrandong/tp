@@ -3,7 +3,13 @@ layout: page
 title: User Guide
 ---
 
-Strack.io is a **desktop app for Homemade food sellers to manage contacts of their customers, optimized for use via 
+## Introduction
+
+A warm welcome to all home bakers to our Strack.io User Guide! Strack.io is designed to cater to all your needs, be it creating your menu, recording of customer information, or even tracking of orders. Here, you will find all the necessary information you need to kickstart your Strack.io journey. Don't forget to **make snacks, keep track, and use Strack!**
+
+## Overview
+
+Strack.io is a **desktop app for home bakers to manage contacts of their customers, optimized for use via 
 a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type
 fast, Strack.io can get your customer and order management tasks done faster than traditional GUI apps.
 
@@ -262,12 +268,8 @@ You can edit an existing order of a customer in Strack.io.
 Format: `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`
 
 * `ORDER_ID` is a unique number for each order.
-<<<<<<< HEAD
 * `ORDER_ID` refers to the number shown under order id in the displayed customer's contact or the order number
   in the order list
-=======
-* `ORDER_ID` refers to the order number in the displayed order.
->>>>>>> master
 * Products are edited based on `MENU_ID`.
 * To remove product from order, specify `PRODUCT_QUANTITY` as `0`.
 
@@ -283,14 +285,9 @@ You can edit the deadline of an existing order of a specific customer in Strack.
 
 Format: `edit o/ORDER_ID by/DEADLINE`
 * `ORDER_ID` is a unique number for each order.
-<<<<<<< HEAD
 * `ORDER_ID` refers to the number shown under order id in the displayed customer's contact or the order number 
 in the order list
 * The format for deadline is dd/MM/yyyy
-=======
-* `ORDER_ID` refers to the order number in the displayed order.
-* The format for deadline is dd/MM/yyyy.
->>>>>>> master
 
 Example:
 * `edit o/1 by/07/04/2024` or `edit o/1 by/12/10/2024` will edit the deadline of the order with `Order_ID` of `1` to `07/04/2024` or `12/10/2024` respectively. <br>
@@ -311,7 +308,6 @@ Format: `stage o/ORDER`
 * Any order just created will be in `Under Preparation` stage.
 
 Example:
-<<<<<<< HEAD
 * Suppose the order with `ORDER_ID` 1 is in initial `Under Preparation` stage.
 
 ![Before running stage command](images/StageCommandBefore.png)
@@ -321,17 +317,6 @@ Example:
 ![Run stage command once](images/StageCommandOnce.png)
 
 * Running `stage o/1` three or more times will move the order with `ORDER_ID` 1 to `Received by customer`.
-=======
-* Suppose the order with `ORDER_ID` of `1` is in the initial `Under Preparation` stage.
-
-![Before running stage command](images/StageCommandBefore.png)
-
-* Running `stage o/1` once will move the order with `ORDER_ID` of `1` to `Ready for Delivery`.
-
-![Run stage command once](images/StageCommandOnce.png)
-
-* Running `stage o/1` three or more times will move the order with `ORDER_ID` of `1` to `Received by customer`.
->>>>>>> master
 
 ![Run stage command three times](images/StageCommandTrice.png)
 
