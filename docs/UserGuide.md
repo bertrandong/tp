@@ -9,7 +9,7 @@ A warm welcome to all home bakers to our Strack.io User Guide! Strack.io is desi
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Purpose of this User Guide
+## Purpose
 
 This User Guide serves both as a tutorial and as an instruction manual to our Strack.io application.
 To start learning using our app, you can take a look at the Quick Start section, and try out the different commands for yourself.
