@@ -156,102 +156,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### Adding order feature
-
-### Implementation
-
-Adds an `Order` to to a `Person` based on the person's `Phone` number. Example: `order p/8899 7788`
-The process of adding an order is illustrated by the following diagrams.
-
-![OrderSequenceDiagram-Logic](images/OrderSequenceDiagram.png)
-
-After parsing the `order` command, the `LogicManager` will call the `Model#findPersonByPhoneNumber(number)` which returns the `Person` instance with matching number.
-The `AddOrderCommand` will then call its own `addOrder(order, maybeEditablePeson)` which will add an order to the corresponding person, provided a person with matching number exists.
-
 ### Removing order feature
 
 #### Implementation
@@ -336,7 +240,7 @@ The `StageCommand` class which extends the `Command` abstract class will be exec
 
 2. Only one `PREFIX` can be chosen to filter by. Future improvements may include searching from more than one `PREFIX`. Example: `find o/19 n/John a/Lorong`.
 
-### Data archiving of Completed Orders
+### Completing Order Feature
 
 #### Implementation
 Data archiving of completed orders is achieved by creating a CompleteCommand, which will remove the order from the
@@ -508,12 +412,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC5 - Creating an order**
+**Use case: UC5 - Setting up a Product Menu**
 
 **MSS**
 
-1.  User chooses to create an order for an existing person and specifies the required details.
-2.  Strack.io displays the added order.
+1.  User uses Strack.io to populate the product menu with products
+sold by the user.
+2.  Strack.io displays the added products in the menu.
 
     Use case ends.
 
@@ -527,7 +432,58 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes from step 2.
 
-**Use case: UC6 - Cancelling an order**
+**Use case: UC6 - Creating an order**
+
+**MSS**
+
+1.  User populates the Strack.io Menu with his/her products (UC5)
+2.  User chooses to create an order for an existing person and specifies the required details.
+3.  Strack.io displays the added order.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. Strack.io detects an error in the entered data.
+    * 1a1. Strack.io shows the missing/incorrect field.
+    * 1a2. User enters new data.
+
+      Steps 1a1-1a2 are repeated until the data entered are correct.
+
+      Use case resumes from step 2.
+
+**Use case: UC7 - Edit an order**
+
+**MSS**
+
+1.  User requests to list orders.
+2.  Strack.io shows a list of orders.
+3.  User requests to edit the details of a specific order in the list.
+4.  Strack.io edits the details of the order and displays the new order.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. Strack.io shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. Strack.io detects an error in the entered data.
+    * 3b1. Strack.io shows the missing/incorrect field.
+    * 3b2. User enters new data.
+
+      Steps 3b1-3b2 are repeated until the data entered are correct.
+
+      Use case resumes from step 4.
+
+**Use case: UC8 - Cancelling an order**
 
 **MSS**
 1. User requests to cancel a specific order by index.
@@ -543,7 +499,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: UC7 - Searching for an order**
+**Use case: UC9 - Completing an order**
+
+**MSS**
+1. User has completed the production and delivery of an order.
+2. User can use Strack.io to complete the order.
+3. User can access the `data/completedorder.csv` file to see past completed
+orders in excel.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The given index is invalid.
+
+    * 2a1. Strack.io shows an error message.
+
+      Use case ends.
+
+
+**Use case: UC10 - Searching for an order**
 
 **MSS**
 1. User searches for orders by indexes
@@ -554,7 +529,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 * 2a. The list of matching orders is empty.
 
-Use case ends.
+    Use case ends.
 
 
 
@@ -732,3 +707,29 @@ testers are expected to do more *exploratory* testing.
    Expected: Cost of product 1 is changed to $4. Details of edit shown in the status message.
    5. Test case: `edit m/1 ps/5`<br>
    Expected: Sales of product 1 is changed to $5. Details of edit shown in the status message.
+--------------------------------------------------------------------------------------------------------------------
+## **Appendix: Effort**
+Being the first delve into team-based software engineering for many of us in the group, the difficulty
+level for our project was relatively high. This was one of the many factors that made the difficulty much 
+higher than expected.
+
+Another major challenge was overambition. For many of us, we went into CS2103 without seeking any tips and
+advice from our peers and seniors. This led to us being unable to compare and judge the estimated effort 
+other groups and batches put in. This led to us over estimating our ability to organise and implement and
+large number of complex features. This is especially so when we consider the busy
+schedule of everyone in the group.
+
+Another major hurdle for our group is coordination and communication. Having to create many functions and
+classes that have co-dependecies with each other. It was quite challenging to incorporate elements of each
+others code as many of our features rely on each other to work correctly and efficiently. Sometimes,
+we required each other's guidance to help understand the how each others code work such that we could
+incorporate it into our other features and to ensure that all the traits a customer,order or product
+should have are properly updated, deleted and added.
+
+Despite the hurdles and challenges faced, we all put in extra effort and time despite our busy schedules to 
+hold meetings, review each others code and comment on how we could improve our designs.
+
+Glad to say, we have achieved more than what we expected, we were able to implement most of the features we 
+wanted for the entire project in v1.2. We then had to come up with new features to further improve Strack that 
+were outside our original set of features. After all of that, we could say that we were proud of the end product
+and effort that we put into this project.
