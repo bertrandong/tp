@@ -3,7 +3,9 @@ layout: page
 title: User Guide
 ---
 
-Strack.io is a **desktop app for Homemade food sellers to manage contacts of their customers, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Strack.io can get your contact management tasks done faster than traditional GUI apps.
+Strack.io is a **desktop app for Homemade food sellers to manage contacts of their customers, optimized for use via 
+a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type
+fast, Strack.io can get your customer and order management tasks done faster than traditional GUI apps.
 
 * Table of Contents
 {:toc}
@@ -25,15 +27,15 @@ Strack.io is a **desktop app for Homemade food sellers to manage contacts of the
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list` : Lists all customers and orders.
    
    * `menu pn/Cupcake pc/2 ps/5` : Adds a product named `Cupcake` to the menu.
 
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the customer list.
 
-   * `delete c/3` : Deletes the 3rd contact shown in the current list.
+   * `delete c/3` : Deletes the 3rd contact shown in the current customer list.
 
-   * `clear` : Deletes all contacts.
+   * `clear` : Deletes all customers contacts, orders and products in Strack.io.
 
    * `exit` : Exits the app.
 
@@ -81,7 +83,9 @@ Format: `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
 
 * `PRODUCT_COSTS` refer to the costs incurred to make the product.
 * `PRODUCT_SALES` refer to how much the product is being sold for.
-* The order of which `pc/PRODUCT_COSTS` or `ps/PRODUCT_SALES` is being input does not matter.
+* `PRODUCT_NAME` refer to the name of the product being sold.
+* The order of which `pc/PRODUCT_COSTS`, `ps/PRODUCT_SALES` or `pn/PRODUCT_NAME`
+is being input does not matter.
 * Decimals are supported.
 
 Example:
@@ -100,8 +104,9 @@ Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
-> [!NOTE]  
-> Editing a product on the menu will not update the products on existing orders.
+<div markdown="span" class="alert alert-primary">:heavy_exclamation_mark: **Note:**  
+Editing a product on the menu will not update the products on existing orders.
+</div>
 
 Example:
 * `edit m/1 pn/Pie` Edits the product name of the product with `MENU_ID` of 1 to be `Pie`.
@@ -127,11 +132,16 @@ Example:
 
 ### Adding a customer: `add`
 
-You can add a customer to your address book.
+You can add a customer to Strack.io.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
 * Names must be unique.
+
+<div markdown="span" class="alert alert-primary">:heavy_exclamation_mark: **Note:**  
+Adding two customers with the same name, will result in future order creation to be tagged to the first customer added
+with the same phone number.
+</div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
@@ -147,7 +157,7 @@ You can show a list of all customers and orders in your address book.
 
 Format: `list`
 
-### Editing a person: `edit`
+### Editing a customer: `edit`
 
 You can edit an existing customer in your address book.
 
@@ -166,7 +176,7 @@ Examples:
 
 ### Locating customers and orders: `find`
 
-You can find customers based on name, phone number, address or email and find orders based on order index.
+You can find customers based on name, phone number, address or email and find orders based on order index in Strack.io.
 
 Format: `find [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [o/ORDER_ID]`
 
@@ -190,13 +200,13 @@ Examples:
 
 ### Deleting a customer: `delete`
 
-You can delete the specified customer from your address book.
+You can delete the specified customer from Strack.io.
 
 Format: `delete c/CUSTOMER_ID`
 
 * Deletes the customer of the specified `CUSTOMER_ID`.
-* The customer_id refers to the number shown under customer id in the displayed customer contact.
-* The customer_id **must be a positive integer** 1, 2, 3, …​
+* The `CUSTOMER_ID` refers to the number shown under customer id in the displayed customer contact.
+* The `CUSTOMER_ID` **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `list` followed by `delete c/2` deletes the person with customer_id of `2` in the address book.
@@ -207,7 +217,7 @@ Examples:
 
 ### Creating of orders: `order`
 
-You can create and assign an order to a specified customer in the address book.
+You can create and assign an order to a specified customer in Strack.io.
 
 Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 
@@ -217,7 +227,7 @@ Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 * * The format for deadline dates are dd/MM/yyyy
 * For single digit days or months, please precede them with a zero.
 * Leaving `DEADLINE` blank will make the order's deadline marked as `Not Specified`
-* Strack will prompt users to input products using the product command
+* Strack.io will prompt users to input products using the product command
 * Follow up with products to be added to the order using the following format. Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`.
 * You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
 * This can be repeated as many times as necessary.
@@ -233,7 +243,7 @@ Examples:
 
 You can add products on the menu into the most recently created order.
 
-Format: `product m/MENU_ID pq/PRODUCT_QUANTITY`
+Format: `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`
 * You can refer to the Menu list for the product index, i.e. `1. Cupcake` product index is `1`.
 * This can be repeated as many times as necessary within one session of using Strack.io.
 * This means closing the Strack.io will no longer allow you to add products to the order you created previously
@@ -245,12 +255,30 @@ Examples:
 ![input for adding products for alex](images/ProductCommandResult.png)
   <br>
 
+### Editing of orders: `edit`
+
+You can edit an existing order of a specific customer in Strack.io.
+
+Format: `edit o/ORDER_ID m/PRODUCT_ID pq/PRODUCT_QUANTITY`
+
+* `ORDER_ID` is a unique number for each order.
+* `ORDER_ID` refers to the number shown under order id in the displayed customer's contact.
+* Products are edited based on `PRODUCT_ID`.
+* To remove product from order, specify `PRODUCT_QUANTITY` as `0`.
+
+Example:
+![before state for EditOrderCommand](images/EditOrderCommandBefore.png)
+* `edit o/4 m/3 pq/10` will edit the order with order id of `4` and change the product associated with menu id of `3`
+  which is `tarts` quantity to `10`.
+
+![before state for EditOrderCommand](images/EditOrderCommandAfter.png)
+
 ### Editing of an order's deadline: `edit`
-You can edit the deadline of an existing order of a specific customer in your address book.
+You can edit the deadline of an existing order of a specific customer in Strack.io.
 
 Format: `edit o/ORDER_ID by/DEADLINE`
 * `ORDER_ID` is a unique number for each order.
-* The order id refers to the number shown under order id in the displayed customer's contact.
+* `ORDER_ID` refers to the number shown under order id in the displayed customer's contact.
 * The format for deadline is dd/MM/yyyy
 
 Example:
@@ -260,28 +288,11 @@ Example:
 ![input for adding products for alex](images/EditDeadlineCommandResult.png)
 <br>
 
-### Editing of orders: `edit`
-
-You can edit an existing order of a specific customer in your address book.
-
-Format: `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`
-
-* `ORDER_ID` is a unique number for each order.
-* The order id refers to the number shown under order id in the displayed customer's contact.
-* Products are edited based on `MENU_ID`.
-* To remove product from order, specify `PRODUCT_QUANTITY` as `0`.
-
-Example:
-![before state for EditOrderCommand](images/EditOrderCommandBefore.png)
-* `edit o/4 m/3 pq/10` will edit the order with order id of `4` and change the product associated with menu id of `3`
-which is `tarts` quantity to `10`.
-
-![before state for EditOrderCommand](images/EditOrderCommandAfter.png)
-
 ### Staging of orders: `stage`
 
-You can move an order to the next stage, in the chain of the four stages defined by Strack, in order namely: `Under Preparation`, `Ready for Delivery`,
-`Sent for delivery` and `Received by customer`. However, you cannot go back to a previous stage.
+You can move an order to the next stage, in the chain of the four stages defined by Strack.io, in order namely: 
+`Under Preparation`, `Ready for Delivery`, `Sent for delivery` and `Received by customer`. 
+However, you cannot go back to a previous stage.
 
 Format: `stage o/ORDER`
 
@@ -303,14 +314,14 @@ Example:
 
 ### Completing of orders: `complete`
 
-You can demarcate an order in your address book as complete. Strack will collate completed orders into a csv file.
+You can demarcate an order in Strack.io as complete. Strack.io will collate completed orders into a csv file.
 The csv file can be accessed in this directory: `[JAR file location]/data/completedorders.csv`
 
-Format: `complete ORDER_ID...`
+Format: `complete ORDER_ID`
 
 * `ORDER_ID` is a unique number for each order.
-* `ORDER_ID...` can accept *multiple, unique* Order ID to be marked as completed.
-* `complete ORDER_ID...` with at least one *non-valid* Order ID value will be invalid.
+* `ORDER_ID` can accept *multiple, unique* Order ID to be marked as completed as shown in the example below.
+* `ORDER_ID` with at least one *non-valid* Order ID value will be invalid.
 
 Example:
 ![Before state for CompleteCommand](images/CompleteCommandBefore.png)
@@ -323,7 +334,7 @@ Example:
 
 ### Cancelling of orders: `cancel`
 
-You can remove an ongoing order in your address book.
+You can remove an ongoing order in Strack.io.
 
 Format: `cancel ORDER_ID`
 
@@ -337,12 +348,13 @@ Example:
 
 ### Clearing all entries: `clear`
 
-You can clear all entries from your address book.
+You can clear all entries from Strack.io.
 
 Format: `clear`
 
-* Resets Order ID for the next order to 1.
-* The records of completed orders will not be cleared.
+<div markdown="span" class="alert alert-primary">:heavy_exclamation_mark: **Note:**
+Clearing all orders and customer contacts from Strack.io will reset the ID of the next created order
+</div>
 
 ### Exiting the program: `exit`
 
@@ -408,16 +420,16 @@ Action | Format, Examples
 **Delete customer** | `delete c/CUSTOMER_ID`<br> e.g., `delete c/3`
 **Edit customer** | `edit c/CUSTOMER_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit c/2 n/James Lee e/jameslee@example.com`
 **Find customer/order** | `find [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [o/ORDER_ID]`<br> e.g., `find n/James n/Jake` `find o/1`
+**Add product to menu** | `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`<br> e.g., `menu pn/cupcake pc/5 ps/10`
+**Edit product on menu** | `edit m/PRODUCT_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`<br> e.g., `edit m/1 pc/20`
+**Delete product on menu** | `delete m/PRODUCT_ID`
 **List all contacts and orders** | `list`
-**Create order** | `order p/PHONE_NUMBER [by/DEADLINE]`
-**Add product to order** | `product m/MENU_ID pq/PRODUCT_QUANTITY`
-**Cancel order** | `cancel ORDER_ID`
-**Complete order** | `complete ORDER_ID`
-**Edit order** | `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`
-**Edit order deadline** | `edit o/ORDER_ID by/DEADLINE`
-**Add product to menu** | `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`
-**Edit product on menu** | `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
-**Delete product on menu** | `delete m/MENU_ID`
+**Create order** | `order p/PHONE_NUMBER [by/DEADLINE]`<br> e.g., `order p/22224444 by/02/04/2024`
+**Add product to order** | `product m/PRODUCT_ID pq/PRODUCT_QUANTITY`<br> e.g., `product m/1 pq/10`
+**Cancel order** | `cancel ORDER_ID`<br> e.g., `cancel 1`
+**Complete order** | `complete ORDER_ID`<br> e.g., `complete 1`
+**Edit order** | `edit o/ORDER_ID m/PRODUCT_ID pq/PRODUCT_QUANTITY`<br> e.g., `edit o/1 m/1 pq/10`
+**Edit order deadline** | `edit o/ORDER_ID by/DEADLINE`<br> e.g., `edit o/1 by/02/04/2024`
 **Help** | `help`
 
 --------------------------------------------------------------------------------------------------------------------

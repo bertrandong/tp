@@ -348,10 +348,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User requests to list persons.
 2.  Strack.io shows a list of persons.
-3.  User requests to delete a specific person in the list.
-4.  Strack.io requests for confirmation.
-5.  User confirms.
-6.  Strack.io deletes the contact, displaying the deleted contact.
+3.  User requests to delete a specific person in the list
+4.  Strack.io deletes the contact, displaying the deleted contact.
 
     Use case ends.
 
@@ -364,6 +362,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 3a. The given index is invalid.
 
     * 3a1. Strack.io shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The customer at the given index has an existing order.
+
+    * 3b1. Strack.io shows an error message.
 
       Use case resumes at step 2.
 
@@ -579,7 +583,7 @@ a new line. Future fixes will allow text-wrapping into a new line.
 
 ### Disallow duplicate phone numbers for different customers
 * Currently, duplicate phone numbers is not checked for. If different customers share a phone number, order from that
-* phone number will be added to the first customer in the contact list.
+phone number will be added to the first customer in the contact list.
 * In the future, we will check phone number against existing contact list when adding new customers, so as to remove
 * such ambiguities.
 --------------------------------------------------------------------------------------------------------------------
