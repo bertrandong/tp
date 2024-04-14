@@ -12,9 +12,9 @@ A warm welcome to all home bakers to our Strack.io User Guide! Strack.io is desi
 ## Purpose
 
 This User Guide serves both as a tutorial and as an instruction manual to our Strack.io application.
-To start learning using our app, you can take a look at the Quick Start section, and try out the different commands for yourself.
-If you are not sure about the format of any command, you can refer to the Features section for a detailed explanation.
-At the end of this User Guide, we have also provided a glossary of terminologies and a succinct list of commands for your easy reference during daily usage.
+To start learning using our app, you can take a look at the [Quick Start](#starter) section, and try out the different commands for yourself.
+If you are not sure about the format of any command, you can refer to the [Features](#features) section for a detailed explanation.
+At the end of this User Guide, we have also provided a [glossary](#glossary) of terminologies and a succinct list of commands for your easy reference during daily usage.
 
 As you read through this user guide, you will learn about:
 * How to use different commands provided by our app, illustrated by comprehensive examples
@@ -24,7 +24,7 @@ As you read through this user guide, you will learn about:
 ## Overview
 
 Strack.io is a **desktop app for home bakers to manage contacts of their customers, optimized for use via 
-a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type
+a [Command Line Interface](#CLI)** (CLI) while still having the benefits of a [Graphical User Interface](#GUI) (GUI). If you can type
 fast, Strack.io can get your customer and order management tasks done faster than traditional GUI apps.
 
 * Table of Contents
@@ -32,7 +32,7 @@ fast, Strack.io can get your customer and order management tasks done faster tha
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## Quick start <a name="starter"></a>
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -63,7 +63,7 @@ fast, Strack.io can get your customer and order management tasks done faster tha
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+## Features <a name="features"></a>
 
 <div markdown="block" class="alert alert-info">
 
@@ -416,23 +416,23 @@ Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g
 5. **Error Messages and suggestions** may not always be given in the most straight-forward way, often because slashes in commands may be interpreted in a few different ways. Refer to the user guide if you think error messages and suggestions shown in the app are unclear.
 
 --------------------------------------------------------------------------------------------------------------------
-## Glossary
+## Glossary <a name="glossary"></a>
 
-| Term                         | Description                                                                  |
-|------------------------------|------------------------------------------------------------------------------|
-| **Cancel**                   | The deletion of an order without fulfilling it                               |
-| **Complete**                 | The deletion of an order after fulfilling it                                 |
-| **Dates**                    | In the format dd/MM/yyyy e.g. 23/03/2024                                     |
-| **Product**                  | The entity you will be selling to your customers                             |
-| **Precede**                  | Add to the front of                                                          |
-| **Stage**                    | The status of an order                                                       |
-| **Demarcate**                | Mark or distinguish                                                          |
-| **CSV**                      | File that ends in .csv. Refers to a spreadsheet file                         |
-| **JSON**                     | File that stores data, ends in .json                                         |
-| **Command Line Interface**   | The text-based chat box at the top of Strack.io where you can input commands |
-| **Graphical User Interface** | The digital interface you see and interact with such as buttons              |
-| **Tag**                      | A word you can associate a customer with                                     |
-| **Log**                      | To store in `completedorders.csv`                                             |
+| Term                                          | Description                                                                  |
+|-----------------------------------------------|------------------------------------------------------------------------------|
+| **Cancel**                                    | The deletion of an order without fulfilling it                               |
+| **Complete**                                  | The deletion of an order after fulfilling it                                 |
+| **Dates**                                     | In the format dd/MM/yyyy e.g. 23/03/2024                                     |
+| **Product**                                   | The entity you will be selling to your customers                             |
+| **Precede**                                   | Add to the front of                                                          |
+| **Stage**                                     | The status of an order                                                       |
+| **Demarcate**                                 | Mark or distinguish                                                          |
+| **CSV**                                       | File that ends in .csv. Refers to a spreadsheet file                         |
+| **JSON**                                      | File that stores data, ends in .json                                         |
+| **Command Line Interface** <a name="CLI"></a> | The text-based chat box at the top of Strack.io where you can input commands |
+| **Graphical User Interface** <a name="GUI"></a>| The digital interface you see and interact with such as buttons              |
+| **Tag**                                       | A word you can associate a customer with                                     |
+| **Log**                                       | To store in `completedorders.csv`                                             |
 
 -------------------------------------------------------------------------------------------------------------------
 ## Command summary
