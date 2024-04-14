@@ -225,7 +225,7 @@ Examples:
 
 ### Creating of orders: `order`
 
-You can create and assign an order to a specified customer in Strack.io.
+Now that you have some customers and a product menu set up, you can now create and assign an order to a specified customer in Strack.io.
 
 Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 
