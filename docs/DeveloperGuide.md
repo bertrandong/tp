@@ -714,27 +714,28 @@ testers are expected to do more *exploratory* testing.
    Expected: Sales of product 1 is changed to $5. Details of edit shown in the status message.
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Effort**
+
 Being the first delve into team-based software engineering for many of us in the group, the difficulty
 level for our project was relatively high. This was one of the many factors that made the difficulty much 
 higher than expected.
 
 Another major challenge was overambition. For many of us, we went into CS2103 without seeking any tips and
 advice from our peers and seniors. This led to us being unable to compare and judge the estimated effort 
-other groups and batches put in. This led to us over estimating our ability to organise and implement and
+other groups and batches put in. This led to us over estimating our ability to organise and implement a
 large number of complex features. This is especially so when we consider the busy
 schedule of everyone in the group.
 
 Another major hurdle for our group is coordination and communication. Having to create many functions and
 classes that have co-dependecies with each other. It was quite challenging to incorporate elements of each
 others code as many of our features rely on each other to work correctly and efficiently. Sometimes,
-we required each other's guidance to help understand the how each others code work such that we could
-incorporate it into our other features and to ensure that all the traits a customer,order or product
+we required each other's guidance to help understand the how their code will work with our own code and how to
+incorporate it into other features and to ensure that all the traits a customer,order or product
 should have are properly updated, deleted and added.
 
 Despite the hurdles and challenges faced, we all put in extra effort and time despite our busy schedules to 
-hold meetings, review each others code and comment on how we could improve our designs.
+hold meetings, review others' code and comment on how we could improve our designs.
 
 Glad to say, we have achieved more than what we expected, we were able to implement most of the features we 
-wanted for the entire project in v1.2. We then had to come up with new features to further improve Strack that 
+wanted for the entire project in v1.2. We then came up with new features to further improve Strack that 
 were outside our original set of features. After all of that, we could say that we were proud of the end product
 and effort that we put into this project.
