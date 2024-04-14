@@ -5,7 +5,9 @@ title: User Guide
 
 ## Introduction
 
-A warm welcome to all home bakers to our Strack.io User Guide! Strack.io is designed to cater to all your needs, be it creating your menu, recording of customer information, or even tracking of orders. Here, you will find all the necessary information you need to kickstart your Strack.io journey. Don't forget to **make snacks, keep track, and use Strack!**
+A warm welcome to all home bakers to our Strack.io User Guide! Strack.io is designed to cater to all your needs, be it creating your menu, recording of customer information, or even tracking of orders. Strack.io aims to help you reduce the number of errors and improve your overall quality of life when tracking and managing orders. Here, you will find all the necessary information you need to kickstart your Strack.io journey. Don't forget to **make snacks, keep track, and use Strack!**
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Overview
 
