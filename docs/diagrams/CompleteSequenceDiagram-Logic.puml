@@ -5,8 +5,8 @@ skinparam ArrowFontStyle plain
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":CompleteCommandParser" as CompleteCommandParser LOGIC_COLOR
-participant "c:CompleteCommand" as CompleteCommand LOGIC_COLOR
+participant ":CompleteOrderCommandParser" as CompleteCommandParser LOGIC_COLOR
+participant "c:CompleteOrderCommand" as CompleteCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
