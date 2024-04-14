@@ -573,9 +573,10 @@ Use case ends.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Sensitive customer information**: Customer's name, email, phone number, address and any other personal information which is saved locally in this app
-* **Stage of an order**: Under preparation, Ready for delivery, Sent for delivery, Received by customer(Completed)
+
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Planned Enhancements**
+
 Team Size: 5
 ### Limit input of cost and sales
 * Currently, the input of cost and sales of product can be negative, or very high until Infinity is reached.
@@ -605,8 +606,8 @@ a new line. Future fixes will allow text-wrapping into a new line.
 ### Disallow duplicate phone numbers for different customers
 * Currently, duplicate phone numbers is not checked for. If different customers share a phone number, order from that
 * phone number will be added to the first customer in the contact list.
-* In the future, we will check phone number against existing contact list when adding new customers, so as to remove
-* such ambiguities.
+* In the future, we will check phone number against existing contact list when adding new customers, so as to remove such ambiguities.
+
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
 
