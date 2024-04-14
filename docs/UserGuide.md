@@ -334,14 +334,15 @@ Example:
 
 ### Cancelling of orders: `cancel`
 
-You can remove an ongoing order in Strack.io.
+You can remove an ongoing order in your address book. Orders removed using `cancel` will not be logged into
+`completedorders.csv`.
 
 Format: `cancel ORDER_ID`
 
 * `ORDER_ID` is a unique number for each order.
 
 Example:
-* `cancel 19` will cancel order with `ORDER_ID` of `19`.
+* `cancel 3` will cancel order with `ORDER_ID` of `3`.
 
 ![result for cancelling order](images/CancelOrder1.png)
 ![result for cancelling order](images/CancelOrder2.png)
@@ -409,6 +410,7 @@ Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g
 | **Command Line Interface**   | The text-based chat box at the top of Strack.io where you can input commands |
 | **Graphical User Interface** | The digital interface you see and interact with such as buttons              |
 | **Tag**                      | A word you can associate a customer with                                     |
+| **Log**                      | To store in `completedorders.csv`                                             |
 
 -------------------------------------------------------------------------------------------------------------------
 ## Command summary
