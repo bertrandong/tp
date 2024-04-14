@@ -171,6 +171,7 @@ After parsing the `cancel` command, the `LogicManager` will call the `Model#dele
 ### Find customer or order feature
 
 #### Implementation
+
 ![FindCommandClassDiagram](images/FindCommandClassDiagram.png)
 
 `FindOrderCommand` and `FindPersonCommand` extends the `FindCommand` abstract class. The `PREFIX_ORDER` after the `find` command will create a `FindOrderCommand` while any other valid prefixes will create a `FindPersonCommand`.
@@ -188,6 +189,8 @@ The `Predicate` will then be used to filter the list using `stream()`. The updat
 
 ### Add a product to menu feature
 
+#### Implementation
+
 Adds a `Product` to the menu. Example: `menu pn/Cupcake pc/2.50 ps/5`. The sequence of events are illustrated by the diagram below, starting with the parsing of the command.
 
 ![AddMenuCommandSequenceDiagram](images/AddMenuSequenceDiagram-Logic.png)
@@ -199,6 +202,8 @@ The `AddMenuCommand` class which extends the `Command` abstract class will be ex
 After parsing the `menu` command, the `LogicManager` will call the `Model#addProduct(id)` which calls `AddressBook#addProduct(id)`. The `addProduct` of `ProductMenu` will then be called, which will add a new product to the `ArrayList<Product>`.
 
 ### Delete a product from menu feature
+
+#### Implementation
 
 Deletes a `Product` from the menu. Example: `delete m/1`. The sequence of events are illustrated by the diagram below, starting with the parsing of the command.
 
@@ -216,6 +221,8 @@ After parsing the `menu` command, the `LogicManager` will call the `Model#delete
 
 ### Edit a product in the menu feature
 
+#### Implementation
+
 Edits a `Product` on the menu. Example: `edit m/1 pn/Pie`. The `edit` command works in a similar way as the `delete` command.
 
 `EditCommandParser` will construct the respective command based on the accompanying prefixes:
@@ -224,6 +231,9 @@ Edits a `Product` on the menu. Example: `edit m/1 pn/Pie`. The `edit` command wo
 3. If `PREFIX_ORDER_ID`, an `EditOrderCommand` will be created.
 
 ### Stage order feature
+
+#### Implementation
+
 Moves an order to the next stage, in the chain of the four stages, in order namely: `Under Preparation`, `Ready for Delivery`,
 `Sent for delivery` and `Received by customer`. However, you cannot go back to a previous stage.
 
@@ -243,14 +253,17 @@ The `StageCommand` class which extends the `Command` abstract class will be exec
 ### Completing Order Feature
 
 #### Implementation
-Data archiving of completed orders is achieved by creating a CompleteCommand, which will remove the order from the
-active order list and place it in a completed order list which will be saved as a JSON file (Possible .xml in the future)
+
+Data archiving of completed orders is achieved by creating a `CompleteOrderCommand` with the user input, Example `complete 1`
+, which will remove the order from the active order list and place it in a completed order list which will be saved as a csv file.
 ![CompleteCommandLogicSequenceDiagram](images/CompleteSequenceDiagram-Logic.png)
-The CompleteCommand class which extends the Command abstract class will be executed by the LogicManager which will
-update the Active Order List and Completed Order List in the Model.
+The `CompleteCommand` class which extends the `Command` abstract class will be executed by the `LogicManager` which will
+update the Active Order List and Completed Order List in the `Model`.
+This is done by placing the completed `Order` in the completed order list to be collected by the `StorageManager` in the
+next step.
 ![CompleteCommandModelSequenceDiagram](images/CompleteSequenceDiagram-Model.png)
-The StorageManager will then store the Orders inside of the Completed Order List as a JSON file, compiling all
-previously completed orders.
+The StorageManager will then store the Orders inside of the Completed Order List as a csv file in this directory: 
+`[JAR file location]/data/completedorders.csv`, compiling all previously completed orders.
 
 
 
