@@ -100,7 +100,7 @@ Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
-> [!NOTE]
+> [!NOTE]  
 > Editing a product on the menu will not update the products on existing orders.
 
 Example:
@@ -382,6 +382,7 @@ Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g
 
 --------------------------------------------------------------------------------------------------------------------
 ## Glossary
+
 | Term                         | Description                                                                  |
 |------------------------------|------------------------------------------------------------------------------|
 | **Cancel**                   | The deletion of an order without fulfilling it                               |
@@ -396,6 +397,7 @@ Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g
 | **Command Line Interface**   | The text-based chat box at the top of Strack.io where you can input commands |
 | **Graphical User Interface** | The digital interface you see and interact with such as buttons              |
 | **Tag**                      | A word you can associate a customer with                                     |
+
 -------------------------------------------------------------------------------------------------------------------
 ## Command summary
 
