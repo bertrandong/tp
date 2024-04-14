@@ -25,19 +25,10 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
                         PREFIX_ORDER, PREFIX_MENU, PREFIX_PRODUCT_QUANTITY, PREFIX_DEADLINE);
 
         Index orderIndex;
-        Index productIndex;
+        Index productIndex = null;
 
         try {
             orderIndex = ParserUtil.parseIndex(
-                    argMultimap.getValue(PREFIX_ORDER)
-                            .orElseThrow(() -> new ParseException("")));
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditOrderCommand.MESSAGE_USAGE), pe);
-        }
-
-        try {
-            productIndex = ParserUtil.parseIndex(
                     argMultimap.getValue(PREFIX_ORDER)
                             .orElseThrow(() -> new ParseException("")));
         } catch (ParseException pe) {
@@ -51,6 +42,7 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
         if (argMultimap.getValue(PREFIX_MENU).isPresent()) {
             productIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_MENU).get());
         }
+
         if (argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).isPresent()) {
             editOrderDescriptor.setQuantity(ParserUtil.parseQuantity(
                     argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).get()));

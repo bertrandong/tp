@@ -59,7 +59,6 @@ public class EditOrderCommand extends EditCommand {
      */
     public EditOrderCommand(Index orderIndex, Index productIndex, EditOrderDescriptor editOrderDescriptor) {
         requireNonNull(orderIndex);
-        requireNonNull(productIndex);
         requireNonNull(editOrderDescriptor);
 
         this.orderIndex = orderIndex;
@@ -77,15 +76,18 @@ public class EditOrderCommand extends EditCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        try {
-            model.findProductByIndex(productIndex.getZeroBased());
-        } catch (ProductNotFoundException e) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        if (productIndex != null) {
+            try {
+                model.findProductByIndex(productIndex.getZeroBased());
+            } catch (ProductNotFoundException e) {
+                throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+            }
+
+            Product productToEdit = new Product(model.findProductByIndex(productIndex.getZeroBased()));
+            editOrderDescriptor.setProduct(productToEdit);
         }
 
         Order orderToEdit = new Order(model.getOrder(orderIndex.getOneBased()));
-        Product productToEdit = new Product(model.findProductByIndex(productIndex.getZeroBased()));
-        editOrderDescriptor.setProduct(productToEdit);
         Order editedOrder = createEditOrder(model, orderToEdit);
 
         model.setOrder(orderToEdit, editedOrder);
