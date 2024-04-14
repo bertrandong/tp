@@ -262,13 +262,14 @@ You can edit an existing order of a specific customer in Strack.io.
 Format: `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`
 
 * `ORDER_ID` is a unique number for each order.
-* `ORDER_ID` refers to the number shown under order id in the displayed customer's contact.
+* `ORDER_ID` refers to the number shown under order id in the displayed customer's contact or the order number
+  in the order list
 * Products are edited based on `MENU_ID`.
 * To remove product from order, specify `PRODUCT_QUANTITY` as `0`.
 
 Example:
 ![before state for EditOrderCommand](images/EditOrderCommandBefore.png)
-* `edit o/4 m/3 pq/10` will edit the order with order id of `4` and change the product associated with menu id of `3`
+* `edit o/4 m/3 pq/10` will edit the order with `ORDER_ID` of `4` and change the product associated with `MENU_ID` of `3`
   which is `tarts` quantity to `10`.
 
 ![before state for EditOrderCommand](images/EditOrderCommandAfter.png)
@@ -278,7 +279,8 @@ You can edit the deadline of an existing order of a specific customer in Strack.
 
 Format: `edit o/ORDER_ID by/DEADLINE`
 * `ORDER_ID` is a unique number for each order.
-* `ORDER_ID` refers to the number shown under order id in the displayed customer's contact.
+* `ORDER_ID` refers to the number shown under order id in the displayed customer's contact or the order number 
+in the order list
 * The format for deadline is dd/MM/yyyy
 
 Example:
@@ -300,15 +302,15 @@ Format: `stage o/ORDER`
 * Any order just created will be in `Under Preparation` stage.
 
 Example:
-* Suppose the order with id 1 is in initial `Under Preparation` stage.
+* Suppose the order with `ORDER_ID` 1 is in initial `Under Preparation` stage.
 
 ![Before running stage command](images/StageCommandBefore.png)
 
-* Running `stage o/1` once will move the order with id 1 to `Ready for Delivery`.
+* Running `stage o/1` once will move the order with `ORDER_ID` 1 to `Ready for Delivery`.
 
 ![Run stage command once](images/StageCommandOnce.png)
 
-* Running `stage o/1` three or more times will move the order with id 1 to `Received by customer`.
+* Running `stage o/1` three or more times will move the order with `ORDER_ID` 1 to `Received by customer`.
 
 ![Run stage command three times](images/StageCommandTrice.png)
 
@@ -320,8 +322,8 @@ The csv file can be accessed in this directory: `[JAR file location]/data/comple
 Format: `complete ORDER_ID`
 
 * `ORDER_ID` is a unique number for each order.
-* `ORDER_ID` can accept *multiple, unique* Order ID to be marked as completed as shown in the example below.
-* `ORDER_ID` with at least one *non-valid* Order ID value will be invalid.
+* `ORDER_ID` can accept *multiple, unique* `ORDER_ID` to be marked as completed as shown in the example below.
+* `ORDER_ID` with at least one *non-valid* `ORDER_ID` value will be invalid.
 
 Example:
 ![Before state for CompleteCommand](images/CompleteCommandBefore.png)
