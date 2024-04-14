@@ -100,7 +100,7 @@ Format: `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
-> [!NOTE]
+> [!NOTE]  
 > Editing a product on the menu will not update the products on existing orders.
 
 Example:
@@ -212,6 +212,7 @@ You can create and assign an order to a specified customer in the address book.
 Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 
 * Orders are assigned to person with specified `PHONE_NUMBER`.
+* There must be existing customers in the customer list and products in the menu.
 * `DEADLINE` is an optional fields that is used to keep track of an order's deadline
 * * The format for deadline dates are dd/MM/yyyy
 * For single digit days or months, please precede them with a zero.
@@ -222,7 +223,7 @@ Format: `order p/PHONE_NUMBER [by/DEADLINE]`
 * This can be repeated as many times as necessary.
 
 Examples:
-* `order p/87438807 by/08/04/2024` will create an order for person with phone number `99887766` with a deadline `08/04/2024`, start adding products for the order to be shown. <br>
+* `order p/87438807 by/08/04/2024` will create an order for person with phone number `87438807` with a deadline `08/04/2024`, start adding products for the order to be shown. <br>
 
 ![input for creating order for alex](images/OrderCommand.png)
 ![result for creating order for alex](images/OrderCommandResult.png)
@@ -380,7 +381,24 @@ Furthermore, certain edits can cause Strack.io to behave in unexpected ways (e.g
 5. **Error Messages and suggestions** may not always be given in the most straight-forward way, often because slashes in commands may be interpreted in a few different ways. Refer to the user guide if you think error messages and suggestions shown in the app are unclear.
 
 --------------------------------------------------------------------------------------------------------------------
+## Glossary
 
+| Term                         | Description                                                                  |
+|------------------------------|------------------------------------------------------------------------------|
+| **Cancel**                   | The deletion of an order without fulfilling it                               |
+| **Complete**                 | The deletion of an order after fulfilling it                                 |
+| **Dates**                    | In the format dd/MM/yyyy e.g. 23/03/2024                                     |
+| **Product**                  | The entity you will be selling to your customers                             |
+| **Precede**                  | Add to the front of                                                          |
+| **Stage**                    | The status of an order                                                       |
+| **Demarcate**                | Mark or distinguish                                                          |
+| **CSV**                      | File that ends in .csv. Refers to a spreadsheet file                         |
+| **JSON**                     | File that stores data, ends in .json                                         |
+| **Command Line Interface**   | The text-based chat box at the top of Strack.io where you can input commands |
+| **Graphical User Interface** | The digital interface you see and interact with such as buttons              |
+| **Tag**                      | A word you can associate a customer with                                     |
+
+-------------------------------------------------------------------------------------------------------------------
 ## Command summary
 
 Action | Format, Examples
@@ -388,7 +406,7 @@ Action | Format, Examples
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
 **Delete customer** | `delete c/CUSTOMER_ID`<br> e.g., `delete c/3`
-**Edit customer** | `edit c/CUSTOMER_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit customer** | `edit c/CUSTOMER_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit c/2 n/James Lee e/jameslee@example.com`
 **Find customer/order** | `find [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [o/ORDER_ID]`<br> e.g., `find n/James n/Jake` `find o/1`
 **List all contacts and orders** | `list`
 **Create order** | `order p/PHONE_NUMBER [by/DEADLINE]`
@@ -403,9 +421,3 @@ Action | Format, Examples
 **Help** | `help`
 
 --------------------------------------------------------------------------------------------------------------------
-
-## Glossary table
-Terms | Definition
---------|------------------
-**Stage of an order** | Under preparation, Ready for delivery, Sent for delivery, Received by customer(Completed).
-**Deadline of an order** | A date by which the user sets upon himself to complete an order.

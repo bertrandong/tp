@@ -185,6 +185,56 @@ After parsing the `cancel` command, the `LogicManager` will call the `Model#dele
 5. If `PREFIX_ADDRESS`, a `FindPersonCommand` with a `AddressContainsKeywordsPredicate` will be created.
 
 The `Predicate` will then be used to filter the list using `stream()`. The updated `FilteredOrderList` will then be reflected in the GUI.
+
+### Add a product to menu feature
+
+Adds a `Product` to the menu. Example: `menu pn/Cupcake pc/2.50 ps/5`. The sequence of events are illustrated by the diagram below, starting with the parsing of the command.
+
+![AddMenuCommandSequenceDiagram](images/AddMenuSequenceDiagram-Logic.png)
+
+The `AddMenuCommand` class which extends the `Command` abstract class will be executed by the `LogicManager` which will update the `Product Menu` in the `Model`.
+
+![AddMenuCommandModelDiagram](images/AddMenuSequenceDiagram-Model.png)
+
+After parsing the `menu` command, the `LogicManager` will call the `Model#addProduct(id)` which calls `AddressBook#addProduct(id)`. The `addProduct` of `ProductMenu` will then be called, which will add a new product to the `ArrayList<Product>`.
+
+### Delete a product from menu feature
+
+Deletes a `Product` from the menu. Example: `delete m/1`. The sequence of events are illustrated by the diagram below, starting with the parsing of the command.
+
+![DeleteMenuCommandSequenceDiagram](images/DeleteMenuSequenceDiagram-Logic.png)
+
+The `DeleteMenuCommand` class which extends the `Command` abstract class will be executed by the `LogicManager` which will update the `Product Menu` in the `Model`.
+
+![DeleteMenuCommandModelDiagram](images/DeleteMenuSequenceDiagram-Model.png)
+
+After parsing the `menu` command, the `LogicManager` will call the `Model#deleteProduct(id)` which calls `AddressBook#deleteProduct(id)`. The `deleteProduct` of `ProductMenu` will then be called, which deletes a product from the `ArrayList<Product` according to the specified `MENU_ID`.
+
+`DeleteCommandParser` will construct the respective command based on the accompanying prefixes:
+1. If `PREFIX_MENU`, a `DeleteMenuCommand` will be created.
+2. If `PREFIX_CUSTOMER_ID`, a `DeleteCustomerCommand` will be created.
+
+### Edit a product in the menu feature
+
+Edits a `Product` on the menu. Example: `edit m/1 pn/Pie`. The `edit` command works in a similar way as the `delete` command.
+
+`EditCommandParser` will construct the respective command based on the accompanying prefixes:
+1. If `PREFIX_MENU`, a `EditMenuCommand` will be created.
+2. If `PREFIX_CUSTOMER_ID`, a `EditCustomerCommand` will be created.
+3. If `PREFIX_ORDER_ID`, an `EditOrderCommand` will be created.
+
+### Stage order feature
+Moves an order to the next stage, in the chain of the four stages, in order namely: `Under Preparation`, `Ready for Delivery`,
+`Sent for delivery` and `Received by customer`. However, you cannot go back to a previous stage.
+
+Example: `stage o/1`
+
+The sequence of events are illustrated by the diagram below, starting with the parsing of the command.
+![StageCommandSequenceDiagram-Logic](images/StageCommandSequenceDiagram-Logic.png)
+
+The `StageCommand` class which extends the `Command` abstract class will be executed by the `LogicManager` which will update the `addressBook` in the `Model`.
+![StageCommandSequenceDiagram-Model](images/StageCommandSequenceDiagram-Model.png)
+
 ### Known Limitations
 1. As `StringUtil#containsWordIgnoreCase` searches by entire word, searching for `945` in `94567122` for `Phone` will result in false. This is also consistent in `Email`.
 
@@ -501,7 +551,7 @@ orders in excel.
 * **Stage of an order**: Under preparation, Ready for delivery, Sent for delivery, Received by customer(Completed)
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Planned Enhancements**
-
+Team Size: 5
 ### Limit input of cost and sales
 * Currently, the input of cost and sales of product can be negative, or very high until Infinity is reached.
 * Future plans is to add boundaries and limit the pricing to be between 0 inclusive and 1 billion.
@@ -524,8 +574,14 @@ after.
 flexibility in names.
 
 ### Allow text-wrapping when characters are too long
-* Currently. when certain values are too long like product names, text will overflow out of the app instead of going to
+* Currently, when certain values are too long like product names, text will overflow out of the app instead of going to
 a new line. Future fixes will allow text-wrapping into a new line.
+
+### Disallow duplicate phone numbers for different customers
+* Currently, duplicate phone numbers is not checked for. If different customers share a phone number, order from that
+* phone number will be added to the first customer in the contact list.
+* In the future, we will check phone number against existing contact list when adding new customers, so as to remove
+* such ambiguities.
 --------------------------------------------------------------------------------------------------------------------
 ## **Appendix: Instructions for manual testing**
 
@@ -572,7 +628,7 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 
 ### Adding a product
-1. Adding a product to the product list
+1. Adding a product to the menu
    2. Test case: `menu pn/Cupcake pc/3 ps/4`<br>
    Expected: Product named Cupcake is added to the product list with the corresponding MENU_ID.
    3. Test case: `menu pn/Tart pc/a ps/b`<br>
@@ -580,7 +636,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Adding an order
 1. Adding an order
-   2. Prerequisites: There must at least be one product in the product list and one customer in the customer list.
+   2. Prerequisites: There must at least be one product in the menu and one customer in the customer list.
    3. Test case: `order p/12345678`<br>
    Expected: No order is added yet. Instructions to add product to order in status message.
    4. Test case: `product m/1 pq/5`<br>
@@ -626,9 +682,9 @@ testers are expected to do more *exploratory* testing.
    Expected: Contact with phone `12345678` listed in the customer list. Number of customers listed in the status message.
 
 ### Deleting a product
-1. Deleting a product in the product list
+1. Deleting a product in the menu
 
-    1. Prerequisites: There must be existing products in the product list.
+    1. Prerequisites: There must be existing products in the menu.
     1. Test case: `delete m/1`<br>
        Expected: First product is deleted from the list. Details of the deleted product shown in the status message.
     1. Test case: `delete m/0`<br>
@@ -643,8 +699,8 @@ testers are expected to do more *exploratory* testing.
    Expected: Product 1 is removed from Order 1. Details of edit shown in the status message.
    
 ### Editing a product
-1. Editing a product in the product list
-   2. Prerequisites: There must be existing products in the product list.
+1. Editing a product in the menu
+   2. Prerequisites: There must be existing products in the menu.
    3. Test case: `edit m/1 pn/Eggtart`<br>
    Expected: Product 1 is renamed to `Eggtart`. Details of edit shown in the status message.
    4. Test case: `edit m/1 pc/4`<br>
