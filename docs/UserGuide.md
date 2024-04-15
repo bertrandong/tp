@@ -21,6 +21,8 @@ As you read through this user guide, you will learn about:
 * Constraints of input format in order for our app to run normally
 * Auxiliary capabilities of Strack.io application, including saving and exportation of data.
 
+--------------------------------------------------------------------------------------------------------------------
+
 ## Overview
 
 Strack.io is a **desktop app for home bakers to manage contacts of their customers, optimized for use via 
@@ -442,7 +444,7 @@ Action | Format, Examples
 **Help** | `help`
 **Add product to menu** | `menu pn/PRODUCT_NAME pc/PRODUCT_COSTS ps/PRODUCT_SALES`<br> e.g., `menu pn/cupcake pc/5 ps/10`
 **Edit product on menu** | `edit m/MENU_ID [pn/PRODUCT_NAME] [pc/PRODUCT_COSTS] [ps/PRODUCT_SALES]`<br> e.g., `edit m/1 pc/20`
-**Delete product on menu** | `delete m/MENU_ID`
+**Delete product on menu** | `delete m/MENU_ID`<br> e.g., `delete m/1`
 **Add customer** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **List all contacts and orders** | `list`
 **Edit customer** | `edit c/CUSTOMER_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit c/2 n/James Lee e/jameslee@example.com`
@@ -450,8 +452,8 @@ Action | Format, Examples
 **Delete customer** | `delete c/CUSTOMER_ID`<br> e.g., `delete c/3`
 **Create order** | `order p/PHONE_NUMBER [by/DEADLINE]`<br> e.g., `order p/22224444 by/02/04/2024`
 **Add product to order** | `product m/MENU_ID pq/PRODUCT_QUANTITY`<br> e.g., `product m/1 pq/10`
-**Edit order deadline** | `edit o/ORDER_ID by/DEADLINE`<br> e.g., `edit o/1 by/02/04/2024`
 **Edit order** | `edit o/ORDER_ID m/MENU_ID pq/PRODUCT_QUANTITY`<br> e.g., `edit o/1 m/1 pq/10`
+**Edit order deadline** | `edit o/ORDER_ID by/DEADLINE`<br> e.g., `edit o/1 by/02/04/2024`
 **Stage order** | `stage o/ORDER_ID`<br> e.g., `stage o/1`
 **Complete order** | `complete ORDER_ID`<br> e.g., `complete 1`
 **Cancel order** | `cancel ORDER_ID`<br> e.g., `cancel 1`
