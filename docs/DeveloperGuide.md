@@ -218,7 +218,7 @@ The `DeleteMenuCommand` class which extends the `Command` abstract class will be
 
 ![DeleteMenuCommandModelDiagram](images/DeleteMenuSequenceDiagram-Model.png)
 
-After parsing the `delete` command with menu prefix, the `LogicManager` will call the `Model#deleteProduct(id)` which calls `AddressBook#deleteProduct(id)`. The `deleteProduct` of `ProductMenu` will then be called, which deletes a product from the `ArrayList<Product` according to the specified `MENU_ID`.
+After parsing the `delete` command with menu prefix, the `LogicManager` will call the `Model#deleteProduct(id)` which calls `AddressBook#deleteProduct(id)`. The `deleteProduct` of `ProductMenu` will then be called, which deletes a product from the `ArrayList<Product>` according to the specified `MENU_ID`.
 
 `DeleteCommandParser` will construct the respective command based on the accompanying prefixes:
 1. If `PREFIX_MENU`, a `DeleteMenuCommand` will be created.
@@ -236,7 +236,7 @@ The `EditMenuCommand` class which extends the `Command` abstract class will be e
 
 ![EditMenuCommandModelDiagram](images/EditMenuSequenceDiagram-Model.png)
 
-After parsing the `edit` command with menu prefix, the `LogicManager` will call the `Model#editProduct(target, editedProduct)` which calls `AddressBook#editProduct(target, editedProduct)`. The `editProduct` of `ProductMenu` will then be called, which edits the product from the `ArrayList<Product` according to the specified `MENU_ID`.
+After parsing the `edit` command with menu prefix, the `LogicManager` will call the `Model#editProduct(target, editedProduct)` which calls `AddressBook#editProduct(target, editedProduct)`. The `editProduct` of `ProductMenu` will then be called, which edits the product from the `ArrayList<Product>` according to the specified `MENU_ID`.
 
 `EditCommandParser` will construct the respective command based on the accompanying prefixes:
 1. If `PREFIX_MENU`, a `EditMenuCommand` will be created.
