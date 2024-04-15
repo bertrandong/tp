@@ -1,0 +1,87 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
+participant ":EditMenuCommandParser" as EditMenuCommandParser LOGIC_COLOR
+participant "e:EditMenuCommand" as EditMenuCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("edit m/1 pn/Pie")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("edit m/1 pn/Pie")
+activate AddressBookParser
+
+create EditCommandParser
+AddressBookParser -> EditCommandParser
+activate EditCommandParser
+
+EditCommandParser --> AddressBookParser
+deactivate EditCommandParser
+
+AddressBookParser -> EditCommandParser : parse("m/1 pn/Pie")
+activate EditCommandParser
+
+create EditMenuCommandParser
+EditCommandParser -> EditMenuCommandParser
+activate EditMenuCommandParser
+
+EditMenuCommandParser --> EditCommandParser
+deactivate EditMenuCommandParser
+
+EditCommandParser -> EditMenuCommandParser : parse("m/1 pn/Pie")
+activate EditMenuCommandParser
+
+create EditMenuCommand
+EditMenuCommandParser -> EditMenuCommand
+activate EditMenuCommand
+
+EditMenuCommand --> EditMenuCommandParser :
+deactivate EditMenuCommand
+
+EditMenuCommandParser --> EditCommandParser : e
+deactivate EditMenuCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditMenuCommandParser -[hidden]-> EditCommandParser
+destroy EditMenuCommandParser
+
+EditCommandParser --> AddressBookParser : e
+deactivate EditCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditCommandParser -[hidden]-> AddressBookParser
+destroy EditCommandParser
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> EditMenuCommand : execute(m)
+activate EditMenuCommand
+
+EditMenuCommand -> Model : editProduct(target, editedProduct)
+activate Model
+
+Model --> EditMenuCommand
+deactivate Model
+
+create CommandResult
+EditMenuCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditMenuCommand
+deactivate CommandResult
+
+EditMenuCommand --> LogicManager : r
+deactivate EditMenuCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

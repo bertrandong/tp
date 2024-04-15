@@ -187,6 +187,11 @@ After parsing the `cancel` command, the `LogicManager` will call the `Model#dele
 
 The `Predicate` will then be used to filter the list using `stream()`. The updated `FilteredOrderList` will then be reflected in the GUI.
 
+#### Known Limitations
+1. As `StringUtil#containsWordIgnoreCase` searches by entire word, searching for `945` in `94567122` for `Phone` will result in false. This is also consistent in `Email`.
+
+2. Only one `PREFIX` can be chosen to filter by. Future improvements may include searching from more than one `PREFIX`. Example: `find o/19 n/John a/Lorong`.
+
 ### Add a product to menu feature
 
 #### Implementation
@@ -213,7 +218,7 @@ The `DeleteMenuCommand` class which extends the `Command` abstract class will be
 
 ![DeleteMenuCommandModelDiagram](images/DeleteMenuSequenceDiagram-Model.png)
 
-After parsing the `menu` command, the `LogicManager` will call the `Model#deleteProduct(id)` which calls `AddressBook#deleteProduct(id)`. The `deleteProduct` of `ProductMenu` will then be called, which deletes a product from the `ArrayList<Product` according to the specified `MENU_ID`.
+After parsing the `delete` command with menu prefix, the `LogicManager` will call the `Model#deleteProduct(id)` which calls `AddressBook#deleteProduct(id)`. The `deleteProduct` of `ProductMenu` will then be called, which deletes a product from the `ArrayList<Product` according to the specified `MENU_ID`.
 
 `DeleteCommandParser` will construct the respective command based on the accompanying prefixes:
 1. If `PREFIX_MENU`, a `DeleteMenuCommand` will be created.
@@ -224,6 +229,14 @@ After parsing the `menu` command, the `LogicManager` will call the `Model#delete
 #### Implementation
 
 Edits a `Product` on the menu. Example: `edit m/1 pn/Pie`. The `edit` command works in a similar way as the `delete` command.
+
+![EditMenuCommandSequenceDiagram](images/EditMenuSequenceDiagram-Logic.png)
+
+The `EditMenuCommand` class which extends the `Command` abstract class will be executed by the `LogicManager` which will update the `Product Menu` in the `Model`.
+
+![EditMenuCommandModelDiagram](images/EditMenuSequenceDiagram-Model.png)
+
+After parsing the `edit` command with menu prefix, the `LogicManager` will call the `Model#editProduct(target, editedProduct)` which calls `AddressBook#editProduct(target, editedProduct)`. The `editProduct` of `ProductMenu` will then be called, which edits the product from the `ArrayList<Product` according to the specified `MENU_ID`.
 
 `EditCommandParser` will construct the respective command based on the accompanying prefixes:
 1. If `PREFIX_MENU`, a `EditMenuCommand` will be created.
@@ -244,11 +257,6 @@ The sequence of events are illustrated by the diagram below, starting with the p
 
 The `StageCommand` class which extends the `Command` abstract class will be executed by the `LogicManager` which will update the `addressBook` in the `Model`.
 ![StageCommandSequenceDiagram-Model](images/StageCommandSequenceDiagram-Model.png)
-
-### Known Limitations
-1. As `StringUtil#containsWordIgnoreCase` searches by entire word, searching for `945` in `94567122` for `Phone` will result in false. This is also consistent in `Email`.
-
-2. Only one `PREFIX` can be chosen to filter by. Future improvements may include searching from more than one `PREFIX`. Example: `find o/19 n/John a/Lorong`.
 
 ### Completing Order Feature
 
