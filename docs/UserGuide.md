@@ -13,7 +13,7 @@ A warm welcome to all home bakers to our Strack.io User Guide! Strack.io is desi
 
 This User Guide serves both as a tutorial and as an instruction manual to our Strack.io application.
 To start learning using our app, you can take a look at the [Quick Start](#starter) section, and try out the different commands for yourself.
-If you are not sure about the format of any command, you can refer to the [Features](#features) section for a detailed explanation.
+If you are not sure about the format of any command, you can refer to the [Features](#features-actual) section for a detailed explanation.
 At the end of this User Guide, we have also provided a [glossary](#glossary) of terminologies and a succinct list of commands for your easy reference during daily usage.
 
 As you read through this user guide, you will learn about:
@@ -61,11 +61,11 @@ fast, Strack.io can get your customer and order management tasks done faster tha
 
    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+1. Refer to the [Features](#features-actual) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features <a name="features"></a>
+## Features <a name="features-actual"></a>
 
 <div markdown="block" class="alert alert-info">
 
